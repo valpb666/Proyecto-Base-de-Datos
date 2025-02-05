@@ -42,8 +42,7 @@
     
   *¿Cuál es el objetivo buscado con el set de datos?*
   
-    Llevar un control del tipo de gente que muere, si obtuvieron atención médica, y el lugar donde murieron.
-    Pueden sacarse muchas conclusiones de este set de datos, desde ver épocas de mayor mortalidad (como durante la pandemia de covid-19), lugares con mayores índices de mortalidad, o la eficacia de
+    Llevar un control del tipo de gente que muere, si obtuvieron atención médica, y el lugar donde murieron. Pueden sacarse muchas conclusiones de este set de datos, desde ver épocas de mayor mortalidad (como durante la pandemia de covid-19), lugares con mayores índices de mortalidad, o la eficacia de
     atención médica.
     
   *¿Para qué se usará por el equipo?*
