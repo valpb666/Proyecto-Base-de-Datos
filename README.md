@@ -67,5 +67,5 @@
     sobre personas fallecidas. Por ello, es fundamental respetar la privacidad y confidencialidad de los datos, asegurándonos de
     que la información utilizada no permita identificar a individuos específicos, pues esto podría vulnerar la dignidad de los
     fallecidos y sus familias. Además, es importante evitar sesgos en la interpretación de los resultados, ya que una mala
-    contextualización de las cifras podría llevar a conclusiones erróneas o incluso discriminatorias hacia ciertos grupos poblacionales
-    o regiones.
+    contextualización de las cifras podría llevar a conclusiones erróneas o incluso discriminatorias hacia ciertos grupos
+    poblacionales o regiones.
