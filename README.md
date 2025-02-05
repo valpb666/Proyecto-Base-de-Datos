@@ -13,14 +13,14 @@
   *¿Quién los recolecta?*
   
     Los datos son recolectados por la Secretaría de Salud de la Ciudad de México, a partir de los Certificados de Defunción.
-    Estos son procesados y codificados por médicos codificadores según los criterios     establecidos por la OMS, y capturados
-    en el Subsistema Epidemiológico y Estadístico de las Defunciones (SEED) a nivel Federal.
+    Estos son procesados y codificados por médicos codificadores según los criterios establecidos por la OMS, y capturados en
+    el Subsistema Epidemiológico y Estadístico de las Defunciones (SEED) a nivel Federal.
     
   *¿Cuál es el propósito de su recolección?*
   
     Este conjunto de datos tiene como propósito el brindar información detallada sobre los fallecimientos que ocurren en
-    la Ciudad desde una perspectiva epidemiológica. Es decir, describir las condiciones      de salud de la población, 
-    identificar la causa de las enfermedades, controlar las enfermedades y prevenir la aparición de nuevas enfermedades.
+    la Ciudad desde una perspectiva epidemiológica. Es decir, describir las condiciones de salud de la población, identificar
+    la causa de las enfermedades, controlar las enfermedades y prevenir la aparición de nuevas enfermedades.
     
   *¿Dónde se pueden obtener?*
   
