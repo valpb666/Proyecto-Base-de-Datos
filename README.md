@@ -23,13 +23,47 @@
     la causa de las enfermedades, controlar las enfermedades y prevenir la aparición de nuevas enfermedades.
     
   *¿Dónde se pueden obtener?*
-  
+    
+    Se pueden obtener en el portal de datos abiertos de la Ciudad de México, al entrar en ese portal hay varias secciones en la que se pueden              consultar conjuntos de datos, los que nosotros usaremos están en la sección de administración y finanzas, donde posteriormente aparecen las            instituciones disponibles, nuestros datos se encuentran ingresando al apartado de secretaría de salud.
+
   *¿Con qué frecuencia se actualizan?*
+
+    La última actualización fue el 7 de julio del 2023, y se creó el 13 de marzo del 2021. No se especifica cada cuanto tiempo se actualiza pero ya        pasó más de 1 año desde la última actualización.
   
   *¿Cuántas tuplas y cuántos atributos tiene el set de datos?*
   
-  *¿Qué significa cada atributo del set?*
+    Nuestro set de datos cuenta con 28 atributos, pero dentro de estos se encuentran unos atributos con diferente nombre pero misma información. Este      set contiene 127286 tuplas.
   
+  *¿Qué significa cada atributo del set?*
+
+    -sexo: Categoriza el sexo del individuo como hombre o mujer.
+    -fecha_nacimiento: Da la fecha de nacimiento del individuo en el formato el formato AAAA/MM/DD. En caso de desconocerse se categoriza como NA
+    -nacionalidad: Categoriza la nacionalidad del individuo entre MEXICANA, OTRA o SE IGNORA.
+    -lengua_indigena: Categoriza si el individuo habla una lengua indígena como SI, NO, NO ESPECIFICADO o SE IGNORA.
+    -estado_civil: Categoriza el estado civil del individuo como SOLTERO, CASADO, DIVORCIADO, VIUDO, UNION LIBRE, SEPARADO o SE IGNORA. 
+    -entidad_residencia: Da el estado de la república donde residía el individuo.
+    -municipio_residencia: Da el municipio de la república donde residía el individuo.
+    -escolaridad: Categoriza la escolaridad del individuo como: NINGUNA, NO ESPECIFICADO, SE IGNORA o los diversos niveles de escolaridad                 distinguiendo entre completo o terminado.
+    -ocupacion: Categoriza la ocupación del individuo como SE IGNORA, NO ESPECIFICADO, NO OCUPADO o diversas otras categorías descriptivas de la          ocupación del individuo, algunas que distinguen entre remunerado o no remunerado.
+    -afiliacion_medica: Categoriza la afiliación médica del individuo como: NINGUNA, NO ESPECIFICADA, SE IGNORA, ISSTE, IMSS, SEDENA, SEGURO POPULAR      u OTRA.
+    -fecha_defuncion: Da la fecha de defunción del individuo en el formato AAAA/MM/DD. En caso de desconocerse se categoriza como NA
+    -hora_defuncion: Da la hora de defunción del individuo en el formato hora, minuto, y segundo. En caso de desconocerse se categoriza como NA
+    -lugar_defuncion: Categoriza el lugar de defunción del individuo como HOGAR, ISSSTE, SECRETARIA DE SALUD, UNIDAD MEDICA PRIVAD, VÍA PÚBLICA,          HOGAR u OTRO LUGAR.
+    -entidad_defuncion: Da la entidad de la república donde falleció el individuo.
+    -alcaldia: Da la alcaldía de la Ciudad de México donde falleció el individuo, o la categoriza como NO ESPECIFICADA.
+    -atencion_medica: Categoriza si el individuo obtuvo atención médica como SI, NO, SE IGNORA o NO ESPECIFICADO
+    -necropsia: Categoriza si se realizó una necropsia para el individuo como SI, NO, NO ESPECIFICADO o SE IGNORA.
+    -causa_defuncion: Clasifica la muerte del individuo en una de las numerosas categorías disponibles.
+    -durante_embarazo: Categoriza si el fallecimiento sucedió en el embarazo mediante las categorías: SI, NO APLICA, NO ESTUVO EMBARAZADA EN LOS          ÚLTIMOS 11 MESES PREVIOS A LA MUERTE, o NO ESPECIFICADO.
+    -causado_embarazo: Categoriza si el fallecimiento fue causado por el embarazo mediante las categorías: SI, NO, NO APLICA o NO ESPECIFICADO.
+    -muerte_accidental_violenta: Categoriza si el individuo sufrió una muerte accidental violenta como SI o NO
+    -tipo_evento: En caso de que el individuo haya sufrido una muerte accidental violenta, la clasifica como SUICIDIO, HOMICIDIO, ACCIDENTE o NO          ESPECIFICADO. En caso de que no, entonces se clasifica como NO APLICA, o si no, como SE IGNORA.
+    -en_trabajo: Cuando el individuo falleció por muerte accidental o violenta, se categoriza si falleció en el trabajo como : SI, NO o SE IGNORA. Si     no como NO APLICA.
+    -sitio_lesion: Cuando el individuo falleció por muerte accidental o violenta, se categoriza el sitio donde se lesionó como CALLE O CARRETERA (VÍA     PÚBLICA), VIVIENDA PARTICULAR, VIVIENDA PARTICULAR, VIVIENDA COLECTIVA (ASILO, ORFANATO, ETC), o SE IGNORA. Si no, entonces se categoriza como NO     APLICA.
+    -municipio_ocurrencia: Cuando el individuo falleció por muerte accidental o violenta se categoriza el municipio donde falleció. Si no, se             categoriza como NO APLICA o SE IGNORA.
+    -fecha_def: Da la fecha de defunción del individuo en formato AAAA/MM/DD. En caso de desconocerse se categoriza como NA
+    -edad: Da la edad del individuo al momento de fallecer en años. En caso de desconocerse se categoriza como NA
+
   *¿Qué atributos son numéricos?*
   
   *¿Qué atributos son categóricos?*
