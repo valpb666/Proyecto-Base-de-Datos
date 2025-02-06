@@ -65,18 +65,47 @@
     -edad: Da la edad del individuo al momento de fallecer en años. En caso de desconocerse se categoriza como NA
 
   *¿Qué atributos son numéricos?*
-  
+
+    El set de datos solo cuenta con el atributo numérico edad, que se expresa en años.
+    
   *¿Qué atributos son categóricos?*
+
+    Los atributos categóricos del set son:
+    -Sexo
+    -Nacionalidad
+    -Lengua indígena
+    -Estado civil
+    -Entidad de residencia
+    -Municipio de residencia
+    -Escolaridad
+    -Ocupación
+    -Afiliación médica
+    -Lugar de defunción
+    -Entidad de defunción
+    -Alcaldía
+    -Atención médica
+    -Necropsia
+    -Causa de defunción 
+    -Durante embarazo
+    -Causado por embarazo
+    -Complicación embarazo
+    -Muerte accidental violenta
+    -Tipo de evento
+    -En trabajo
+    -Sitio lesión 
+    -Municipio de ocurrencia
   
   *¿Qué atributos son de tipo texto?*
-  
+
+    El set no cuenta con atributos tipo texto, debido a que aquellos atributos que utilizan texto pertenecen todos a categorías predeterminadas, es       decir, no existe algún atributo donde haya texto libre.
+
   *¿Qué atributos son de tipo temporal y/o fecha?*
   
     Los atributos del tipo fecha son los siguientes:
-    Fecha de nacimiento, con el formato AAAA/MM/DD, llamada fecha_nacimiento
-    Fecha de defunción, con el formato AAAA/MM/DD, llamada fecha_defuncion
-    La hora de defunción, que registra la hora, minuto, y segundo de muerte, llamada hora_defuncion
-    Hay otro atributo que registra la fecha de defunción en el mismo formato, llamado fecha_def
+    -Fecha de nacimiento, con el formato AAAA/MM/DD, llamada fecha_nacimiento
+    -Fecha de defunción, con el formato AAAA/MM/DD, llamada fecha_defuncion
+    -La hora de defunción, que registra la hora, minuto, y segundo de muerte, llamada hora_defuncion
+    -Hay otro atributo que registra la fecha de defunción en el mismo formato, llamado fecha_def
     
   *¿Cuál es el objetivo buscado con el set de datos?*
   
