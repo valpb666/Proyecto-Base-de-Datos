@@ -24,7 +24,7 @@
     
   *¿Dónde se pueden obtener?*
     
-    Se pueden obtener en el portal de datos abiertos de la Ciudad de México, al entrar en ese portal hay varias secciones en la que se pueden              consultar conjuntos de datos, los que nosotros usaremos están en la sección de administración y finanzas, donde posteriormente aparecen las            instituciones disponibles, nuestros datos se encuentran ingresando al apartado de secretaría de salud.
+    Se pueden obtener en el portal de datos abiertos de la Ciudad de México, al entrar en ese portal hay varias secciones en la que se pueden             consultar conjuntos de datos, los que nosotros usaremos están en la sección de administración y finanzas, donde posteriormente aparecen las           instituciones disponibles, nuestros datos se encuentran ingresando al apartado de secretaría de salud.
 
   *¿Con qué frecuencia se actualizan?*
 
@@ -126,9 +126,5 @@
     
   *¿Qué consideraciones éticas conlleva el análisis y explotación de dichos datos?*
   
-    El análisis de esta base de datos conlleva diversas consideraciones éticas, ya que implica el acceso a información sensible
-    sobre personas fallecidas. Por ello, es fundamental respetar la privacidad y confidencialidad de los datos, asegurándonos de
-    que la información utilizada no permita identificar a individuos específicos, pues esto podría vulnerar la dignidad de los
-    fallecidos y sus familias. Además, es importante evitar sesgos en la interpretación de los resultados, ya que una mala
-    contextualización de las cifras podría llevar a conclusiones erróneas o incluso discriminatorias hacia ciertos grupos
-    poblacionales o regiones.
+    El análisis de esta base de datos conlleva diversas consideraciones éticas, ya que implica el acceso a información sensible sobre personas            fallecidas. Por ello, es fundamental respetar la privacidad y confidencialidad de los datos, asegurándonos de que la información utilizada no         permita identificar a individuos específicos, pues esto podría vulnerar la dignidad de los fallecidos y sus familias. Además, es importante           evitar sesgos en la interpretación de los resultados, ya que una mala contextualización de las cifras podría llevar a conclusiones erróneas o         incluso discriminatorias hacia ciertos grupos poblacionales o regiones.
+
