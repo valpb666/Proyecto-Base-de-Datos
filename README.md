@@ -1,6 +1,6 @@
 # Proyecto Base de Datos
 
-# Introducción al conjunto de datos y al problema a estudiar considerando aspectos éticos del conjunto de datos empleado
+## Introducción al conjunto de datos y al problema a estudiar considerando aspectos éticos del conjunto de datos empleado
   Equipo: Julia Rojas Pereyra, Nuria Garcia Valdecasas, Valentina Pineda, Valentina Covarrubias Faure, Alejandro Salas Aguilar
 
   La base de datos escogida fue la siguiente: 
@@ -127,4 +127,74 @@
   *¿Qué consideraciones éticas conlleva el análisis y explotación de dichos datos?*
   
     El análisis de esta base de datos conlleva diversas consideraciones éticas, ya que implica el acceso a información sensible sobre personas            fallecidas. Por ello, es fundamental respetar la privacidad y confidencialidad de los datos, asegurándonos de que la información utilizada no         permita identificar a individuos específicos, pues esto podría vulnerar la dignidad de los fallecidos y sus familias. Además, es importante           evitar sesgos en la interpretación de los resultados, ya que una mala contextualización de las cifras podría llevar a conclusiones erróneas o         incluso discriminatorias hacia ciertos grupos poblacionales o regiones.
+# 📌 Carga Inicial y Análisis Preliminar  
 
+Para realizar la carga inicial del set de datos a una base de datos de tipo **PostgreSQL**, sigue los siguientes pasos:  
+
+## ✅ Requisitos Previos  
+Antes de comenzar, asegúrate de tener:  
+- **PostgreSQL** instalado (`psql` o `pgAdmin`).  
+- El archivo de datos **CSV** completamente descomprimido:  
+  [Certificados de Defunción - SEDESA](https://datos.cdmx.gob.mx/dataset/certificados-de-defuncion-sedesa).  
+
+---
+
+## 1️⃣ Creación de la Base de Datos  
+En la consola de **psql**, ejecuta el siguiente comando:  
+
+```sql
+CREATE DATABASE mortalidad;
+```
+## 2️⃣ Creación de Tablas en TablePlus
+Abre TablePlus y crea una nueva conexión con la base de datos mortalidad (categoría PostgreSQL).
+
+Abre la opción SQL Query e ingresa el siguiente comando para crear la tabla:
+
+```sql
+CREATE TABLE staging (
+    sexo TEXT,
+    fecha_nacimiento TEXT,
+    nacionalidad TEXT,
+    lengua_indigena TEXT,
+    estado_civil TEXT,
+    entidad_residencia TEXT,
+    municipio_residencia TEXT,
+    escolaridad TEXT,
+    ocupacion TEXT,
+    afiliacion_medica TEXT,
+    fecha_defuncion TEXT,
+    hora_defuncion TEXT,
+    lugar_defuncion TEXT,
+    entidad_defuncion TEXT,
+    alcaldia TEXT,
+    atencion_medica TEXT,
+    necropsia TEXT,
+    causa_defuncion TEXT,
+    durante_embarazo TEXT,
+    causado_embarazo TEXT,
+    complicacion_embarazo TEXT,
+    muerte_accidental_violenta TEXT,
+    tipo_evento TEXT,
+    en_trabajo TEXT,
+    lugar_lesion TEXT,
+    municipio_ocurrencia TEXT,
+    fecha_defuncion_r TEXT,
+    edad TEXT
+);
+```
+## 3️⃣ Conexión a la Base de Datos y Carga Inicial de Datos
+Regresa a la consola psql y ejecuta los siguientes comandos:
+
+```sql
+\c mortalidad;
+SET CLIENT_ENCODING TO 'UTF8';
+\copy staging (sexo, fecha_nacimiento, nacionalidad, lengua_indigena, estado_civil, entidad_residencia, municipio_residencia, escolaridad, ocupacion, afiliacion_medica, fecha_defuncion, hora_defuncion, lugar_defuncion, entidad_defuncion, alcaldia, atencion_medica, necropsia, causa_defuncion, durante_embarazo, causado_embarazo, complicacion_embarazo, muerte_accidental_violenta, tipo_evento, en_trabajo, lugar_lesion, municipio_ocurrencia, fecha_defuncion_r, edad) FROM 'path_to_downloaded_csv' WITH (FORMAT CSV, HEADER true, DELIMITER ',');
+```
+## 📊 Análisis Preliminar
+Para comenzar con el análisis de los datos, ejecuta los siguientes comandos en SQL Query en TablePlus:
+
+```sql
+```
+
+  
+  
