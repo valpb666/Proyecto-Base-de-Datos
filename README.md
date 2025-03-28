@@ -191,7 +191,20 @@ SET CLIENT_ENCODING TO 'UTF8';
 \copy staging (sexo, fecha_nacimiento, nacionalidad, lengua_indigena, estado_civil, entidad_residencia, municipio_residencia, escolaridad, ocupacion, afiliacion_medica, fecha_defuncion, hora_defuncion, lugar_defuncion, entidad_defuncion, alcaldia, atencion_medica, necropsia, causa_defuncion, durante_embarazo, causado_embarazo, complicacion_embarazo, muerte_accidental_violenta, tipo_evento, en_trabajo, lugar_lesion, municipio_ocurrencia, fecha_defuncion_r, edad) FROM 'path_to_downloaded_csv' WITH (FORMAT CSV, HEADER true, DELIMITER ',');
 ```
 ## 📊 Análisis Preliminar
-Para comenzar con el análisis de los datos, ejecuta los siguientes comandos en SQL Query en TablePlus:
+Para comenzar con el análisis de los datos, ejecutamos los siguientes comandos en SQL Query en TablePlus:
+1. Existen columnas con valores únicos
+```sql
+SELECT column_name
+FROM staging
+GROUP BY column_name
+HAVING COUNT(DISTINCT column_name)=COUNT(*);
+```
+Las columnas con valores únicos fueron las siguientes:
+- municipio_residencia
+- fecha_nacimiento
+- alcaldia
+- causa_defuncion
+- municipio_ocurrencia
 
 ```sql
 ```
