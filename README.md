@@ -33,81 +33,40 @@
   *¿Cuántas tuplas y cuántos atributos tiene el set de datos?*
   
     Nuestro set de datos cuenta con 28 atributos, pero dentro de estos se encuentran unos atributos con diferente nombre pero misma información. Este      set contiene 127286 tuplas.
-  
-  *¿Qué significa cada atributo del set?*
 
-    -sexo: Categoriza el sexo del individuo como hombre o mujer.
-    -fecha_nacimiento: Da la fecha de nacimiento del individuo en el formato el formato AAAA/MM/DD. En caso de desconocerse se categoriza como NA
-    -nacionalidad: Categoriza la nacionalidad del individuo entre MEXICANA, OTRA o SE IGNORA.
-    -lengua_indigena: Categoriza si el individuo habla una lengua indígena como SI, NO, NO ESPECIFICADO o SE IGNORA.
-    -estado_civil: Categoriza el estado civil del individuo como SOLTERO, CASADO, DIVORCIADO, VIUDO, UNION LIBRE, SEPARADO o SE IGNORA. 
-    -entidad_residencia: Da el estado de la república donde residía el individuo.
-    -municipio_residencia: Da el municipio de la república donde residía el individuo.
-    -escolaridad: Categoriza la escolaridad del individuo como: NINGUNA, NO ESPECIFICADO, SE IGNORA o los diversos niveles de escolaridad                 distinguiendo entre completo o terminado.
-    -ocupacion: Categoriza la ocupación del individuo como SE IGNORA, NO ESPECIFICADO, NO OCUPADO o diversas otras categorías descriptivas de la          ocupación del individuo, algunas que distinguen entre remunerado o no remunerado.
-    -afiliacion_medica: Categoriza la afiliación médica del individuo como: NINGUNA, NO ESPECIFICADA, SE IGNORA, ISSTE, IMSS, SEDENA, SEGURO POPULAR      u OTRA.
-    -fecha_defuncion: Da la fecha de defunción del individuo en el formato AAAA/MM/DD. En caso de desconocerse se categoriza como NA
-    -hora_defuncion: Da la hora de defunción del individuo en el formato hora, minuto, y segundo. En caso de desconocerse se categoriza como NA
-    -lugar_defuncion: Categoriza el lugar de defunción del individuo como HOGAR, ISSSTE, SECRETARIA DE SALUD, UNIDAD MEDICA PRIVAD, VÍA PÚBLICA,          HOGAR u OTRO LUGAR.
-    -entidad_defuncion: Da la entidad de la república donde falleció el individuo.
-    -alcaldia: Da la alcaldía de la Ciudad de México donde falleció el individuo, o la categoriza como NO ESPECIFICADA.
-    -atencion_medica: Categoriza si el individuo obtuvo atención médica como SI, NO, SE IGNORA o NO ESPECIFICADO
-    -necropsia: Categoriza si se realizó una necropsia para el individuo como SI, NO, NO ESPECIFICADO o SE IGNORA.
-    -causa_defuncion: Clasifica la muerte del individuo en una de las numerosas categorías disponibles.
-    -durante_embarazo: Categoriza si el fallecimiento sucedió en el embarazo mediante las categorías: SI, NO APLICA, NO ESTUVO EMBARAZADA EN LOS          ÚLTIMOS 11 MESES PREVIOS A LA MUERTE, o NO ESPECIFICADO.
-    -causado_embarazo: Categoriza si el fallecimiento fue causado por el embarazo mediante las categorías: SI, NO, NO APLICA o NO ESPECIFICADO.
-    -muerte_accidental_violenta: Categoriza si el individuo sufrió una muerte accidental violenta como SI o NO
-    -tipo_evento: En caso de que el individuo haya sufrido una muerte accidental violenta, la clasifica como SUICIDIO, HOMICIDIO, ACCIDENTE o NO          ESPECIFICADO. En caso de que no, entonces se clasifica como NO APLICA, o si no, como SE IGNORA.
-    -en_trabajo: Cuando el individuo falleció por muerte accidental o violenta, se categoriza si falleció en el trabajo como : SI, NO o SE IGNORA. Si     no como NO APLICA.
-    -sitio_lesion: Cuando el individuo falleció por muerte accidental o violenta, se categoriza el sitio donde se lesionó como CALLE O CARRETERA (VÍA     PÚBLICA), VIVIENDA PARTICULAR, VIVIENDA PARTICULAR, VIVIENDA COLECTIVA (ASILO, ORFANATO, ETC), o SE IGNORA. Si no, entonces se categoriza como NO     APLICA.
-    -municipio_ocurrencia: Cuando el individuo falleció por muerte accidental o violenta se categoriza el municipio donde falleció. Si no, se             categoriza como NO APLICA o SE IGNORA.
-    -fecha_def: Da la fecha de defunción del individuo en formato AAAA/MM/DD. En caso de desconocerse se categoriza como NA
-    -edad: Da la edad del individuo al momento de fallecer en años. En caso de desconocerse se categoriza como NA
+| Atributo                   | Tipo de dato en SQL (Variable)  | Descripción                                                   |
+|----------------------------|--------------------------------|---------------------------------------------------------------|
+| sexo                       | text (Categórica)             | Género de la persona.                                         |
+| fecha_nacimiento           | date (Fecha)               | Fecha de nacimiento de la persona.                           |
+| nacionalidad               | text (Categórica)             | Nacionalidad declarada.                                       |
+| lengua_indigena            | text (Categórica)             | Indica si habla una lengua indígena.                         |
+| estado_civil               | text (Categórica)             | Estado civil de la persona.                                   |
+| entidad_residencia         | text (Categórica)             | Entidad federativa de residencia.                            |
+| municipio_residencia       | text (Categórica)             | Municipio o alcaldía de residencia.                          |
+| escolaridad                | text (Categórica)             | Nivel educativo alcanzado por la persona.                   |
+| ocupacion                  | text (Categórica)             | Ocupación o trabajo habitual.                                |
+| afiliacion_medica          | text (Categórica)             | Tipo de afiliación médica que tiene la persona.             |
+| fecha_defuncion1           | date (Fecha)               | Fecha exacta de la defunción.                                |
+| hora_defuncion             | time (Fecha)               | Hora exacta de la defunción.                                 |
+| lugar_defuncion            | text (Categórica)             | Lugar donde ocurrió la defunción.                           |
+| entidad_defuncion          | text (Categórica)             | Entidad federativa donde ocurrió la defunción.              |
+| alcaldia                   | text (Categórica)             | Alcaldía o municipio donde ocurrió la defunción.            |
+| atencion_medica            | text (Categórica)             | Indica si recibió atención médica antes de la defunción.    |
+| necropsia                  | text (Categórica)             | Indica si se realizó necropsia.                             |
+| causa_defuncion            | text (Categórica)             | Causa oficial de la defunción.                              |
+| durante_embarazo           | text (Categórica)             | Indica si la defunción ocurrió durante el embarazo.        |
+| causado_embarazo           | text (Categórica)             | Indica si la defunción fue causada por el embarazo.        |
+| complicacion_embarazo      | text (Categórica)             | Indica si hubo complicaciones relacionadas con el embarazo.|
+| muerte_accidental_violenta | text (Categórica)             | Indica si la muerte fue accidental o violenta.              |
+| tipo_evento                | text (Categórica)             | Tipo de evento relacionado con la muerte.                  |
+| en_trabajo                 | text (Categórica)             | Indica si el evento ocurrió en el trabajo.                 |
+| sitio_lesion               | text (Categórica)             | Lugar físico donde ocurrió la lesión.                      |
+| municipio_ocurrencia       | text (Categórica)             | Municipio donde ocurrió el evento.                        |
+| fecha_defuncion            | date (Fecha)               | Fecha de la defunción.                                      |
+| edad                       | int (Numérica)                | Edad de la persona en años.                                |
 
-  *¿Qué atributos son numéricos?*
 
-    El set de datos solo cuenta con el atributo numérico edad, que se expresa en años.
-    
-  *¿Qué atributos son categóricos?*
-
-    Los atributos categóricos del set son:
-    -Sexo
-    -Nacionalidad
-    -Lengua indígena
-    -Estado civil
-    -Entidad de residencia
-    -Municipio de residencia
-    -Escolaridad
-    -Ocupación
-    -Afiliación médica
-    -Lugar de defunción
-    -Entidad de defunción
-    -Alcaldía
-    -Atención médica
-    -Necropsia
-    -Causa de defunción 
-    -Durante embarazo
-    -Causado por embarazo
-    -Complicación embarazo
-    -Muerte accidental violenta
-    -Tipo de evento
-    -En trabajo
-    -Sitio lesión 
-    -Municipio de ocurrencia
-  
-  *¿Qué atributos son de tipo texto?*
-
-    El set no cuenta con atributos tipo texto, debido a que aquellos atributos que utilizan texto pertenecen todos a categorías predeterminadas, es       decir, no existe algún atributo donde haya texto libre.
-
-  *¿Qué atributos son de tipo temporal y/o fecha?*
-  
-    Los atributos del tipo fecha son los siguientes:
-    -Fecha de nacimiento, con el formato AAAA/MM/DD, llamada fecha_nacimiento
-    -Fecha de defunción, con el formato AAAA/MM/DD, llamada fecha_defuncion
-    -La hora de defunción, que registra la hora, minuto, y segundo de muerte, llamada hora_defuncion
-    -Hay otro atributo que registra la fecha de defunción en el mismo formato, llamado fecha_def
-    
-  *¿Cuál es el objetivo buscado con el set de datos?*
+ *¿Cuál es el objetivo buscado con el set de datos?*
   
     Llevar un control del tipo de gente que muere, si obtuvieron atención médica, y el lugar donde murieron. Pueden sacarse
     muchas conclusiones de este set de datos, desde ver épocas de mayor mortalidad (como durante la pandemia de covid-19),
