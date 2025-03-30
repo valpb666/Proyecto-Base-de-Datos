@@ -165,8 +165,6 @@ Las columnas con valores únicos fueron las siguientes:
 - causa_defuncion
 - municipio_ocurrencia
 
-```sql
-```
 
 2. Conteo de valores nulos (Para contar los valores nulos contamos las casillas que dijeran 'se ingora' o 'no especificado' ya que es lo mismo a no tener el dato, en realidad es un valor nulo)
 ```sql
@@ -289,28 +287,31 @@ FROM valores_nulos
 WHERE nulos>0;
 ```
 El resultado que obtuvimos fue el siguiente:
-tipo_evento	1583
-sitio_lesion	820
-ocupacion	6611
-necropsia	646
-nacionalidad	1038
-municipio_residencia	9267
-municipio_ocurrencia	17453
-lugar_defuncion	3196
-lengua_indigena	2627
-hora_defuncion	226
-fecha_nacimiento	834
-estado_civil	3196
-escolaridad	3134
-entidad_residencia	1039
-en_trabajo	854
-edad	834
-durante_embarazo	6429
-complicacion_embarazo	6888
-causado_embarazo	7168
-atencion_medica	755
-alcaldia	3897
-afiliacion_medica	9935
+| Columna                | Nulos  |
+|------------------------|--------|
+| tipo_evento            | 1583   |
+| sitio_lesion           | 820    |
+| ocupacion              | 6611   |
+| necropsia              | 646    |
+| nacionalidad           | 1038   |
+| municipio_residencia   | 9267   |
+| municipio_ocurrencia   | 17453  |
+| lugar_defuncion        | 3196   |
+| lengua_indigena        | 2627   |
+| hora_defuncion         | 226    |
+| fecha_nacimiento       | 834    |
+| estado_civil           | 3196   |
+| escolaridad            | 3134   |
+| entidad_residencia     | 1039   |
+| en_trabajo             | 854    |
+| edad                   | 834    |
+| durante_embarazo       | 6429   |
+| complicacion_embarazo  | 6888   |
+| causado_embarazo       | 7168   |
+| atencion_medica        | 755    |
+| alcaldia               | 3897   |
+| afiliacion_medica      | 9935   |
+
 
 
 
