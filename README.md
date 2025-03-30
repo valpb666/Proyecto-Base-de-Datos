@@ -112,7 +112,7 @@ Abre la opción SQL Query e ingresa el siguiente comando para crear la tabla:
 ```sql
 CREATE TABLE staging(
 	sexo text,
-	fecha_nacimiento timestamp,
+	fecha_nacimiento date,
 	nacionalidad text,
 	lengua_indigena text,
 	estado_civil text,
@@ -121,7 +121,7 @@ CREATE TABLE staging(
 	escolaridad text,
 	ocupacion text,
 	afiliacion_medica text,
-	fecha_defuncion1 timestamp,
+	fecha_defuncion1 date,
 	hora_defuncion time,
 	lugar_defuncion text,
 	entidad_defuncion text,
@@ -137,7 +137,7 @@ CREATE TABLE staging(
 	en_trabajo text,
 	sitio_lesion text,
 	municipio_ocurrencia text,
-	fecha_defuncion timestamp,
+	fecha_defuncion date,
 	edad bigint
 );
 ```
