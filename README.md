@@ -168,8 +168,7 @@ Las columnas con valores únicos fueron las siguientes:
 ```sql
 ```
 
-2. Conteo de valores nulos
-   Para contar los contamos las casillas que dijeran se ingora o no especificado ya que es lo mismo a no tener el dato, en realidad es un valor nulo.
+2. Conteo de valores nulos (Para contar los valores nulos contamos las casillas que dijeran 'se ingora' o 'no especificado' ya que es lo mismo a no tener el dato, en realidad es un valor nulo)
 ```sql
 --Para checar valores nulos:
 WITH valores_nulos AS (
@@ -288,7 +287,7 @@ WITH valores_nulos AS (
 SELECT *
 FROM valores_nulos
 WHERE nulos>0;
-```sql
+```
 El resultado que obtuvimos fue el siguiente:
 tipo_evento	1583
 sitio_lesion	820
