@@ -232,7 +232,6 @@ ORDER BY frecuencia DESC;
 ### 7. Conteo de valores nulos
 Para contar los valores nulos contamos las casillas que dijeran 'se ingora' o 'no especificado' ya que es lo mismo a no tener el dato, en realidad es un valor nulo.
 ```sql
---Para checar valores nulos:
 WITH valores_nulos AS (
 	SELECT 'sexo' AS columna, COUNT(*) as nulos
 	FROM staging
