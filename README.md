@@ -392,7 +392,7 @@ WHERE nulos>0;
 | afiliacion_medica      | 9935   |
 
 ### 8. **Inconsistencias en la edad**
-Para checar si la edad que está en la base de datos va concorde a la fecha de nacimiento y fecha de defunción ejectuamos:
+Para checar si hay alguna inconsitencia en las edades de la base de datos, checamos si la edad que está en la base de datos va concorde a la fecha de nacimiento y fecha de defunción:
 ```sql
 SELECT edad, 
        EXTRACT(YEAR FROM AGE(fecha_defuncion, fecha_nacimiento)) AS edad_checada, 
