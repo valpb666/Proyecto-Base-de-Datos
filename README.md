@@ -111,36 +111,37 @@ Abre TablePlus y crea una nueva conexión con la base de datos mortalidad (categ
 Abre la opción SQL Query e ingresa el siguiente comando para crear la tabla:
 
 ```sql
-CREATE TABLE staging (
-    sexo TEXT,
-    fecha_nacimiento TEXT,
-    nacionalidad TEXT,
-    lengua_indigena TEXT,
-    estado_civil TEXT,
-    entidad_residencia TEXT,
-    municipio_residencia TEXT,
-    escolaridad TEXT,
-    ocupacion TEXT,
-    afiliacion_medica TEXT,
-    fecha_defuncion TEXT,
-    hora_defuncion TEXT,
-    lugar_defuncion TEXT,
-    entidad_defuncion TEXT,
-    alcaldia TEXT,
-    atencion_medica TEXT,
-    necropsia TEXT,
-    causa_defuncion TEXT,
-    durante_embarazo TEXT,
-    causado_embarazo TEXT,
-    complicacion_embarazo TEXT,
-    muerte_accidental_violenta TEXT,
-    tipo_evento TEXT,
-    en_trabajo TEXT,
-    lugar_lesion TEXT,
-    municipio_ocurrencia TEXT,
-    fecha_defuncion_r TEXT,
-    edad TEXT
+CREATE TABLE staging(
+	sexo text,
+	fecha_nacimiento date,
+	nacionalidad text,
+	lengua_indigena text,
+	estado_civil text,
+	entidad_residencia text,
+	municipio_residencia text,
+	escolaridad text,
+	ocupacion text,
+	afiliacion_medica text,
+	fecha_defuncion1 date,
+	hora_defuncion time,
+	lugar_defuncion text,
+	entidad_defuncion text,
+	alcaldia text,
+	atencion_medica text,
+	necropsia text,
+	causa_defuncion text,
+	durante_embarazo text,
+	causado_embarazo text,
+	complicacion_embarazo text,
+	muerte_accidental_violenta text,
+	tipo_evento text,
+	en_trabajo text,
+	sitio_lesion text,
+	municipio_ocurrencia text,
+	fecha_defuncion date,
+	edad bigint
 );
+
 ```
 ### 3️⃣ Conexión a la Base de Datos y Carga Inicial de Datos
 Regresa a la consola psql y ejecuta los siguientes comandos:
@@ -148,7 +149,7 @@ Regresa a la consola psql y ejecuta los siguientes comandos:
 ```sql
 \c mortalidad;
 SET CLIENT_ENCODING TO 'UTF8';
-\copy staging (sexo, fecha_nacimiento, nacionalidad, lengua_indigena, estado_civil, entidad_residencia, municipio_residencia, escolaridad, ocupacion, afiliacion_medica, fecha_defuncion, hora_defuncion, lugar_defuncion, entidad_defuncion, alcaldia, atencion_medica, necropsia, causa_defuncion, durante_embarazo, causado_embarazo, complicacion_embarazo, muerte_accidental_violenta, tipo_evento, en_trabajo, lugar_lesion, municipio_ocurrencia, fecha_defuncion_r, edad) FROM 'path_to_downloaded_csv' WITH (FORMAT CSV, HEADER true, DELIMITER ',');
+\copy staging(sexo, fecha_nacimiento, nacionalidad, lengua_indigena, estado_civil, entidad_residencia, municipio_residencia, escolaridad, ocupacion, afiliacion_medica, fecha_defuncion1, hora_defuncion, lugar_defuncion, entidad_defuncion, alcaldia, atencion_medica, necropsia, causa_defuncion, durante_embarazo, causado_embarazo, complicacion_embarazo, muerte_accidental_violenta, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, fecha_defuncion, edad) FROM /Users/nuria/Downloads/sedesa_2020_limpia_limp.csv WITH (FORMAT CSV, HEADER true, DELIMITER ',', NULL 'NA');
 ```
 ## 📊 Análisis Preliminar
 
