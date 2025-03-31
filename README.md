@@ -402,10 +402,12 @@ WHERE fecha_nacimiento>fecha_defuncion;
 ```
 📌 **Resultados:**  
 Obtuvimos 1 caso en el que la fecha de nacimiento es después de la fecha de defunción
+
 fecha de nacimiento: 2020-11-01
+
 fecha de defunción: 2020-03-20
 
-### 8. **Inconsistencias en la edad**
+### 9. **Inconsistencias en la edad**
 Para checar si hay alguna inconsitencia en las edades de la base de datos, checamos si la edad que está en la base de datos va concorde a la fecha de nacimiento y fecha de defunción:
 ```sql
 SELECT edad, 
@@ -418,7 +420,7 @@ WHERE EXTRACT(YEAR FROM AGE(fecha_defuncion, fecha_nacimiento)) <> edad;
 📌 **Resultados:**  
 Obtuvimos 33 casos en donde la edad no coincide, pero solamente es por 1 año.
 
-### 9. **Inconsistencias en el sexo**
+### 10. **Inconsistencias en el sexo**
 Para checar si hay alguna incosistencia en el sexo, checamos si algun hombre esta embarazado:
 ```sql
 SELECT sexo, durante_embarazo
@@ -429,7 +431,7 @@ WHERE sexo ILIKE 'hombre' AND (durante_embarazo NOT ILIKE 'NO APLICA' AND durant
 📌 **Resultados:**  
 No obtuvimos ninguna inconsistencia.
 
-### 10. **Inconsistencias en las dos columnas de fecha de defunción**
+### 11. **Inconsistencias en las dos columnas de fecha de defunción**
 Para checar si la fecha de defunción coincide en ambas columnas, ejectuamos:
 ```sql
 SELECT fecha_defuncion1, fecha_defuncion, fecha_defuncion1=fecha_defuncion AS coincide
