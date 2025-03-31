@@ -229,7 +229,8 @@ ORDER BY frecuencia DESC;
 
 📌 **Esto permite identificar los valores más frecuentes en cada categoría y detectar posibles errores o inconsistencias.**
 
-### 7. Conteo de valores nulos (Para contar los valores nulos contamos las casillas que dijeran 'se ingora' o 'no especificado' ya que es lo mismo a no tener el dato, en realidad es un valor nulo)
+### 7. Conteo de valores nulos
+Para contar los valores nulos contamos las casillas que dijeran 'se ingora' o 'no especificado' ya que es lo mismo a no tener el dato, en realidad es un valor nulo.
 ```sql
 --Para checar valores nulos:
 WITH valores_nulos AS (
