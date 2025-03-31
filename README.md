@@ -246,6 +246,7 @@ Además, aunque no es estrictamente redundante, podría considerarse la columna 
 | mujer           | mujer    |
 | no especificado              | 13   |
 | se ignora              | 55    |
+
 ### 7. **Conteo de valores nulos**
 Para contar los valores nulos contamos las casillas que dijeran 'se ingora' o 'no especificado' ya que es lo mismo a no tener el dato, en realidad es un valor nulo.
 ```sql
@@ -391,6 +392,18 @@ WHERE nulos>0;
 | atencion_medica        | 755    |
 | alcaldia               | 3897   |
 | afiliacion_medica      | 9935   |
+
+### 8. **Inconsistencias en las fechas**
+Para checar si hay alguna inconsistencia en lsa fechas, que la fecha de nacimiento sea después de la feha de defunción, ejecutamos:
+```sql
+SELECT fecha_nacimiento, fecha_defuncion
+FROM staging
+WHERE fecha_nacimiento>fecha_defuncion;
+```
+📌 **Resultados:**  
+Obtuvimos 1 caso en el que la fecha de nacimiento es después de la fecha de defunción
+fecha de nacimiento: 2020-11-01
+fecha de defunción: 2020-03-20
 
 ### 8. **Inconsistencias en la edad**
 Para checar si hay alguna inconsitencia en las edades de la base de datos, checamos si la edad que está en la base de datos va concorde a la fecha de nacimiento y fecha de defunción:
