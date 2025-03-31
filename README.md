@@ -405,7 +405,7 @@ WHERE EXTRACT(YEAR FROM AGE(fecha_defuncion, fecha_nacimiento)) <> edad;
 Obtuvimos 33 casos en donde la edad no coincide, pero solamente es por 1 año.
 
 ### 9. **Inconsistencias en el sexo**
-Para checar si el que este embarazada coincide con el sexo, ejecutamos:
+Para checar si hay alguna incosistencia en el sexo, checamos si algun hombre esta embarazado:
 ```sql
 SELECT sexo, durante_embarazo
 FROM staging
