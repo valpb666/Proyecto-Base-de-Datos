@@ -422,6 +422,7 @@ Obtuvimos 33 casos en donde la edad no coincide, pero solamente es por 1 año.
 
 ### 10. **Inconsistencias en la hora de defunción**
 Para checar si hay alguna hora que este fuera de los rangos de un día, ejecutamos:
+```sql
 SELECT hora_defuncion
 FROM staging
 WHERE hora_defuncion<'00:00:00' OR hora_defuncion>'23:59:59';
@@ -431,7 +432,7 @@ WHERE hora_defuncion<'00:00:00' OR hora_defuncion>'23:59:59';
 No obtuvimos ningun caso que estuviera fuera de los rangos de un día de 24 horas.
 
 
-### 10. **Inconsistencias en el sexo**
+### 11. **Inconsistencias en el sexo**
 Para checar si hay alguna incosistencia en el sexo, checamos si algun hombre esta embarazado:
 ```sql
 SELECT sexo, durante_embarazo
@@ -442,7 +443,7 @@ WHERE sexo ILIKE 'hombre' AND (durante_embarazo NOT ILIKE 'NO APLICA' AND durant
 📌 **Resultados:**  
 No obtuvimos ninguna inconsistencia.
 
-### 11. **Inconsistencias en las dos columnas de fecha de defunción**
+### 12. **Inconsistencias en las dos columnas de fecha de defunción**
 Para checar si la fecha de defunción coincide en ambas columnas, ejectuamos:
 ```sql
 SELECT fecha_defuncion1, fecha_defuncion, fecha_defuncion1=fecha_defuncion AS coincide
