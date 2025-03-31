@@ -86,6 +86,7 @@
   *¿Qué consideraciones éticas conlleva el análisis y explotación de dichos datos?*
   
     El análisis de esta base de datos conlleva diversas consideraciones éticas, ya que implica el acceso a información sensible sobre personas            fallecidas. Por ello, es fundamental respetar la privacidad y confidencialidad de los datos, asegurándonos de que la información utilizada no         permita identificar a individuos específicos, pues esto podría vulnerar la dignidad de los fallecidos y sus familias. Además, es importante           evitar sesgos en la interpretación de los resultados, ya que una mala contextualización de las cifras podría llevar a conclusiones erróneas o         incluso discriminatorias hacia ciertos grupos poblacionales o regiones.
+    
 # 📌 Carga Inicial y Análisis Preliminar  
 
 Para realizar la carga inicial del set de datos a una base de datos de tipo **PostgreSQL**, sigue los siguientes pasos:  
@@ -110,35 +111,35 @@ Abre TablePlus y crea una nueva conexión con la base de datos mortalidad (categ
 Abre la opción SQL Query e ingresa el siguiente comando para crear la tabla:
 
 ```sql
-CREATE TABLE staging(
-	sexo text,
-	fecha_nacimiento date,
-	nacionalidad text,
-	lengua_indigena text,
-	estado_civil text,
-	entidad_residencia text,
-	municipio_residencia text,
-	escolaridad text,
-	ocupacion text,
-	afiliacion_medica text,
-	fecha_defuncion1 date,
-	hora_defuncion time,
-	lugar_defuncion text,
-	entidad_defuncion text,
-	alcaldia text,
-	atencion_medica text,
-	necropsia text,
-	causa_defuncion text,
-	durante_embarazo text,
-	causado_embarazo text,
-	complicacion_embarazo text,
-	muerte_accidental_violenta text,
-	tipo_evento text,
-	en_trabajo text,
-	sitio_lesion text,
-	municipio_ocurrencia text,
-	fecha_defuncion date,
-	edad bigint
+CREATE TABLE staging (
+    sexo TEXT,
+    fecha_nacimiento TEXT,
+    nacionalidad TEXT,
+    lengua_indigena TEXT,
+    estado_civil TEXT,
+    entidad_residencia TEXT,
+    municipio_residencia TEXT,
+    escolaridad TEXT,
+    ocupacion TEXT,
+    afiliacion_medica TEXT,
+    fecha_defuncion TEXT,
+    hora_defuncion TEXT,
+    lugar_defuncion TEXT,
+    entidad_defuncion TEXT,
+    alcaldia TEXT,
+    atencion_medica TEXT,
+    necropsia TEXT,
+    causa_defuncion TEXT,
+    durante_embarazo TEXT,
+    causado_embarazo TEXT,
+    complicacion_embarazo TEXT,
+    muerte_accidental_violenta TEXT,
+    tipo_evento TEXT,
+    en_trabajo TEXT,
+    lugar_lesion TEXT,
+    municipio_ocurrencia TEXT,
+    fecha_defuncion_r TEXT,
+    edad TEXT
 );
 ```
 ## 3️⃣ Conexión a la Base de Datos y Carga Inicial de Datos
@@ -147,26 +148,88 @@ Regresa a la consola psql y ejecuta los siguientes comandos:
 ```sql
 \c mortalidad;
 SET CLIENT_ENCODING TO 'UTF8';
-\copy staging(sexo, fecha_nacimiento, nacionalidad, lengua_indigena, estado_civil, entidad_residencia, municipio_residencia, escolaridad, ocupacion, afiliacion_medica, fecha_defuncion1, hora_defuncion, lugar_defuncion, entidad_defuncion, alcaldia, atencion_medica, necropsia, causa_defuncion, durante_embarazo, causado_embarazo, complicacion_embarazo, muerte_accidental_violenta, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, fecha_defuncion, edad) FROM /Users/nuria/Downloads/sedesa_2020_limpia_limp.csv WITH (FORMAT CSV, HEADER true, DELIMITER ',', NULL 'NA');
+\copy staging (sexo, fecha_nacimiento, nacionalidad, lengua_indigena, estado_civil, entidad_residencia, municipio_residencia, escolaridad, ocupacion, afiliacion_medica, fecha_defuncion, hora_defuncion, lugar_defuncion, entidad_defuncion, alcaldia, atencion_medica, necropsia, causa_defuncion, durante_embarazo, causado_embarazo, complicacion_embarazo, muerte_accidental_violenta, tipo_evento, en_trabajo, lugar_lesion, municipio_ocurrencia, fecha_defuncion_r, edad) FROM 'path_to_downloaded_csv' WITH (FORMAT CSV, HEADER true, DELIMITER ',');
 ```
 ## 📊 Análisis Preliminar
-Para comenzar con el análisis de los datos, ejecutamos los siguientes comandos en SQL Query en TablePlus:
-1. Existen columnas con valores únicos
+
+Para comenzar con el análisis de los datos, ejecutamos los siguientes comandos en **SQL Query** en **TablePlus**:
+
+### 1. **Columnas con valores únicos**
+Para identificar si una columna contiene únicamente valores únicos, utilizamos la siguiente consulta:
+
 ```sql
 SELECT column_name
 FROM staging
 GROUP BY column_name
-HAVING COUNT(DISTINCT column_name)=COUNT(*);
+HAVING COUNT(DISTINCT column_name) = COUNT(*);
 ```
-Las columnas con valores únicos fueron las siguientes:
-- municipio_residencia
-- fecha_nacimiento
-- alcaldia
-- causa_defuncion
-- municipio_ocurrencia
 
+📌 **Las columnas con valores únicos fueron:**  
+- `municipio_residencia`  
+- `fecha_nacimiento`  
+- `alcaldia`  
+- `causa_defuncion`  
+- `municipio_ocurrencia`  
 
-2. Conteo de valores nulos (Para contar los valores nulos contamos las casillas que dijeran 'se ingora' o 'no especificado' ya que es lo mismo a no tener el dato, en realidad es un valor nulo)
+---
+
+### 2. **Mínimos y máximos de fechas**
+Para obtener el rango de fechas en el dataset, ejecutamos:
+
+```sql
+SELECT 
+    MIN(fecha_nacimiento) AS fecha_nacimiento_min,
+    MAX(fecha_nacimiento) AS fecha_nacimiento_max,
+    MIN(fecha_defuncion) AS fecha_defuncion_min,
+    MAX(fecha_defuncion) AS fecha_defuncion_max
+FROM staging
+WHERE fecha_nacimiento NOT IN ('NA');
+```
+
+📌 **Resultados:**  
+- `fecha_nacimiento_min`: **1900-08-29**  
+- `fecha_nacimiento_max`: **2020-12-29**  
+- `fecha_defuncion_min`: **2020-01-01**  
+- `fecha_defuncion_max`: **2020-12-31**  
+
+---
+
+### 3. **Mínimos, máximos y promedios de valores numéricos**
+Para analizar los valores numéricos en la columna `edad`, ejecutamos:
+
+```sql
+SELECT 
+    MIN(edad::INTEGER) AS edad_min,
+    MAX(edad::INTEGER) AS edad_max,
+    AVG(edad::NUMERIC) AS edad_promedio
+FROM staging
+WHERE edad NOT IN ('NA');
+```
+
+📌 **Resultados:**  
+- `edad_min`: **0 años**  
+- `edad_max`: **119 años**  
+- `edad_promedio`: **65.48 años**  
+
+---
+
+### 4. **Duplicados en atributos categóricos**
+En este conjunto de datos, la mayoría de las columnas contienen **valores categóricos**, es decir, datos que representan categorías o grupos específicos en lugar de valores numéricos continuos.
+
+✔ **Todas las columnas categóricas tienen al menos un valor que se repite varias veces**, lo que indica que existen categorías dominantes dentro de cada atributo.
+
+Para analizar la distribución de valores en estas columnas, se puede usar una consulta como esta en SQL:
+
+```sql
+SELECT columna_categorica, COUNT(*) AS frecuencia
+FROM staging
+GROUP BY columna_categorica
+ORDER BY frecuencia DESC;
+```
+
+📌 **Esto permite identificar los valores más frecuentes en cada categoría y detectar posibles errores o inconsistencias.**
+
+### 7. Conteo de valores nulos (Para contar los valores nulos contamos las casillas que dijeran 'se ingora' o 'no especificado' ya que es lo mismo a no tener el dato, en realidad es un valor nulo)
 ```sql
 --Para checar valores nulos:
 WITH valores_nulos AS (
