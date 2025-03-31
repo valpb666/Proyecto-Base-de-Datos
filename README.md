@@ -99,13 +99,13 @@ Antes de comenzar, asegúrate de tener:
 
 ---
 
-## 1️⃣ Creación de la Base de Datos  
+### 1️⃣ Creación de la Base de Datos  
 En la consola de **psql**, ejecuta el siguiente comando:  
 
 ```sql
 CREATE DATABASE mortalidad;
 ```
-## 2️⃣ Creación de Tablas en TablePlus
+### 2️⃣ Creación de Tablas en TablePlus
 Abre TablePlus y crea una nueva conexión con la base de datos mortalidad (categoría PostgreSQL).
 
 Abre la opción SQL Query e ingresa el siguiente comando para crear la tabla:
@@ -142,7 +142,7 @@ CREATE TABLE staging (
     edad TEXT
 );
 ```
-## 3️⃣ Conexión a la Base de Datos y Carga Inicial de Datos
+### 3️⃣ Conexión a la Base de Datos y Carga Inicial de Datos
 Regresa a la consola psql y ejecuta los siguientes comandos:
 
 ```sql
