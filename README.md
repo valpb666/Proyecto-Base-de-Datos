@@ -391,6 +391,50 @@ WHERE nulos>0;
 | alcaldia               | 3897   |
 | afiliacion_medica      | 9935   |
 
+### 8. **Inconsistencias en la edad**
+Para checar si la edad que está en la base de datos va concorde a la fecha de nacimiento y fecha de defunción ejectuamos:
+```sql
+SELECT edad, 
+       EXTRACT(YEAR FROM AGE(fecha_defuncion, fecha_nacimiento)) AS edad_checada, 
+       (EXTRACT(YEAR FROM AGE(fecha_defuncion, fecha_nacimiento)) = edad) AS coincide
+FROM staging
+WHERE EXTRACT(YEAR FROM AGE(fecha_defuncion, fecha_nacimiento)) <> edad;
+```
+
+📌 **Resultados:**  
+Obtuvimos 33 casos en donde la edad no coincide, pero solamente es por 1 año.
+
+### 9. **Inconsistencias en el sexo**
+Para checar si el que este embarazada coincide con el sexo, ejecutamos:
+```sql
+SELECT sexo, durante_embarazo
+FROM staging
+WHERE sexo ILIKE 'hombre' AND (durante_embarazo NOT ILIKE 'NO APLICA' AND durante_embarazo NOT ILIKE 'NO ESPECIFICADO');
+```
+
+📌 **Resultados:**  
+No obtuvimos ninguna inconsistencia.
+
+### 10. **Inconsistencias en las dos columnas de fecha de defunción**
+Para checar si la fecha de defunción coincide en ambas columnas, ejectuamos:
+```sql
+SELECT fecha_defuncion1, fecha_defuncion, fecha_defuncion1=fecha_defuncion AS coincide
+FROM staging
+WHERE fecha_defuncion1!=fecha_defuncion;
+```
+
+📌 **Resultados:**  
+No obtuvimos ninguna inconsistencia, todas las fechas son iguales en ambas columnas.
+
+
+
+
+
+
+
+
+
+
 
 
 
