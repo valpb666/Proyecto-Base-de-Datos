@@ -420,6 +420,17 @@ WHERE EXTRACT(YEAR FROM AGE(fecha_defuncion, fecha_nacimiento)) <> edad;
 📌 **Resultados:**  
 Obtuvimos 33 casos en donde la edad no coincide, pero solamente es por 1 año.
 
+### 10. **Inconsistencias en la hora de defunción**
+Para checar si hay alguna hora que este fuera de los rangos de un día, ejecutamos:
+SELECT hora_defuncion
+FROM staging
+WHERE hora_defuncion<'00:00:00' OR hora_defuncion>'23:59:59';
+```
+
+📌 **Resultados:**  
+No obtuvimos ningun caso que estuviera fuera de los rangos de un día de 24 horas.
+
+
 ### 10. **Inconsistencias en el sexo**
 Para checar si hay alguna incosistencia en el sexo, checamos si algun hombre esta embarazado:
 ```sql
