@@ -236,6 +236,15 @@ En este conjunto de datos, se ha identificado una columna redundante:
 
 Además, aunque no es estrictamente redundante, podría considerarse la columna **`fecha_nacimiento`** como tal, ya que contamos con la columna **`edad`** que podría derivarse de la fecha de nacimiento. Sin embargo, no es redundante en sí misma, sino que proporciona una referencia directa que puede ser útil en ciertos análisis.
 
+### 6. **Conteo de tuplas por cada categoría**
+
+📌 **Resultados:** 
+| sexo                | numero_tuplas  |
+|---------------------|----------------|
+| hombre            | hombre   |
+| mujer           | mujer    |
+| no especificado              | 13   |
+| se ignora              | 55    |
 ### 7. **Conteo de valores nulos**
 Para contar los valores nulos contamos las casillas que dijeran 'se ingora' o 'no especificado' ya que es lo mismo a no tener el dato, en realidad es un valor nulo.
 ```sql
