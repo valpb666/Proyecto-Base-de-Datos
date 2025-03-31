@@ -226,10 +226,17 @@ FROM staging
 GROUP BY columna_categorica
 ORDER BY frecuencia DESC;
 ```
-
 📌 **Esto permite identificar los valores más frecuentes en cada categoría y detectar posibles errores o inconsistencias.**
 
-### 7. Conteo de valores nulos
+### 5. **Columnas redundantes**
+
+En este conjunto de datos, se ha identificado una columna redundante:  
+
+- **`fecha_defuncion_r`**: Esta columna se repite y debe ser eliminada, ya que no aporta valor adicional.
+
+Además, aunque no es estrictamente redundante, podría considerarse la columna **`fecha_nacimiento`** como tal, ya que contamos con la columna **`edad`** que podría derivarse de la fecha de nacimiento. Sin embargo, no es redundante en sí misma, sino que proporciona una referencia directa que puede ser útil en ciertos análisis.
+
+### 7. **Conteo de valores nulos**
 Para contar los valores nulos contamos las casillas que dijeran 'se ingora' o 'no especificado' ya que es lo mismo a no tener el dato, en realidad es un valor nulo.
 ```sql
 WITH valores_nulos AS (
@@ -349,7 +356,7 @@ SELECT *
 FROM valores_nulos
 WHERE nulos>0;
 ```
-El resultado que obtuvimos fue el siguiente:
+📌 **Resultados:** 
 | Columna                | Nulos  |
 |------------------------|--------|
 | tipo_evento            | 1583   |
