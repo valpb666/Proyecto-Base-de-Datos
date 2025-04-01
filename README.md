@@ -242,10 +242,66 @@ Además, aunque no es estrictamente redundante, podría considerarse la columna 
 📌 **Resultados:** 
 | sexo                | numero_tuplas  |
 |---------------------|----------------|
-| hombre            | hombre   |
-| mujer           | mujer    |
-| no especificado              | 13   |
+| hombre            | 73907   |
+| mujer           | 53311    |
 | se ignora              | 55    |
+| no especificado              | 13   |
+
+
+| estado_civil                | numero_tuplas  |
+|---------------------|----------------|
+| CASADO(A)            | 54353   |
+| VIUDO(A)              | 28596    |
+| SOLTERO(A)              | 19390    |
+| UNION LIBRE              | 12009    |
+| DIVORCIADO(A)           | 4039    |
+| SE IGNORA              | 3196    |
+| SEPARADO(A)              | 2631    |
+| NO APLICA              | 2297   |
+| NO ESPECIFICADO              | 775    |
+
+| escolaridad                | numero_tuplas  |
+|---------------------|----------------|
+| PRIMARIA COMPLETA            | 33301   |
+| SECUNDARIA COMPLETA              | 21340    |
+| PRIMARIA INCOMPLETA              | 16378    |
+| BACHILLERATO O PREPARATORIA COMPLETA              | 15948    |
+| LICENCIATURA O PROFESIONAL COMPLETO           | 14750    |
+| NINGUNA              | 8557    |
+| BACHILLERATO O PREPARATORIA INCOMPLETA              | 3868    |
+| SECUNDARIA INCOMPLETA              | 3467   |
+| LICENCIATURA O PROFESIONAL COMPLETO           | 2673    |
+| SE IGNORA              | 2367    |
+| NO APLICA             | 1885    |
+| POSGRADO COMPLETO              | 1682    |
+| NO ESPECIFICADO             | 767    |
+| PREESCOLAR COMPLETO              | 139    |
+| POSGRADO INCOMPLETO              | 84    |
+| PREESCOLAR INCOMPLETO              | 80    |
+
+| atencion_medica                | numero_tuplas  |
+|---------------------|----------------|
+| SI            | 122668   |
+| NO              | 3068    |
+| NO ESPECIFICADO              | 795    |
+| SE IGNORA             | 755    |
+
+| necropsia                | numero_tuplas  |
+|---------------------|----------------|
+| NO            | 120887   |
+| SI              | 3991    |
+| NO ESPECIFICADO              | 1762    |
+| SE IGNORA             | 646    |
+
+| durante_embarazo                | numero_tuplas  |
+|---------------------|----------------|
+|NO APLICA	|114389|
+|NO ESPECIFICADO|	64291|
+|NO ESTUVO EMBARAZADA EN LOS Ì_LTIMOS 11 MESES PREVIOS A LA MUERTE|	6381|
+|EL PUERPERIO|	44|
+|43 DÌAS A 11 MESES DESPUÌäS DEL PARTO O ABORTO	|24|
+|EL EMBARAZO|	17|
+|EL PARTO|	2|
 
 ### 7. **Conteo de valores nulos**
 Para contar los valores nulos contamos las casillas que dijeran 'se ingora' o 'no especificado' ya que es lo mismo a no tener el dato, en realidad es un valor nulo.
