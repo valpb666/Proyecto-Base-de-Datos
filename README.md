@@ -303,6 +303,60 @@ Además, aunque no es estrictamente redundante, podría considerarse la columna 
 |EL EMBARAZO|	17|
 |EL PARTO|	2|
 
+| causado_embarazo                | numero_tuplas  |
+|---------------------|----------------|
+|NO APLICA	|117454|
+|NO ESPECIFICADO|	6855|
+|NO|	2636|
+|SE IGNORA|	313|
+|SI	|28|
+
+| complicacion_embarazo                | numero_tuplas  |
+|---------------------|----------------|
+|NO APLICA	|117465|
+|NO ESPECIFICADO|	6888|
+|NO|	2571|
+|SE IGNORA|	310|
+|SI	|52|
+
+| muerte_accidental_violenta                | numero_tuplas  |
+|---------------------|----------------|
+|NO 	|123884|
+|SI|	3402|
+
+| tipo_evento                | numero_tuplas  |
+|---------------------|----------------|
+|NO APLICA	|123884|
+|SE IGNORA|	1583|
+|HOMICIDIO|	796|
+|ACCIDENTE|	600|
+|SUICIDIO	|355|
+|NO ESPECIFICADO	|68|
+
+| en_trabajo                | numero_tuplas  |
+|---------------------|----------------|
+|NO APLICA	|123978|
+|NO|	1918|
+|SE IGNORA|	854|
+|SI|	460|
+|NO ESPECIFICADO	|76|
+
+| lugar_lesion                | numero_tuplas  |
+|---------------------|----------------|
+|NO APLICA	|123884|
+|CALLE O CARRETERA (VÌA PÌ_BLICA)	|1393|
+|SE IGNORA	|739|
+|VIVIENDA PARTICULAR	|725|
+|OTRO	|157|
+|ÌREA COMERCIAL O DE SERVICIOS	|156|
+|NO ESPECIFICADO	|81|
+|VIVIENDA COLECTIVA (ASILO, ORFANATO, ETC)	|78|
+|ÌREA INDUSTRIAL (TALLER, FABRICA U OBRA)	|38|
+|ESCUELA U OFICINA PUBLICA	|14|
+|ÌREA DEPORTIVA	|12|
+|GRANJA (RANCHO O PARCELA)	|9|
+
+
 ### 7. **Conteo de valores nulos**
 Para contar los valores nulos contamos las casillas que dijeran 'se ingora' o 'no especificado' ya que es lo mismo a no tener el dato, en realidad es un valor nulo.
 ```sql
