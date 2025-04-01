@@ -1,68 +1,58 @@
 # Proyecto Base de Datos
 
 ## Introducción al conjunto de datos y al problema a estudiar
-Equipo: Julia Rojas Pereyra, Nuria Garcia Valdecasas, Valentina Pineda, Valentina Covarrubias Faure, Alejandro Salas Aguilar
 
-La base de datos escogida fue la siguiente: https://datos.cdmx.gob.mx/dataset/certificados-de-defuncion-sedesa/resource/fc38b701-964d-4c36-8c63-cca9205ab53f
-    
-El conjunto de datos seleccionado proviene de la plataforma de datos abiertos de la Ciudad de México y contiene información sobre certificados de defunción emitidos en la capital. Estos datos han sido recopilados por la Secretaría de Salud de la Ciudad de México (SEDESA) y están disponibles en el siguiente enlace: Certificados de Defunción - SEDESA. Este conjunto de datos recoge información sobre las causas de fallecimiento de las personas en la Ciudad de México, proporcionando un panorama detallado desde una perspectiva epidemiológica.
-La Secretaría de Salud de la Ciudad de México es la institución encargada de recolectar y procesar esta información. Los datos son obtenidos a partir de los Certificados de Defunción, los cuales son registrados y codificados por médicos especializados siguiendo los criterios establecidos por la Organización Mundial de la Salud (OMS). Posteriormente, los datos son almacenados en el Subsistema Epidemiológico y Estadístico de las Defunciones (SEED), administrado a nivel federal.
-El objetivo principal de la recolección de estos datos es generar información detallada sobre la mortalidad en la Ciudad de México. Su análisis permite describir las condiciones de salud de la población, identificar las principales causas de defunción y establecer medidas para la prevención y control de enfermedades. Este tipo de información es fundamental para la toma de decisiones en materia de salud pública y el diseño de políticas de prevención.
-El conjunto de datos se encuentra disponible en el portal de datos abiertos de la Ciudad de México. Dentro de este portal, los datos pueden consultarse en la sección de "Administración y Finanzas", específicamente en el apartado correspondiente a la Secretaría de Salud. En cuanto a su actualización, la última modificación de la base de datos se realizó el 7 de julio de 2023. El conjunto de datos fue creado el 13 de marzo de 2021, sin que se especifique una periodicidad clara de actualización. Sin embargo, considerando la fecha de la última actualización, se observa que ha transcurrido más de un año sin cambios en la información publicada.
-El dataset cuenta con un total de 127,286 tuplas y 28 atributos. Cabe mencionar que algunos atributos presentan diferente nomenclatura, pero contienen la misma información, lo que sugiere una posible duplicidad de datos en ciertas variables. El análisis de estos datos permitirá evaluar tendencias de mortalidad, identificar patrones epidemiológicos y detectar posibles sesgos en la información recopilada. Además, se abordarán consideraciones éticas sobre el manejo y publicación de estos datos, garantizando su correcto uso en la investigación y el análisis de políticas públicas.
+**Equipo:**  
+Julia Rojas Pereyra, Nuria Garcia Valdecasas, Valentina Pineda, Valentina Covarrubias Faure, Alejandro Salas Aguilar
+
+Este reporte presenta un análisis detallado del conjunto de datos de Certificados de Defunción proporcionado por la Secretaría de Salud de la Ciudad de México. El objetivo principal es identificar patrones y tendencias en la mortalidad, considerando variables clave como la causa de defunción, la edad, el género y la ubicación geográfica. Asimismo, se abordan las consideraciones éticas inherentes al manejo de información sensible relacionada con los fallecidos.
+
+El conjunto de datos se utiliza para ofrecer una perspectiva epidemiológica de los fallecimientos en la Ciudad de México. Permite describir las condiciones de salud de la población, identificar las principales causas de defunción, evaluar la eficacia de la atención médica y detectar patrones temporales y geográficos en la mortalidad.
+
+La información es recolectada por la Secretaría de Salud de la Ciudad de México a partir de los Certificados de Defunción. Los datos son procesados y codificados por médicos codificadores, siguiendo los criterios establecidos por la Organización Mundial de la Salud (OMS), y se capturan en el Subsistema Epidemiológico y Estadístico de las Defunciones (SEED) a nivel federal. Esta base de datos se encuentra disponible en el portal de datos abiertos de la Ciudad de México, en la sección de administración y finanzas, específicamente en el apartado correspondiente a la Secretaría de Salud.
+
+El conjunto fue creado el 13 de marzo del 2021 y su última actualización se realizó el 7 de julio del 2023. Aunque no se especifica la frecuencia exacta de actualización, es relevante mencionar que ha pasado más de un año desde la última actualización.
+
+El dataset cuenta con 127,286 tuplas y 28 atributos, descritos a continuación:
 
 | Atributo                   | Tipo de dato en SQL (Variable)  | Descripción                                                   |
-|----------------------------|--------------------------------|---------------------------------------------------------------|
-| sexo                       | text (Categórica)             | Género de la persona.                                         |
-| fecha_nacimiento           | date (Fecha)               | Fecha de nacimiento de la persona.                           |
-| nacionalidad               | text (Categórica)             | Nacionalidad declarada.                                       |
-| lengua_indigena            | text (Categórica)             | Indica si habla una lengua indígena.                         |
-| estado_civil               | text (Categórica)             | Estado civil de la persona.                                   |
-| entidad_residencia         | text (Categórica)             | Entidad federativa de residencia.                            |
-| municipio_residencia       | text (Categórica)             | Municipio o alcaldía de residencia.                          |
-| escolaridad                | text (Categórica)             | Nivel educativo alcanzado por la persona.                   |
-| ocupacion                  | text (Categórica)             | Ocupación o trabajo habitual.                                |
-| afiliacion_medica          | text (Categórica)             | Tipo de afiliación médica que tiene la persona.             |
-| fecha_defuncion1           | date (Fecha)               | Fecha exacta de la defunción.                                |
-| hora_defuncion             | time (Fecha)               | Hora exacta de la defunción.                                 |
-| lugar_defuncion            | text (Categórica)             | Lugar donde ocurrió la defunción.                           |
-| entidad_defuncion          | text (Categórica)             | Entidad federativa donde ocurrió la defunción.              |
-| alcaldia                   | text (Categórica)             | Alcaldía o municipio donde ocurrió la defunción.            |
-| atencion_medica            | text (Categórica)             | Indica si recibió atención médica antes de la defunción.    |
-| necropsia                  | text (Categórica)             | Indica si se realizó necropsia.                             |
-| causa_defuncion            | text (Categórica)             | Causa oficial de la defunción.                              |
-| durante_embarazo           | text (Categórica)             | Indica si la defunción ocurrió durante el embarazo.        |
-| causado_embarazo           | text (Categórica)             | Indica si la defunción fue causada por el embarazo.        |
-| complicacion_embarazo      | text (Categórica)             | Indica si hubo complicaciones relacionadas con el embarazo.|
-| muerte_accidental_violenta | text (Categórica)             | Indica si la muerte fue accidental o violenta.              |
-| tipo_evento                | text (Categórica)             | Tipo de evento relacionado con la muerte.                  |
-| en_trabajo                 | text (Categórica)             | Indica si el evento ocurrió en el trabajo.                 |
-| sitio_lesion               | text (Categórica)             | Lugar físico donde ocurrió la lesión.                      |
-| municipio_ocurrencia       | text (Categórica)             | Municipio donde ocurrió el evento.                        |
-| fecha_defuncion            | date (Fecha)               | Fecha de la defunción.                                      |
-| edad                       | int (Numérica)                | Edad de la persona en años.                                |
+|----------------------------|---------------------------------|---------------------------------------------------------------|
+| sexo                       | text (Categórica)              | Género de la persona.                                         |
+| fecha_nacimiento           | date (Fecha)                   | Fecha de nacimiento de la persona.                           |
+| nacionalidad               | text (Categórica)              | Nacionalidad declarada.                                       |
+| lengua_indigena            | text (Categórica)              | Indica si habla una lengua indígena.                         |
+| estado_civil               | text (Categórica)              | Estado civil de la persona.                                   |
+| entidad_residencia         | text (Categórica)              | Entidad federativa de residencia.                            |
+| municipio_residencia       | text (Categórica)              | Municipio o alcaldía de residencia.                           |
+| escolaridad                | text (Categórica)              | Nivel educativo alcanzado por la persona.                     |
+| ocupacion                  | text (Categórica)              | Ocupación o trabajo habitual.                                 |
+| afiliacion_medica          | text (Categórica)              | Tipo de afiliación médica que tiene la persona.               |
+| fecha_defuncion1           | date (Fecha)                   | Fecha exacta de la defunción.                                 |
+| hora_defuncion             | time (Fecha)                   | Hora exacta de la defunción.                                  |
+| lugar_defuncion            | text (Categórica)              | Lugar donde ocurrió la defunción.                             |
+| entidad_defuncion          | text (Categórica)              | Entidad federativa donde ocurrió la defunción.                |
+| alcaldia                   | text (Categórica)              | Alcaldía o municipio donde ocurrió la defunción.              |
+| atencion_medica            | text (Categórica)              | Indica si recibió atención médica antes de la defunción.      |
+| necropsia                  | text (Categórica)              | Indica si se realizó necropsia.                                |
+| causa_defuncion            | text (Categórica)              | Causa oficial de la defunción.                                |
+| durante_embarazo           | text (Categórica)              | Indica si la defunción ocurrió durante el embarazo.           |
+| causado_embarazo           | text (Categórica)              | Indica si la defunción fue causada por el embarazo.           |
+| complicacion_embarazo      | text (Categórica)              | Indica si hubo complicaciones relacionadas con el embarazo.   |
+| muerte_accidental_violenta | text (Categórica)              | Indica si la muerte fue accidental o violenta.                |
+| tipo_evento                | text (Categórica)              | Tipo de evento relacionado con la muerte.                     |
+| en_trabajo                 | text (Categórica)              | Indica si el evento ocurrió en el trabajo.                    |
+| sitio_lesion               | text (Categórica)              | Lugar físico donde ocurrió la lesión.                         |
+| municipio_ocurrencia       | text (Categórica)              | Municipio donde ocurrió el evento.                            |
+| fecha_defuncion            | date (Fecha)                   | Fecha de la defunción.                                         |
+| edad                       | int (Numérica)                 | Edad de la persona en años.                                   |
 
+El objetivo del conjunto de datos es llevar un control riguroso y detallado de los patrones de mortalidad en la Ciudad de México. Esto incluye estudios epidemiológicos para identificar la incidencia de diversas enfermedades, el análisis de épocas con mayor mortalidad (como la pandemia de COVID-19), la evaluación geográfica de las tasas de defunción en distintas alcaldías, y el análisis demográfico de los fallecimientos. Este análisis permitirá detectar correlaciones entre factores demográficos, socioeconómicos y de salud, y evaluar la eficacia de la atención médica brindada.
 
- *¿Cuál es el objetivo buscado con el set de datos?*
-  
-    Llevar un control del tipo de gente que muere, si obtuvieron atención médica, y el lugar donde murieron. Pueden sacarse
-    muchas conclusiones de este set de datos, desde ver épocas de mayor mortalidad (como durante la pandemia de covid-19),
-    lugares con mayores índices de mortalidad, o la eficacia de
-    atención médica.
-    
-  *¿Para qué se usará por el equipo?*
-  
-    Decidimos utilizar esta base de datos para realizar un análisis detallado de la mortalidad en la Ciudad de México,
-    identificando patrones y tendencias en función de variables clave como la causa de muerte (la enfermedad), la edad,
-    el género y la ubicación geográfica (alcaldía) de los fallecimientos. A través de la estructuración de las entidades
-    principales, como defunciones, alcaldías y pacientes, se podrá evaluar qué enfermedades son más frecuentes en
-    determinados grupos poblacionales y en qué zonas de la ciudad se registran las tasas de mortalidad más altas.
-    Además, esta información permitirá comparar datos a lo largo del tiempo para detectar posibles cambios en las causas
-    de defunción y su relación con factores demográficos o socioeconómicos.
-    
-  *¿Qué consideraciones éticas conlleva el análisis y explotación de dichos datos?*
-  
-    El análisis de esta base de datos conlleva diversas consideraciones éticas, ya que implica el acceso a información sensible sobre personas            fallecidas. Por ello, es fundamental respetar la privacidad y confidencialidad de los datos, asegurándonos de que la información utilizada no         permita identificar a individuos específicos, pues esto podría vulnerar la dignidad de los fallecidos y sus familias. Además, es importante           evitar sesgos en la interpretación de los resultados, ya que una mala contextualización de las cifras podría llevar a conclusiones erróneas o         incluso discriminatorias hacia ciertos grupos poblacionales o regiones.
+El uso previsto por el equipo consiste en realizar un análisis profundo de la mortalidad en la ciudad, identificando y comparando tendencias a lo largo del tiempo. El estudio buscará establecer correlaciones entre variables demográficas y geográficas para comprender mejor la incidencia de diferentes causas de defunción, lo que podría aportar elementos clave para mejorar las estrategias de prevención y atención médica.
+
+El manejo y análisis de esta base de datos conlleva importantes consideraciones éticas, dado que se trata de información sensible sobre personas fallecidas. Es esencial respetar la privacidad y confidencialidad de los datos, asegurándose de que la información procesada no permita identificar a individuos específicos, con el fin de proteger la dignidad de los fallecidos y la integridad de sus familias. Además, se debe evitar la introducción de sesgos en la interpretación de los resultados, ya que conclusiones erróneas o discriminatorias podrían tener repercusiones negativas en ciertos grupos poblacionales o regiones. La transparencia en la comunicación de los hallazgos y en las limitaciones del análisis es crucial para mantener la objetividad y la responsabilidad ética en todo el estudio.
+
+Este análisis, realizado con un enfoque riguroso y ético, pretende ofrecer una visión integral de la situación epidemiológica en la Ciudad de México y contribuir a la toma de decisiones informadas en materia de salud pública.
     
 # 📌 Carga Inicial y Análisis Preliminar  
 
