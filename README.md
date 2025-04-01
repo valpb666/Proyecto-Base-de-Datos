@@ -1,38 +1,15 @@
 # Proyecto Base de Datos
 
-## Introducción al conjunto de datos y al problema a estudiar considerando aspectos éticos del conjunto de datos empleado
-  Equipo: Julia Rojas Pereyra, Nuria Garcia Valdecasas, Valentina Pineda, Valentina Covarrubias Faure, Alejandro Salas Aguilar
+## Introducción al conjunto de datos y al problema a estudiar
+Equipo: Julia Rojas Pereyra, Nuria Garcia Valdecasas, Valentina Pineda, Valentina Covarrubias Faure, Alejandro Salas Aguilar
 
-  La base de datos escogida fue la siguiente: 
-    https://datos.cdmx.gob.mx/dataset/certificados-de-defuncion-sedesa/resource/fc38b701-964d-4c36-8c63-cca9205ab53f
-
-  *Descripción general de los datos*
-  
-    Este conjunto de datos recolecta información ace
+La base de datos escogida fue la siguiente: https://datos.cdmx.gob.mx/dataset/certificados-de-defuncion-sedesa/resource/fc38b701-964d-4c36-8c63-cca9205ab53f
     
-  *¿Quién los recolecta?*
-  
-    Los datos son recolectados por la Secretaría de Salud de la Ciudad de México, a partir de los Certificados de Defunción.
-    Estos son procesados y codificados por médicos codificadores según los criterios establecidos por la OMS, y capturados en
-    el Subsistema Epidemiológico y Estadístico de las Defunciones (SEED) a nivel Federal.
-    
-  *¿Cuál es el propósito de su recolección?*
-  
-    Este conjunto de datos tiene como propósito el brindar información detallada sobre los fallecimientos que ocurren en
-    la Ciudad desde una perspectiva epidemiológica. Es decir, describir las condiciones de salud de la población, identificar
-    la causa de las enfermedades, controlar las enfermedades y prevenir la aparición de nuevas enfermedades.
-    
-  *¿Dónde se pueden obtener?*
-    
-    Se pueden obtener en el portal de datos abiertos de la Ciudad de México, al entrar en ese portal hay varias secciones en la que se pueden             consultar conjuntos de datos, los que nosotros usaremos están en la sección de administración y finanzas, donde posteriormente aparecen las           instituciones disponibles, nuestros datos se encuentran ingresando al apartado de secretaría de salud.
-
-  *¿Con qué frecuencia se actualizan?*
-
-    La última actualización fue el 7 de julio del 2023, y se creó el 13 de marzo del 2021. No se especifica cada cuanto tiempo se actualiza pero ya        pasó más de 1 año desde la última actualización.
-  
-  *¿Cuántas tuplas y cuántos atributos tiene el set de datos?*
-  
-    Nuestro set de datos cuenta con 28 atributos, pero dentro de estos se encuentran unos atributos con diferente nombre pero misma información. Este      set contiene 127286 tuplas.
+El conjunto de datos seleccionado proviene de la plataforma de datos abiertos de la Ciudad de México y contiene información sobre certificados de defunción emitidos en la capital. Estos datos han sido recopilados por la Secretaría de Salud de la Ciudad de México (SEDESA) y están disponibles en el siguiente enlace: Certificados de Defunción - SEDESA. Este conjunto de datos recoge información sobre las causas de fallecimiento de las personas en la Ciudad de México, proporcionando un panorama detallado desde una perspectiva epidemiológica.
+La Secretaría de Salud de la Ciudad de México es la institución encargada de recolectar y procesar esta información. Los datos son obtenidos a partir de los Certificados de Defunción, los cuales son registrados y codificados por médicos especializados siguiendo los criterios establecidos por la Organización Mundial de la Salud (OMS). Posteriormente, los datos son almacenados en el Subsistema Epidemiológico y Estadístico de las Defunciones (SEED), administrado a nivel federal.
+El objetivo principal de la recolección de estos datos es generar información detallada sobre la mortalidad en la Ciudad de México. Su análisis permite describir las condiciones de salud de la población, identificar las principales causas de defunción y establecer medidas para la prevención y control de enfermedades. Este tipo de información es fundamental para la toma de decisiones en materia de salud pública y el diseño de políticas de prevención.
+El conjunto de datos se encuentra disponible en el portal de datos abiertos de la Ciudad de México. Dentro de este portal, los datos pueden consultarse en la sección de "Administración y Finanzas", específicamente en el apartado correspondiente a la Secretaría de Salud. En cuanto a su actualización, la última modificación de la base de datos se realizó el 7 de julio de 2023. El conjunto de datos fue creado el 13 de marzo de 2021, sin que se especifique una periodicidad clara de actualización. Sin embargo, considerando la fecha de la última actualización, se observa que ha transcurrido más de un año sin cambios en la información publicada.
+El dataset cuenta con un total de 127,286 tuplas y 28 atributos. Cabe mencionar que algunos atributos presentan diferente nomenclatura, pero contienen la misma información, lo que sugiere una posible duplicidad de datos en ciertas variables. El análisis de estos datos permitirá evaluar tendencias de mortalidad, identificar patrones epidemiológicos y detectar posibles sesgos en la información recopilada. Además, se abordarán consideraciones éticas sobre el manejo y publicación de estos datos, garantizando su correcto uso en la investigación y el análisis de políticas públicas.
 
 | Atributo                   | Tipo de dato en SQL (Variable)  | Descripción                                                   |
 |----------------------------|--------------------------------|---------------------------------------------------------------|
@@ -149,7 +126,7 @@ Regresa a la consola psql y ejecuta los siguientes comandos:
 ```sql
 \c mortalidad;
 SET CLIENT_ENCODING TO 'UTF8';
-\copy staging(sexo, fecha_nacimiento, nacionalidad, lengua_indigena, estado_civil, entidad_residencia, municipio_residencia, escolaridad, ocupacion, afiliacion_medica, fecha_defuncion1, hora_defuncion, lugar_defuncion, entidad_defuncion, alcaldia, atencion_medica, necropsia, causa_defuncion, durante_embarazo, causado_embarazo, complicacion_embarazo, muerte_accidental_violenta, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, fecha_defuncion, edad) FROM /Users/nuria/Downloads/sedesa_2020_limpia_limp.csv WITH (FORMAT CSV, HEADER true, DELIMITER ',', NULL 'NA');
+\copy staging(sexo, fecha_nacimiento, nacionalidad, lengua_indigena, estado_civil, entidad_residencia, municipio_residencia, escolaridad, ocupacion, afiliacion_medica, fecha_defuncion1, hora_defuncion, lugar_defuncion, entidad_defuncion, alcaldia, atencion_medica, necropsia, causa_defuncion, durante_embarazo, causado_embarazo, complicacion_embarazo, muerte_accidental_violenta, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, fecha_defuncion, edad) FROM 'path_to_downloaded_csv' WITH (FORMAT CSV, HEADER true, DELIMITER ',', NULL 'NA');
 ```
 ## 📊 Análisis Preliminar
 
@@ -238,6 +215,16 @@ En este conjunto de datos, se ha identificado una columna redundante:
 Además, aunque no es estrictamente redundante, podría considerarse la columna **`fecha_nacimiento`** como tal, ya que contamos con la columna **`edad`** que podría derivarse de la fecha de nacimiento. Sin embargo, no es redundante en sí misma, sino que proporciona una referencia directa que puede ser útil en ciertos análisis.
 
 ### 6. **Conteo de tuplas por cada categoría**
+En esta sección, analizamos la distribución de valores dentro de las columnas categóricas del conjunto de datos. Esto nos permite identificar qué categorías son más comunes y si hay valores atípicos o poco frecuentes.
+
+Para obtener estos conteos, utilizamos la siguiente consulta en SQL:
+
+```sql
+SELECT column_name, COUNT(*) 
+FROM staging
+GROUP BY column_name
+ORDER BY COUNT(*) DESC;
+```
 
 📌 **Resultados:** 
 | sexo                | numero_tuplas  |
@@ -355,7 +342,6 @@ Además, aunque no es estrictamente redundante, podría considerarse la columna 
 |ESCUELA U OFICINA PUBLICA	|14|
 |ÌREA DEPORTIVA	|12|
 |GRANJA (RANCHO O PARCELA)	|9|
-
 
 ### 7. **Conteo de valores nulos**
 Para contar los valores nulos contamos las casillas que dijeran 'se ingora' o 'no especificado' ya que es lo mismo a no tener el dato, en realidad es un valor nulo.
