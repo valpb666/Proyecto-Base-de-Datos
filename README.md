@@ -773,7 +773,7 @@ SET ocupacion = CASE
     WHEN ocupacion IN ('TRABAJADORES EN LA ELABORACIÌÒN Y PROCESAMIENTO DE ALIMENTOS, BEBIDAS Y PRODUCTOS DE TABACO') 
          THEN 'Producción de bienes alimenticios y tabaco'
     
-    WHEN ocupacion IN (NULL) 
+    WHEN ocupacion IN (NULL, 'SE IGNORA') 
          THEN NULL
 
     ELSE 'Ocupaciones no especificadas'
