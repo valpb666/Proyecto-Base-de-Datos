@@ -56,11 +56,11 @@ El manejo y análisis de esta base de datos conlleva importantes consideraciones
 
 Este análisis, realizado con un enfoque riguroso y ético, pretende ofrecer una visión integral de la situación epidemiológica en la Ciudad de México y contribuir a la toma de decisiones informadas en materia de salud pública.
     
-## 📌 Carga Inicial y Análisis Preliminar  
+## 📌 Carga Inicial
 
 Para realizar la carga inicial del set de datos a una base de datos de tipo **PostgreSQL**, sigue los siguientes pasos:  
 
-## ✅ Requisitos Previos  
+### ✅ Requisitos Previos  
 Antes de comenzar, asegúrate de tener:  
 - **PostgreSQL** instalado (`psql` o `pgAdmin`).  
 - El archivo de datos **CSV** completamente descomprimido:  
@@ -68,13 +68,13 @@ Antes de comenzar, asegúrate de tener:
 
 ---
 
-### 1️⃣ Creación de la Base de Datos  
+#### 1️⃣ Creación de la Base de Datos  
 En la consola de **psql**, ejecuta el siguiente comando:  
 
 ```sql
 CREATE DATABASE mortalidad;
 ```
-### 2️⃣ Creación de Tablas en TablePlus
+#### 2️⃣ Creación de Tablas en TablePlus
 Abre TablePlus y crea una nueva conexión con la base de datos mortalidad (categoría PostgreSQL).
 
 Abre la opción SQL Query e ingresa el siguiente comando para crear la tabla:
@@ -112,7 +112,7 @@ CREATE TABLE staging(
 );
 
 ```
-### 3️⃣ Conexión a la Base de Datos y Carga Inicial de Datos
+#### 3️⃣ Conexión a la Base de Datos y Carga Inicial de Datos
 Regresa a la consola psql y ejecuta los siguientes comandos:
 
 ```sql
