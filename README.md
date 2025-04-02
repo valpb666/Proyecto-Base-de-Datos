@@ -1,6 +1,6 @@
 # Proyecto Base de Datos
 
-## Introducción al conjunto de datos y al problema a estudiar
+## 📌 Introducción al conjunto de datos y al problema a estudiar
 
 **Equipo:**  
 Julia Rojas Pereyra, Nuria Garcia Valdecasas, Valentina Pineda, Valentina Covarrubias Faure, Alejandro Salas Aguilar
@@ -56,7 +56,7 @@ El manejo y análisis de esta base de datos conlleva importantes consideraciones
 
 Este análisis, realizado con un enfoque riguroso y ético, pretende ofrecer una visión integral de la situación epidemiológica en la Ciudad de México y contribuir a la toma de decisiones informadas en materia de salud pública.
     
-# 📌 Carga Inicial y Análisis Preliminar  
+## 📌 Carga Inicial y Análisis Preliminar  
 
 Para realizar la carga inicial del set de datos a una base de datos de tipo **PostgreSQL**, sigue los siguientes pasos:  
 
