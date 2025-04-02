@@ -641,10 +641,8 @@ SET edad = NULL WHERE edad IS NULL;
 ```
 
 ### • Cambio a Booleanos 
-
-
+Se estandarizaron los valores en las columnas lengua_indigena, necropsia, atencion_medica y muerte_accidental_violenta para mejorar la consistencia y calidad de los datos. "SI" se reemplazó por TRUE, y "NO" / "NO APLICA" por FALSE, facilitando el análisis y optimizando consultas en la base de datos.
 ```sql
-Se cambiaron los valores de SI a TRUE y de NO, y NO APLICA a FALSE, para mejorar la consistencia y calidad de los datos almacenados en la base de datos.
 UPDATE staging
 SET lengua_indigena = TRUE WHERE lengua_indigena  ILIKE 'SI';
 
