@@ -641,7 +641,9 @@ SET edad = NULL WHERE edad IS NULL;
 ```
 
 ### • Cambio a Booleanos 
+
 Se estandarizaron los valores en las columnas lengua_indigena, necropsia, atencion_medica y muerte_accidental_violenta para mejorar la consistencia y calidad de los datos. "SI" se reemplazó por TRUE, y "NO" / "NO APLICA" por FALSE, facilitando el análisis y optimizando consultas en la base de datos.
+
 ```sql
 UPDATE staging
 SET lengua_indigena = TRUE WHERE lengua_indigena  ILIKE 'SI';
@@ -678,5 +680,103 @@ ALTER COLUMN muerte_accidental_violenta TYPE BOOLEAN USING muerte_accidental_vio
 
 ALTER TABLE staging
 ALTER COLUMN atencion_medica TYPE BOOLEAN USING atencion_medica::boolean;
+```
+
+### • Reclasificación de las ocupaciones
+
+Se llevó a cabo una reclasificación de las ocupaciones dentro de la tabla staging, agrupándolas en categorías más generales y funcionales. Se aplicó una actualización (UPDATE) con una estructura CASE para normalizar las distintas denominaciones de ocupaciones y reducir la complejidad de la información, facilitando su análisis y uso en procesos posteriores.
+
+La clasificación original contenía múltiples variaciones y denominaciones específicas que dificultaban la agregación y el análisis de datos. Con esta limpieza, se unificaron ocupaciones en categorías más manejables. Al reducir la granularidad de las ocupaciones en categorías más generales (ej. "Directivos y gerentes", "Profesionales y científicos", "Trabajadores en servicios"), se mejora la comprensión de los datos. Al estructurar los datos de esta manera, se simplifican consultas y reportes estadísticos sin perder información relevante.
+
+```sql
+UPDATE staging
+SET ocupacion = CASE 
+    WHEN ocupacion IN ('NO REMUNERADO, AMA DE CASA', 'NO OCUPADO, JUBILADO O PENSIONADO', 
+                       'NO OCUPADOS', 'NO REMUNERADO, ESTUDIANTE', 'NO APLICA') 
+         THEN 'Sin actividad económica'
+	 WHEN ocupacion IN ('FUNCIONARIOS Y ALTAS AUTORIDADES DE LOS SECTORES PÌ_BLICO, PRIVADO Y SOCIAL', 
+                       'DIRECTORES Y GERENTES DE VENTAS, RESTAURANTES, HOTELES Y OTROS ESTABLECIMIENTOS', 
+                       'DIRECTORES Y GERENTES EN SERVICIOS FINANCIEROS, LEGALES, ADMINISTRATIVOS Y SOCIALES', 
+                       'DIRECTORES Y GERENTES EN PRODUCCIÌÒN, TECNOLOGÌA Y TRANSPORTE', 
+                       'COORDINADORES Y JEFES DE ÌREA EN PRODUCCIÌÒN Y TECNOLOGÌA',
+                       'COORDINADORES Y JEFES DE ÌREA EN SERVICIOS FINANCIEROS, ADMINISTRATIVOS Y SOCIALES', 
+                       'COORDINADORES Y JEFES DE ÌREA DE VENTAS, RESTAURANTES, HOTELES Y OTROS ESTABLECIMIENTOS',
+                       'OTROS DIRECTORES, FUNCIONARIOS, GERENTES, COORDINADORES Y JEFES DE ÌREA, NO CLASIFICADOS ANTERIORMENTE',
+                       'OTROS TRABAJADORES AUXILIARES EN ACTIVIDADES ADMINISTRATIVAS, NO CLASIFICADOS ANTERIORMENTE',
+                       'SUPERVISORES DE PERSONAL DE APOYO ADMINISTRATIVO, SECRETARIAS, CAPTURISTAS, CAJEROS Y TRABAJADORES DE CONTROL DE ARCHIVO Y TRANSPORTE',
+                       'SUPERVISORES Y TRABAJADORES QUE BRINDAN Y MANEJAN INFORMACIÌÒN 39 OTROS TRABAJADORES AUXILIARES EN ACTIVIDADES ADMINISTRATIVAS, NO CLASIFICADOS ANTERIORMENTE'
+                       ) 
+         THEN 'Directivos y gerentes'
+
+    WHEN ocupacion IN ('INVESTIGADORES Y PROFESIONISTAS EN CIENCIAS EXACTAS, BIOLÌÒGICAS, INGENIERÌA, INFORMÌTICA Y EN TELECOMUNICACIONES', 
+                       'PROFESIONISTAS EN CIENCIAS ECONÌÒMICO-ADMINISTRATIVAS, CIENCIAS SOCIALES, HUMANISTAS Y EN ARTES',
+                       'AUXILIARES Y TÌäCNICOS EN CIENCIAS EXACTAS, BIOLÌÒGICAS, INGENIERÌA, INFORMÌTICA Y EN TELECOMUNICACIONES',
+                       'AUXILIARES Y TÌäCNICOS EN CIENCIAS ECONÌÒMICO-ADMINISTRATIVAS, CIENCIAS SOCIALES, HUMANISTAS Y EN ARTES'
+                       ) 
+         THEN 'Profesionales y científicos'
+         
+    WHEN ocupacion IN ('MÌäDICOS, ENFERMERAS Y OTROS ESPECIALISTAS EN 						SALUD', 
+    				   'ENFERMERAS, TÌäCNICOS EN MEDICINA Y TRABAJADORES DE APOYO EN SALUD'
+                       ) 
+         THEN 'Salud'
+         
+    WHEN ocupacion IN ('PROFESORES Y ESPECIALISTAS EN DOCENCIA',
+    				   'AUXILIARES Y TÌäCNICOS EN EDUCACIÌÒN, INSTRUCTORES Y CAPACITADORES'
+                       ) 
+         THEN 'Educación'
+
+    WHEN ocupacion IN ('EMPLEADOS DE VENTAS EN ESTABLECIMIENTOS', 
+                       'COMERCIANTES EN ESTABLECIMIENTOS', 
+                       'VENDEDORES AMBULANTES', 
+                       'OTROS COMERCIANTES, EMPLEADOS EN VENTAS Y AGENTES DE VENTAS EN ESTABLECIMIENTO, NO CLASIFICADOS ANTERIORMENTE') 
+         THEN 'Comerciantes y vendedores'
+
+    WHEN ocupacion IN ('TRABAJADORES EN SERVICIOS DE PROTECCIÌÒN Y VIGILANCIA', 
+                       'TRABAJADORES EN CUIDADOS PERSONALES Y DEL HOGAR', 
+                       'TRABAJADORES DOMÌäSTICOS, DE LIMPIEZA, PLANCHADORES Y OTROS TRABAJADORES DE LIMPIEZA', 
+                       'TRABAJADORES EN SERVICIOS DE ALQUILER', 
+                       'TRABAJADORES EN LA PREPARACIÌÒN Y SERVICIO DE ALIMENTOS Y BEBIDAS, ASÌ COMO EN SERVICIOS DE ESPARCIMIENTO Y DE HOTELERÌA', 
+                       'AYUDANTES EN LA PREPARACIÌÒN DE ALIMENTOS') 
+         THEN 'Trabajadores en servicios'
+
+    WHEN ocupacion IN ('TRABAJADORES EN ACTIVIDADES AGRÌCOLAS Y GANADERAS', 
+                       'TRABAJADORES EN ACTIVIDADES PESQUERAS, FORESTALES, CAZA Y SIMILARES', 
+                       'OTROS TRABAJADORES EN ACTIVIDADES AGRÌCOLAS, GANADERAS, FORESTALES, CAZA Y PESCA, NO CLASIFICADOS ANTERIORMENTE INEGI.', 
+                       'OPERADORES DE MAQUINARIA AGROPECUARIA Y FORESTAL',
+                       'TRABAJADORES DE APOYO EN ACTIVIDADES AGROPECUARIAS, FORESTALES, PESCA Y CAZA') 
+         THEN 'Trabajadores agrícolas y pesqueros'
+
+    WHEN ocupacion IN ('ARTESANOS Y TRABAJADORES EN LA ELABORACIÌÒN DE PRODUCTOS DE MADERA, PAPEL, TEXTILES Y DE CUERO Y PIEL', 
+                       'ARTESANOS Y TRABAJADORES EN EL TRATAMIENTO Y ELABORACIÌÒN DE PRODUCTOS DE METAL', 
+                       'ARTESANOS Y TRABAJADORES EN LA ELABORACIÌÒN DE PRODUCTOS DE CERÌMICA, VIDRIO, AZULEJO Y SIMILARES', 
+                       'ARTESANOS Y TRABAJADORES EN LA ELABORACIÌÒN DE PRODUCTOS DE HULE, CAUCHO, PLÌSTICOS Y DE SUSTANCIAS QUÌMICAS', 
+                       'OTROS TRABAJADORES ARTESANALES NO CLASIFICADOS ANTERIORMENTE') 
+         THEN 'Artesanos y manufactura'
+
+    WHEN ocupacion IN ('ENSAMBLADORES Y MONTADORES DE HERRAMIENTAS, MAQUINARIA, PRODUCTOS METÌLICOS Y ELECTRÌÒNICOS', 
+                       'OPERADORES DE INSTALACIONES Y MAQUINARIA INDUSTRIAL', 
+                       'OTROS OPERADORES DE MAQUINARIA INDUSTRIAL, ENSAMBLADORES Y CONDUCTORES DE TRANSPORTE, NO CLASIFICADOS ANTERIORMENTE') 
+         THEN 'Operadores de maquinaria y ensambladores'
+
+    WHEN ocupacion IN ('CONDUCTORES DE TRANSPORTE Y DE MAQUINARIA MÌÒVIL', 
+                       'AYUDANTES DE CONDUCTORES DE TRANSPORTE, CONDUCTORES DE TRANSPORTE DE TRACCIÌÒN HUMANA Y ANIMAL Y CARGADORES', 
+                       'TRABAJADORES DE PAQUETERÌA, DE APOYO PARA ESPECTÌCULOS, MENSAJEROS Y REPARTIDORES DE MERCANCÌAS') 
+         THEN 'Transporte y logística'
+
+    WHEN ocupacion IN ('TRABAJADORES DE APOYO EN LA MINERÌA, CONSTRUCCIÌÒN E INDUSTRIA', 
+                       'TRABAJADORES EN LA EXTRACCIÌÒN Y LA EDIFICACIÌÒN DE CONSTRUCCIONES') 
+         THEN 'Construcción y minería'
+
+    WHEN ocupacion IN ('TRABAJADORES DE LA ARMADA, EJÌäRCITO Y FUERZA AÌäREA') 
+         THEN 'Fuerzas armadas'
+         
+    WHEN ocupacion IN ('TRABAJADORES EN LA ELABORACIÌÒN Y PROCESAMIENTO DE ALIMENTOS, BEBIDAS Y PRODUCTOS DE TABACO') 
+         THEN 'Producción de bienes alimenticios y tabaco'
+    
+    WHEN ocupacion IN (NULL) 
+         THEN NULL
+
+    ELSE 'Ocupaciones no especificadas'
+    END;
 ```
 
