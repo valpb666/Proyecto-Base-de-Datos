@@ -202,7 +202,7 @@ ORDER BY frecuencia DESC;
 
 En este conjunto de datos, se ha identificado una columna redundante:  
 
-- **`fecha_defuncion_r`**: Esta columna se repite y debe ser eliminada, ya que no aporta valor adicional.
+- **`fecha_defuncion1`**: Esta columna se repite y debe ser eliminada, ya que no aporta valor adicional.
 
 Además, aunque no es estrictamente redundante, podría considerarse la columna **`fecha_nacimiento`** como tal, ya que contamos con la columna **`edad`** que podría derivarse de la fecha de nacimiento. Sin embargo, no es redundante en sí misma, sino que proporciona una referencia directa que puede ser útil en ciertos análisis.
 
