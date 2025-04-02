@@ -542,17 +542,101 @@ WHERE fecha_defuncion1!=fecha_defuncion;
 📌 **Resultados:**  
 No obtuvimos ninguna inconsistencia, todas las fechas son iguales en ambas columnas.
 
+## 🧹 Limpieza de datos
 
+### • Actualización de Valores Nulos
+Este cambio en la base de datos tiene como objetivo mejorar la consistencia y calidad de los datos almacenados en la base de datos. Se reemplazan valores ambiguos o indeterminados ('SE IGNORA', 'NO ESPECIFICADO', cadenas vacías '', entre otros) por NULL, asegurando una mejor interpretación de la información y facilitando su análisis posterior.
 
+En los datos de entrada, existen valores que representan información desconocida o no registrada de manera inconsistente (por ejemplo, 'SE IGNORA' en algunas columnas y 'NO ESPECIFICADO' en otras). Al convertir estos valores a NULL:
+- Se facilita la manipulación y filtrado de datos en consultas SQL.
+- Se evita la confusión entre valores reales y datos faltantes.
+- Se estandariza la interpretación de información no disponible en toda la base de datos.
 
+Se ejecutan una serie de consultas UPDATE sobre la tabla staging, estableciendo NULL en las columnas afectadas cuando se encuentran valores ambiguos.
 
+```sql
+UPDATE staging
+SET sexo = NULL WHERE sexo IS NULL OR sexo = '';
 
+UPDATE staging
+SET fecha_nacimiento = NULL WHERE fecha_nacimiento IS NULL;
 
+UPDATE staging
+SET nacionalidad = NULL WHERE nacionalidad IS NULL OR nacionalidad ILIKE 'SE IGNORA';
 
+UPDATE staging
+SET lengua_indigena = NULL WHERE lengua_indigena IS NULL OR lengua_indigena ILIKE 'SE IGNORA' OR lengua_indigena ILIKE 'NO ESPECIFICADO';
 
+UPDATE staging
+SET estado_civil = NULL WHERE estado_civil IS NULL OR estado_civil ILIKE 'SE IGNORA';
 
+UPDATE staging
+SET entidad_residencia = NULL WHERE entidad_residencia IS NULL OR entidad_residencia ILIKE 'SE IGNORA';
 
+UPDATE staging
+SET municipio_residencia = NULL WHERE municipio_residencia IS NULL OR municipio_residencia ILIKE 'SE IGNORA' OR municipio_residencia ILIKE 'NO ESPECIFICADO';
 
+UPDATE staging
+SET escolaridad = NULL WHERE escolaridad IS NULL OR escolaridad ILIKE 'SE IGNORA' OR escolaridad ILIKE 'NO ESPECIFICADO';
 
-  
-  
+UPDATE staging
+SET ocupacion = NULL WHERE ocupacion IS NULL OR ocupacion ILIKE 'SE IGNORA' OR ocupacion ILIKE 'NO ESPECIFICADO';
+
+UPDATE staging
+SET afiliacion_medica = NULL WHERE afiliacion_medica IS NULL OR afiliacion_medica ILIKE 'SE IGNORA' OR afiliacion_medica ILIKE 'NO ESPECIFICADO';
+
+UPDATE staging
+SET fecha_defuncion1 = NULL WHERE fecha_defuncion1 IS NULL;
+
+UPDATE staging
+SET hora_defuncion = NULL WHERE hora_defuncion IS NULL;
+
+UPDATE staging
+SET lugar_defuncion = NULL WHERE lugar_defuncion IS NULL OR lugar_defuncion ILIKE 'SE IGNORA';
+
+UPDATE staging
+SET entidad_defuncion = NULL WHERE entidad_defuncion IS NULL OR entidad_defuncion ILIKE 'SE IGNORA';
+
+UPDATE staging
+SET alcaldia = NULL WHERE alcaldia IS NULL OR alcaldia ILIKE 'SE IGNORA' OR alcaldia ILIKE 'NO ESPECIFICADO';
+
+UPDATE staging
+SET atencion_medica = NULL WHERE atencion_medica IS NULL OR atencion_medica ILIKE 'SE IGNORA';
+
+UPDATE staging
+SET necropsia = NULL WHERE necropsia IS NULL OR necropsia ILIKE 'SE IGNORA';
+
+UPDATE staging
+SET causa_defuncion = NULL WHERE causa_defuncion IS NULL OR causa_defuncion ILIKE 'SE IGNORA' OR causa_defuncion ILIKE 'NO ESPECIFICADO';
+
+UPDATE staging
+SET durante_embarazo = NULL WHERE durante_embarazo IS NULL OR durante_embarazo ILIKE 'NO ESPECIFICADO';
+
+UPDATE staging
+SET causado_embarazo = NULL WHERE causado_embarazo IS NULL OR causado_embarazo ILIKE 'NO ESPECIFICADO' OR causado_embarazo ILIKE 'SE IGNORA';
+
+UPDATE staging
+SET complicacion_embarazo = NULL WHERE complicacion_embarazo IS NULL OR complicacion_embarazo ILIKE 'NO ESPECIFICADO';
+
+UPDATE staging
+SET muerte_accidental_violenta = NULL WHERE muerte_accidental_violenta IS NULL OR muerte_accidental_violenta ILIKE 'SE IGNORA' OR muerte_accidental_violenta ILIKE 'NO ESPECIFICADO';
+
+UPDATE staging
+SET tipo_evento = NULL WHERE tipo_evento IS NULL OR tipo_evento ILIKE 'SE IGNORA';
+
+UPDATE staging
+SET en_trabajo = NULL WHERE en_trabajo IS NULL OR en_trabajo ILIKE 'SE IGNORA';
+
+UPDATE staging
+SET sitio_lesion = NULL WHERE sitio_lesion IS NULL OR sitio_lesion ILIKE 'SE IGNORA' OR sitio_lesion ILIKE 'NO ESPECIFICADO';
+
+UPDATE staging
+SET municipio_ocurrencia = NULL WHERE municipio_ocurrencia IS NULL OR municipio_ocurrencia ILIKE 'SE IGNORA' OR municipio_ocurrencia ILIKE 'NO ESPECIFICADO';
+
+UPDATE staging
+SET fecha_defuncion = NULL WHERE fecha_defuncion IS NULL;
+
+UPDATE staging
+SET edad = NULL WHERE edad IS NULL;
+```
+
