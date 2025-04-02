@@ -219,6 +219,7 @@ ORDER BY COUNT(*) DESC;
 ```
 
 📌 **Resultados:** 
+
 | sexo                | numero_tuplas  |
 |---------------------|----------------|
 | hombre            | 73907   |
@@ -773,7 +774,7 @@ SET ocupacion = CASE
     WHEN ocupacion IN ('TRABAJADORES EN LA ELABORACIÌÒN Y PROCESAMIENTO DE ALIMENTOS, BEBIDAS Y PRODUCTOS DE TABACO') 
          THEN 'Producción de bienes alimenticios y tabaco'
     
-    WHEN ocupacion IN (NULL, 'SE IGNORA') 
+    WHEN ocupacion IN (NULL, 'SE IGNORA', 'NO ESPECIFICADO') 
          THEN NULL
 
     ELSE 'Ocupaciones no especificadas'
