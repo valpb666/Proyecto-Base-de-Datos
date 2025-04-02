@@ -640,3 +640,45 @@ UPDATE staging
 SET edad = NULL WHERE edad IS NULL;
 ```
 
+### • Cambio a Booleanos 
+
+
+```sql
+Se cambiaron los valores de SI a TRUE y de NO, y NO APLICA a FALSE, para mejorar la consistencia y calidad de los datos almacenados en la base de datos.
+UPDATE staging
+SET lengua_indigena = TRUE WHERE lengua_indigena  ILIKE 'SI';
+
+UPDATE staging
+SET lengua_indigena = FALSE WHERE lengua_indigena  ILIKE 'NO' or lengua_indigena ILIKE 'NO APLICA';
+
+UPDATE staging
+SET necropsia = TRUE WHERE necropsia  ILIKE 'SI';
+
+UPDATE staging
+SET necropsia = FALSE WHERE necropsia  ILIKE 'NO';
+
+UPDATE staging
+set atencion_medica = TRUE where atencion_medica ILIKE 'SI';
+
+UPDATE staging
+set atencion_medica = FALSE where atencion_medica ILIKE 'NO';
+
+UPDATE staging
+set muerte_accidental_violenta = TRUE where muerte_accidental_violenta ILIKE 'SI';
+
+UPDATE staging
+set muerte_accidental_violenta = FALSE where muerte_accidental_violenta ILIKE 'NO';
+
+ALTER TABLE staging
+ALTER COLUMN lengua_indigena TYPE BOOLEAN USING lengua_indigena::boolean;
+
+ALTER TABLE staging
+ALTER COLUMN necropsia TYPE BOOLEAN USING necropsia::boolean;
+
+ALTER TABLE staging
+ALTER COLUMN muerte_accidental_violenta TYPE BOOLEAN USING muerte_accidental_violenta::boolean;
+
+ALTER TABLE staging
+ALTER COLUMN atencion_medica TYPE BOOLEAN USING atencion_medica::boolean;
+```
+
