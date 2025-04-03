@@ -780,4 +780,461 @@ SET ocupacion = CASE
     ELSE 'Ocupaciones no especificadas'
     END;
 ```
+### • Agrupar enfermedades (causa de defunción)
+
+Se decidió agrupar las causas de defunción en categorías ya que nos simplifica y facilita su análisis. Dado que la base de datos contiene una gran cantidad de causas específicas que, en muchos casos, pueden resultar redundantes o muy detalladas, se optó por clasificarlas en categorías generales. Esta agrupación permite identificar patrones y tendencias más fácilmente, facilitando la toma de decisiones basadas en datos y garantizando que los análisis sean más comprensibles y manejables. 
+
+```sql
+--LIMPIEZA
+CREATE EXTENSION IF NOT EXISTS unaccent;
+CREATE EXTENSION IF NOT EXISTS fuzzystrmatch;
+
+UPDATE staging
+SET causa_defuncion=unaccent(causa_defuncion);
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%NEUMONIA%';
+
+UPDATE staging
+SET causa_defuncion='ENFERMEDAD PULMONAR' 
+WHERE causa_defuncion ILIKE '%NEUMONIA%'; 
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%PULMONAR%';
+
+UPDATE staging
+SET causa_defuncion='ENFERMEDAD PULMONAR' 
+WHERE causa_defuncion ILIKE '%PULMONAR%'; 
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%BRONQUITIS%';
+
+UPDATE staging
+SET causa_defuncion='ENFERMEDAD PULMONAR' 
+WHERE causa_defuncion ILIKE '%BRONQUITIS%'; 
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%COVID-19%';
+
+UPDATE staging
+SET causa_defuncion='COVID-19' 
+WHERE causa_defuncion ILIKE '%COVID-19%'; 
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%LEUCEMIA%';
+
+UPDATE staging
+SET causa_defuncion='CANCER' 
+WHERE causa_defuncion ILIKE '%LEUCEMIA%'; 
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%TUMOR%';
+
+UPDATE staging
+SET causa_defuncion='CANCER' 
+WHERE causa_defuncion ILIKE '%TUMOR%'; 
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%CARCINOMA%';
+
+UPDATE staging
+SET causa_defuncion='CANCER' 
+WHERE causa_defuncion ILIKE '%CARCINOMA%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%MELANOMA%';
+
+UPDATE staging
+SET causa_defuncion='CANCER' 
+WHERE causa_defuncion ILIKE '%MELANOMA%'; 
+ 
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%INFARTO%';
+
+UPDATE staging
+SET causa_defuncion='INFARTO' 
+WHERE causa_defuncion ILIKE '%INFARTO%'; 
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%DIABETES%';
+
+UPDATE staging
+SET causa_defuncion='DIABETES' 
+WHERE causa_defuncion ILIKE '%DIABETES%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%SINDROME%';
+
+UPDATE staging
+SET causa_defuncion='SINDROME' 
+WHERE causa_defuncion ILIKE '%SINDROME%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%CEREBR%';
+
+UPDATE staging
+SET causa_defuncion='ENFERMEDAD CEREBRAL' 
+WHERE causa_defuncion ILIKE '%CEREBR%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%ALZHEIMER%';
+
+UPDATE staging
+SET causa_defuncion='ENFERMEDAD CEREBRAL' 
+WHERE causa_defuncion ILIKE '%ALZHEIMER%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%DEMENCIA%';
+
+UPDATE staging
+SET causa_defuncion='ENFERMEDAD CEREBRAL' 
+WHERE causa_defuncion ILIKE '%DEMENCIA%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%ANEURI%';
+
+UPDATE staging
+SET causa_defuncion='ENFERMEDAD CEREBRAL' 
+WHERE causa_defuncion ILIKE '%ANEUR%';
+
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%PARKINSON%';
+
+UPDATE staging
+SET causa_defuncion='ENFERMEDAD CEREBRAL' 
+WHERE causa_defuncion ILIKE '%PARKINSON%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%CARDIACA%';
+
+UPDATE staging
+SET causa_defuncion='ENFERMEDAD CARDIACA' 
+WHERE causa_defuncion ILIKE '%CARDIACA%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%FIBRILACIION Y ALETEO VENTRICULAR%';
+
+UPDATE staging
+SET causa_defuncion='ENFERMEDAD CARDIACA' 
+WHERE causa_defuncion ILIKE '%FIBRILACIION Y ALETEO VENTRICULAR%';
+
+
+SELECT LEVENSHTEIN('INFECCIION', 'INFECCION');
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%INFEC%';
+
+UPDATE staging
+SET causa_defuncion='INFECCION' 
+WHERE causa_defuncion ILIKE '%INFEC%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%HEPATITIS%';
+
+UPDATE staging
+SET causa_defuncion='INFECCION' 
+WHERE causa_defuncion ILIKE '%HEPATITIS%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%DESNUTRI%';
+
+UPDATE staging
+SET causa_defuncion='MALA ALIMENTACIÓN' 
+WHERE causa_defuncion ILIKE '%DESNUTRI%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%OBESIDAD%';
+
+UPDATE staging
+SET causa_defuncion='MALA ALIMENTACIÓN' 
+WHERE causa_defuncion ILIKE '%OBESIDAD%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%SEPSIS%';
+
+UPDATE staging
+SET causa_defuncion='SEPSIS' 
+WHERE causa_defuncion ILIKE '%SEPSIS%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%HIDROPESIA%';
+
+UPDATE staging
+SET causa_defuncion='HIDROPESIA' 
+WHERE causa_defuncion ILIKE '%HIDROPESIA%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%HEMORRAGIA%';
+
+UPDATE staging
+SET causa_defuncion='HEMORRAGIA' 
+WHERE causa_defuncion ILIKE '%HEMORRAGIA%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%HEMATEMESIS%';
+
+UPDATE staging
+SET causa_defuncion='HEMORRAGIA' 
+WHERE causa_defuncion ILIKE '%HEMATEMESIS%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%PANCRE%';
+
+UPDATE staging
+SET causa_defuncion='ENFERMEDAD EN EL PANCREAS' 
+WHERE causa_defuncion ILIKE '%PANCRE%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%APENDIC%';
+
+UPDATE staging
+SET causa_defuncion='APENDICITIS' 
+WHERE causa_defuncion ILIKE '%APENDIC%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%GENERALE%';
+
+UPDATE staging
+SET causa_defuncion='SIGNOS GENERALES' 
+WHERE causa_defuncion ILIKE '%GENERALE%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%COLECISTITIS%';
+
+UPDATE staging
+SET causa_defuncion='ENFERMEDAD EN LA VESICULA BILIAR' 
+WHERE causa_defuncion ILIKE '%COLECISTITIS%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%COLANGITIS%';
+
+UPDATE staging
+SET causa_defuncion='ENFERMEDAD EN LA VESICULA BILIAR' 
+WHERE causa_defuncion ILIKE '%COLANGITIS%';
+
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%HERNIA%';
+
+UPDATE staging
+SET causa_defuncion='HERNIA' 
+WHERE causa_defuncion ILIKE '%HERNIA%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%ALCOH%';
+
+UPDATE staging
+SET causa_defuncion='ALCOHOLISMO' 
+WHERE causa_defuncion ILIKE '%ALCOH%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%HEP%';
+
+UPDATE staging
+SET causa_defuncion='ENFERMEDAD HEPATICA'  
+WHERE causa_defuncion ILIKE '%HEP%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%ACCIDENTE%';
+
+UPDATE staging
+SET causa_defuncion='ACCIDENTE' 
+WHERE causa_defuncion ILIKE '%ACCIDENTE%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%RENAL%';
+
+UPDATE staging
+SET causa_defuncion='ENFERMEDAD RENAL' 
+WHERE causa_defuncion ILIKE '%RENAL%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%INTESTINO%';
+
+UPDATE staging
+SET causa_defuncion='ENFERMEDAD EN EL INTESTINO' 
+WHERE causa_defuncion ILIKE '%INTESTINO%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%MUCORMIC%';
+
+UPDATE staging
+SET causa_defuncion='INFECCION' 
+WHERE causa_defuncion ILIKE '%MUCORMIC%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%TROMBOCITOPENIA%';
+
+UPDATE staging
+SET causa_defuncion='HEMORRAGIA' 
+WHERE causa_defuncion ILIKE '%TROMBOCITOPENIA%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%HIGADO%';
+
+
+UPDATE staging
+SET causa_defuncion='ENFERMEDAD EN EL HIGADO' 
+WHERE causa_defuncion ILIKE '%HIGADO%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%MENINGITIS%';
+
+UPDATE staging
+SET causa_defuncion='INFECCION' 
+WHERE causa_defuncion ILIKE '%MENINGITIS%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%EPILEPSIA%';
+
+UPDATE staging
+SET causa_defuncion='ENFERMEDAD CEREBRAL' 
+WHERE causa_defuncion ILIKE '%EPILEPSIA%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%AGRE%';
+
+UPDATE staging
+SET causa_defuncion='AGRESION' 
+WHERE causa_defuncion ILIKE '%AGRE%';
+
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%HIPERPOTASEMIA%';
+
+UPDATE staging
+SET causa_defuncion='SIGNOS GENERALES' 
+WHERE causa_defuncion ILIKE '%HIPERPOTASEMIA%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%PERITONITIS';
+
+UPDATE staging
+SET causa_defuncion='INFECCION' 
+WHERE causa_defuncion ILIKE '%PERITONITIS%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%HIPERTENSI%';
+
+UPDATE staging
+SET causa_defuncion='ENFERMEDAD CARDIACA' 
+WHERE causa_defuncion ILIKE '%HIPERTENSI%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%ABDOMEN AGUDO%';
+
+UPDATE staging
+SET causa_defuncion='SIGNOS GENERALES' 
+WHERE causa_defuncion ILIKE '%ABDOMEN AGUDO%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%ABORTO%';
+
+UPDATE staging
+SET causa_defuncion='COMPLICACIONES EN EL EMBARAZO' 
+WHERE causa_defuncion ILIKE '%ABORTO%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%EMBARAZO%';
+
+UPDATE staging
+SET causa_defuncion='COMPLICACIONES EN EL EMBARAZO' 
+WHERE causa_defuncion ILIKE '%EMBARAZO%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%ABSCESO%';
+
+UPDATE staging
+SET causa_defuncion='ABSCESO' 
+WHERE causa_defuncion ILIKE '%ABSCESO%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%ACONDROPLASIA%';
+
+UPDATE staging
+SET causa_defuncion='SINDROME' 
+WHERE causa_defuncion ILIKE '%ACONDROPLASIA%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%ADHERENCIAS%';
+
+UPDATE staging
+SET causa_defuncion='ADHERENCIAS' 
+WHERE causa_defuncion ILIKE '%ADHERENCIAS%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%HEMORR%';
+
+UPDATE staging
+SET causa_defuncion='HEMORRAGIA' 
+WHERE causa_defuncion ILIKE '%HEMORR%';
+
+SELECT causa_defuncion
+FROM staging
+WHERE causa_defuncion ILIKE '%AGRANULOCITOSIS%';
+
+UPDATE staging
+SET causa_defuncion='INFECCION' 
+WHERE causa_defuncion ILIKE '%AGRANULOCITOSIS%';
+
+
+SELECT causa_defuncion
+FROM staging
+ORDER BY causa_defuncion;
+```
 
