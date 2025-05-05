@@ -2067,29 +2067,29 @@ Después de analizar los datos se encontraron las siguientes dependencias:
 
 #### Dependencias Funcionales no triviales:
 
-**DF1: {municipio_residencia} → {entidad_residencia}**  
+**-DF1: {municipio_residencia} → {entidad_residencia}**  
 Esta dependencia funcional existe porque cada municipio se encuentra ubicado únicamente dentro de una entidad federativa, por lo tanto, al conocer el municipio, se puede determinar sin ambigüedad la entidad de residencia correspondiente.
 
-**DF2: {municipio_ocurrencia} → {entidad_defuncion}**  
+**-DF2: {municipio_ocurrencia} → {entidad_defuncion}**  
 Cada municipio donde ocurre una defunción pertenece a una sola entidad federativa. Esto implica que, dado un municipio de ocurrencia, se puede identificar de forma única la entidad en la que se registró la defunción.
 
-**DF3: {fecha_nacimiento, fecha_defuncion} → {edad}**  
+**-DF3: {fecha_nacimiento, fecha_defuncion} → {edad}**  
 La edad de una persona al fallecer puede calcularse directamente a partir de su fecha de nacimiento y la fecha de su defunción. Esta relación permite determinar la edad sin necesidad de que sea almacenada de manera independiente.
 
-**DF4: {causa_defuncion, durante_embarazo} → {complicacion_embarazo}**  
+**-DF4: {causa_defuncion, durante_embarazo} → {complicacion_embarazo}**  
 La combinación entre una causa específica de defunción y el hecho de que la persona estuviera embarazada permite inferir si hubo una complicación relacionada con el embarazo, lo que define una dependencia entre estos atributos.
 
-**DF5: {alcaldía} → {entidad_defuncion}**  
+**-DF5: {alcaldía} → {entidad_defuncion}**  
 Cada alcaldía pertenece exclusivamente a una entidad federativa. Por ello, con solo conocer la alcaldía en la que ocurrió la defunción, se puede determinar de manera única la entidad correspondiente.
 
-**DF6: {causa_defuncion, tipo_evento} → {muerte_accidental_violenta}**  
+**-DF6: {causa_defuncion, tipo_evento} → {muerte_accidental_violenta}**  
 Ciertas combinaciones entre la causa de defunción y el tipo de evento (como accidente, homicidio, suicidio) permiten determinar si se trata o no de una muerte accidental o violenta. Esta relación expresa una dependencia directa entre esas variables.
 
 
 #### Dependencias Multivaluadas no triviales
 
-**DM1: {sexo, fecha_nacimiento, edad} →→ {causa_defuncion}**  
+**-DM1: {sexo, fecha_nacimiento, edad} →→ {causa_defuncion}**  
 Esta dependencia multivaluada indica que para una misma combinación de sexo, fecha de nacimiento y edad, pueden existir múltiples causas de defunción asociadas. Esto refleja la variedad de posibles causas estadísticas en personas con esas características.
 
-**DM2: {fecha_defuncion, hora_defuncion} →→ {lugar_defuncion}**  
+**-DM2: {fecha_defuncion, hora_defuncion} →→ {lugar_defuncion}**  
 Dado un conjunto específico de fecha y hora de defunción, pueden estar asociadas múltiples ubicaciones posibles donde pudo haber ocurrido el fallecimiento (como hospital, domicilio, vía pública), lo cual establece una dependencia multivaluada.
