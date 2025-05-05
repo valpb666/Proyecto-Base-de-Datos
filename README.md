@@ -2093,3 +2093,32 @@ Esta dependencia multivaluada indica que para una misma combinación de sexo, fe
 
 **-DM2: {fecha_defuncion, hora_defuncion} →→ {lugar_defuncion}**  
 Dado un conjunto específico de fecha y hora de defunción, pueden estar asociadas múltiples ubicaciones posibles donde pudo haber ocurrido el fallecimiento (como hospital, domicilio, vía pública), lo cual establece una dependencia multivaluada.
+
+### • Normalización de los datos hasta cuarta forma normal
+Nos dimos cuenta que la base de datos no tenia ningun atributo que fuera el id de cada persona, por lo que decidimos agregar un id_persona que determina a cada una de las personas, todos los atributos de esa persona. Se decidió agregar este id_persona en la entidad de persona.
+
+Para llegar hasta cuarta forma normal, hicimos:
+
+**-DF1: {municipio_residencia} → {entidad_residencia}** 
+Los atributos que conforman esta dependencia pertenecen a la entidad de Residencia con los atributos siguientes.
+Residencia={municipio_residencia, entidad_residencia}
+	{municipio_residencia}<sup>+</sup>={municipio_residencia, entidad_residencia}
+ Para checar si está en 4FN checaremos si cumple cada una de las formas normales anteriores:
+ 1FN: ¿Todos los atributos contienen valores atómicos? Sí cumple ya que no hay listas ni estructuras repetidas
+ 2FN: ¿Algún atributo no clave depende solo de parte de la clave? Sí cumple ya que no hay clave compuesta
+ 3FN: ¿Hay dependencias transitivas? Sí cumple ya que municipio_residencia es la clave, no hay transitivas
+ BCNF: ¿Todo DF tiene como determinante una superclave? Sí cumple ya que municipio residencia es super clave
+ 4FN: ¿Toda DMV tiene como determinante una superclave? No hay dependencia multivaluada en esta relación
+
+**-DF2: {municipio_ocurrencia} → {entidad_defuncion} y DF5: {alcaldia} → {entidad_defuncion}** 
+
+
+Los atributos que conforman esta dependencia pertenecen a la entidad de Residencia con los atributos siguientes.
+Residencia={municipio_residencia, entidad_residencia}
+	{municipio_residencia}<sup>+</sup>={municipio_residencia, entidad_residencia}
+ Para checar si está en 4FN checaremos si cumple cada una de las formas normales anteriores:
+ 1FN: ¿Todos los atributos contienen valores atómicos? Sí cumple ya que no hay listas ni estructuras repetidas
+ 2FN: ¿Algún atributo no clave depende solo de parte de la clave? Sí cumple ya que no hay clave compuesta
+ 3FN: ¿Hay dependencias transitivas? Sí cumple ya que municipio_residencia es la clave, no hay transitivas
+ BCNF: ¿Todo DF tiene como determinante una superclave? Sí cumple ya que municipio residencia es super clave
+ 4FN: ¿Toda DMV tiene como determinante una superclave? No hay dependencia multivaluada en esta relación
