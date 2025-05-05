@@ -872,7 +872,6 @@ SET ocupacion = CASE
 Se decidió agrupar las causas de defunción en categorías ya que esto simplifica y facilita su análisis. Dado que la base de datos contiene una gran cantidad de causas de muerte específicas que, en muchos casos, pueden resultar redundantes o muy detalladas, se optó por clasificarlas en categorías generales, cuidandonos de no perder información. Esta agrupación permite identificar patrones y tendencias más facilmente, facilitando asi la toma de decisiones basadas en datos y garantizando que los análisis sean más comprensibles y manejables. 
 
 ```sql
---LIMPIEZA
 CREATE EXTENSION IF NOT EXISTS unaccent;
 CREATE EXTENSION IF NOT EXISTS fuzzystrmatch;
 
@@ -1318,11 +1317,6 @@ WHERE causa_defuncion ILIKE '%AGRANULOCITOSIS%';
 UPDATE staging
 SET causa_defuncion='INFECCION' 
 WHERE causa_defuncion ILIKE '%AGRANULOCITOSIS%';
-
-
-SELECT causa_defuncion
-FROM staging
-ORDER BY causa_defuncion;
 ```
 ### • Revisar ubicación residencial (municipio residencia y entidad residencia)
 
