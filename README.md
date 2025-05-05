@@ -2062,3 +2062,23 @@ A partir de los datos contenidos en la base de datos, se decidió dividirlos en 
 | causado_embarazo          |
 | muerte_accidental_violenta|
 
+### • Dependencias funcionales y multivaluadas
+Después de analizar los datos se encontraron las siguientes dependencias:
+
+#### Dependencias Funcionales:
+DF1:{municipio_residencia} → {entidad_residencia}
+
+DF2:{municipio_ocurrencia} → {entidad_defuncion}
+
+DF3:{fecha_nacimiento, fecha_defuncion} → {edad}
+
+DF4:{causa_defuncion, durante_embarazo} → {complicacion_embarazo}
+
+DF5:{alcaldía} → e{ntidad_defuncion}
+
+DF6:{causa_defuncion, tipo_evento} → {muerte_accidental_violenta}
+
+#### Dependencias Multivaluadas:
+DM1:{sexo, fecha_nacimiento, edad} →→ {causa_defuncion}
+
+DM2:{fecha_defuncion, hora_defuncion} →→ {lugar_defuncion}
