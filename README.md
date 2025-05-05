@@ -2117,14 +2117,166 @@ Residencia={municipio_residencia, entidad_residencia}
 | 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | Sí     | Cumple, no hay dependencia multivaluada en esta relación                
 
 **-DF2: {municipio_ocurrencia} → {entidad_defuncion} y DF5: {alcaldia} → {entidad_defuncion}** 
+Los atributos que conforman estas dependencias pertenecen a la entidad de Evento Defunción con los atributos siguientes.
 
+Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, entidad_defuncion, alcaldia}
 
-Los atributos que conforman esta dependencia pertenecen a la entidad de Residencia con los atributos siguientes.
-Residencia={municipio_residencia, entidad_residencia}
-	{municipio_residencia}<sup>+</sup>={municipio_residencia, entidad_residencia}
+{municipio_ocurrencia}<sup>+</sup>={municipio_ocurrencia, entidad_defunción}
+
+{alcaldia}<sup>+</sup>={alcaldia, entidad_defunción}
+
  Para checar si está en 4FN checaremos si cumple cada una de las formas normales anteriores:
- 1FN: ¿Todos los atributos contienen valores atómicos? Sí cumple ya que no hay listas ni estructuras repetidas
- 2FN: ¿Algún atributo no clave depende solo de parte de la clave? Sí cumple ya que no hay clave compuesta
- 3FN: ¿Hay dependencias transitivas? Sí cumple ya que municipio_residencia es la clave, no hay transitivas
- BCNF: ¿Todo DF tiene como determinante una superclave? Sí cumple ya que municipio residencia es super clave
- 4FN: ¿Toda DMV tiene como determinante una superclave? No hay dependencia multivaluada en esta relación
+ 
+| Forma Normal | Pregunta                                                             | Cumple | Justificación                                                                 |
+|--------------|----------------------------------------------------------------------|--------|--------------------------------------------------------------------------------|
+| 1FN          | ¿Todos los atributos contienen valores atómicos?                     | Sí     | Cumple, ya que no hay listas ni estructuras repetidas                        |
+| 2FN          | ¿Algún atributo no clave depende solo de parte de la clave?          | Sí     | Cumple, ya que no hay clave compuesta                                        |
+| 3FN          | ¿Hay dependencias transitivas?                                       | Sí     | Cumple, ya que no hay dependencias transitivas |
+| BCNF         | ¿Toda DF tiene como determinante una superclave?                    | No-Sí     | No es super clave, aplicar Heath                            |
+| 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | Sí     | Cumple, no hay dependencia multivaluada en esta relación                
+Nos dimos cuenta que no se cumplia la forma norma de Boyce_Codd en ninguna de las dos dependencias, por lo que decidimos utilizar el Teroema de Heath para descomponer las dependencias
+	X: {municipio_ocurrencia}   Y: {entidad_defuncion}
+ 
+ 	Evento Defuncion 2={municipio_ocurrencia, entidad_defuncion}
+  
+ 	Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia} (ya no tiene entidad_defunción)
+
+Nos damos cuenta que al aplicar el Teorema de Heath entidada_defuncion ya no esta en la entidad Evento Defuncion, ya no está junto a alcaldía, por lo tanto la dependencia de DF5: {alcaldia} → {entidad_defuncion} ya no existe en la tabla original, lo que indica que no puede violar ninguna forma normal.
+
+**-DF3: {fecha_nacimiento, fecha_defuncion} → {edad}** 
+Los atributos que conforman esta dependencia pertenecen a diferentes entidades, fecha_nacimiento y edad pertenecen a la entidad de Persona y fecha_defuncion pertenece a Evento Defuncion, con los atributos siguientes
+
+Persona={sexo, fecha_nacimiento, nacionalidad, lengua_indígena, estado_civil, escolaridad, ocupación, edad)
+
+Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia} (Recordamos que ya no tiene entidad_defuncion)
+
+Como los atributos de la dependencia funcional estan en diferentes entidades, necesitamos crear una nueva entidad en donde los atributos esten juntos:
+
+Edad={fecha_nacimiento, fecha_defuncion, edad}
+
+ Para checar si esta nueva entidad Edad en 4FN checaremos si cumple cada una de las formas normales anteriores:
+ 
+| Forma Normal | Pregunta                                                             | Cumple | Justificación                                                                 |
+|--------------|----------------------------------------------------------------------|--------|--------------------------------------------------------------------------------|
+| 1FN          | ¿Todos los atributos contienen valores atómicos?                     | Sí     | Cumple, ya que no hay listas ni estructuras repetidas                        |
+| 2FN          | ¿Algún atributo no clave depende solo de parte de la clave?          | Sí     | Cumple, edad depende completamente de ambas                                       |
+| 3FN          | ¿Hay dependencias transitivas?                                       | Sí     | Cumple, ya que no hay dependencias transitivas. |
+| BCNF         | ¿Toda DF tiene como determinante una superclave?                    | Sí     | Cumple ya que es super clave                           |
+| 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | Sí     | Cumple, no hay dependencia multivaluada en esta relación                
+
+Al ver que eta nueva entidad si está en cuarta forma normal, es correcta. Persona ya no necesita contener el atributo edad, ya que ahora va a estar en la nueva entidad de Edad.
+
+Las entidades se verian de la siguiente manera:
+
+Persona={sexo, fecha_nacimiento, nacionalidad, lengua_indígena, estado_civil, escolaridad, ocupación}
+
+Evento Defuncion={fecha_defuncion, hora_defuncion, lugar_defuncion, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia}
+
+Edad={fecha_nacimiento, fecha_defuncion, edad}
+
+**-DF4: {causa_defuncion, durante_embarazo} → {complicacion_embarazo}**  
+Los atributos que conforman esta dependencia pertenecen a la entidad de Muerte con los atributos siguientes.
+
+Muerte={causa_defuncion, durante_embarazo, causado_embarazo, muerte_accidental_violenta, complicacion_embarazo}
+
+{causa_defuncion, durante_embarazo}<sup>+</sup>={causa_defuncion, durante_embarazo, complicacion_embarazo}
+
+ Para checar si está en 4FN checaremos si cumple cada una de las formas normales anteriores:
+ 
+| Forma Normal | Pregunta                                                             | Cumple | Justificación                                                                 |
+|--------------|----------------------------------------------------------------------|--------|--------------------------------------------------------------------------------|
+| 1FN          | ¿Todos los atributos contienen valores atómicos?                     | Sí     | Cumple, ya que no hay listas ni estructuras repetidas                        |
+| 2FN          | ¿Algún atributo no clave depende solo de parte de la clave?          | Sí     | Cumple, ya que no hay clave compuesta                                        |
+| 3FN          | ¿Hay dependencias transitivas?                                       | Sí     | Cumple, ya que no hay dependencias transitivas |
+| BCNF         | ¿Toda DF tiene como determinante una superclave?                    | No-Sí     | No es super clave, aplicar Heath                            |
+| 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | Sí     | Cumple, no hay dependencia multivaluada en esta relación                
+Nos dimos cuenta que no se cumplia la forma norma de Boyce_Codd en esta dependencia, por lo que decidimos utilizar el Teroema de Heath para descomponer la dependencia
+	X: {causa_defuncion, durante_embarazo}   Y: {complicacion_embarazo}
+ 
+ 	Muerte 2={causa_defuncion, durante_embarazo, complicacion_embarazo}
+  
+ 	Muerte={causa_defuncion, durante_embarazo, causado_embarazo, muerte_accidental_violenta}
+
+**-DF6: {causa_defuncion, tipo_evento} → {muerte_accidental_violenta}**  
+Los atributos que conforman esta dependencia pertenecen a dos entidades, los atributos de causa_defuncion y muerte_acidental_violenta pertenecen a la entidad de Muerte y tipo_evento pertence a le entidad de Evento Defuncion, con los atributos siguientes.
+
+Muerte={causa_defuncion, durante_embarazo, causado_embarazo, muerte_accidental_violenta} (recordemos que ya no tiene complicacion embarazo)
+
+Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia} (recordemos que ya no tiene entidad_defunción)
+
+Como los atributos de la dependencia funcional están en diferentes entidades, necesitamos crear una nueva entidad en donde los atributos esten juntos:
+
+Muerte Accidental={causa_defuncion, tipo_evento, muerte_accidental_violenta}
+
+ Para checar si está en 4FN checaremos si cumple cada una de las formas normales anteriores:
+ 
+| Forma Normal | Pregunta                                                             | Cumple | Justificación                                                                 |
+|--------------|----------------------------------------------------------------------|--------|--------------------------------------------------------------------------------|
+| 1FN          | ¿Todos los atributos contienen valores atómicos?                     | Sí     | Cumple, ya que no hay listas ni estructuras repetidas                        |
+| 2FN          | ¿Algún atributo no clave depende solo de parte de la clave?          | Sí     | Cumple, ya que no hay clave compuesta                                        |
+| 3FN          | ¿Hay dependencias transitivas?                                       | Sí     | Cumple, ya que no hay dependencias transitivas |
+| BCNF         | ¿Toda DF tiene como determinante una superclave?                    | Sí     | Cumple, ya que es super clave                           |
+| 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | Sí     | Cumple, no hay dependencia multivaluada en esta relación                
+Al ver que eta nueva entidad si está en cuarta forma normal, es correcta. Muerte ya no necesita contener el atributo muerte_accidental_violenta, ya que ahora va a estar en la nueva entidad de Muerte Accidental.
+
+Las entidades se verian de la siguiente manera:
+
+Muerte={causa_defuncion, durante_embarazo, causado_embarazo}
+
+Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia} (recordemos que ya no tiene entidad_defunción)
+
+Muerte Accidental={causa_defuncion, tipo_evento, muerte_accidental_violenta}
+
+**-DM1: {sexo, fecha_nacimiento, edad} →→ {causa_defuncion}**
+Los atributos que conforman esta dependencia multivaluada pertenecen a varias entidades diferentes, los atributos sexo y fecha de nacimiento pertencen a la entidad de Persona, el atributo de edad pertenece a la nueva entidad de Edad y causa defuncion pertenece a la entidad de Muerte, con los atributos siguientes (después de aplicar todas las dependencias funcionales):
+
+Muerte={causa_defuncion, durante_embarazo, causado_embarazo}
+
+Persona={sexo, fecha_nacimiento, nacionalidad, lengua_indígena, estado_civil, escolaridad, ocupación}
+
+Edad={fecha_nacimiento, fecha_defuncion, edad}
+
+Como los atributos de la dependencia multivaluada están en diferentes entidades, necesitamos crear una nueva entidad en donde los atributos esten juntos:
+
+Sexo Edad Causa={sexo, fecha_nacimiento, edad, causa_defuncion}
+
+ Para checar si está en 4FN checaremos si cumple cada una de las formas normales anteriores:
+ 
+| Forma Normal | Pregunta                                                             | Cumple | Justificación                                                                 |
+|--------------|----------------------------------------------------------------------|--------|--------------------------------------------------------------------------------|
+| 1FN          | ¿Todos los atributos contienen valores atómicos?                     | Sí     | Cumple, ya que no hay listas ni estructuras repetidas                        |
+| 2FN          | ¿Algún atributo no clave depende solo de parte de la clave?          | Sí     | Cumple, ya que no hay clave compuesta                                        |
+| 3FN          | ¿Hay dependencias transitivas?                                       | Sí     | Cumple, ya que no hay dependencias transitivas |
+| BCNF         | ¿Toda DF tiene como determinante una superclave?                    | Sí     | Cumple, es super clave        |
+| 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | No-Sí     | No ya que hay dependencias multivaluadas, aplicamos Fagin
+
+Nos dimos cuena que era una dependencia multivaluada, por lo que aplicamos Teorema Fagin
+	X: {sexo, fecha_nacimiento, edad}   Y: {causa_defuncion}
+ 
+ 	Sexo Edad Causa={sexo, fecha_nacimiento, edad, causa_defuncion}
+  
+ 	Muerte={causa_defuncion, durante_embarazo, causado_embarazo, muerte_accidental_violenta} (se mantiene igual)
+
+**-DM2: {fecha_defuncion, hora_defuncion} →→ {lugar_defuncion}**
+Los atributos que conforman esta dependencia multivaluada pertenecen a la entidad de Evento Defuncion, con los siguientes atributos:
+
+Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia}
+
+{fecha_defuncion, hora_defuncion}<sup>+</sup>={lugar_defuncion}
+
+ Para checar si está en 4FN checaremos si cumple cada una de las formas normales anteriores:
+ 
+| Forma Normal | Pregunta                                                             | Cumple | Justificación                                                                 |
+|--------------|----------------------------------------------------------------------|--------|--------------------------------------------------------------------------------|
+| 1FN          | ¿Todos los atributos contienen valores atómicos?                     | Sí     | Cumple, ya que no hay listas ni estructuras repetidas                        |
+| 2FN          | ¿Algún atributo no clave depende solo de parte de la clave?          | Sí     | Cumple, ya que no hay clave compuesta                                        |
+| 3FN          | ¿Hay dependencias transitivas?                                       | Sí     | Cumple, ya que no hay dependencias transitivas |
+| BCNF         | ¿Toda DF tiene como determinante una superclave?                    | Sí     | Cumple, es super clave        |
+| 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | No-Sí     | No ya que hay dependencias multivaluadas, aplicamos Fagin
+
+Nos dimos cuena que era una dependencia multivaluada, por lo que aplicamos Teorema Fagin
+	X: {fecha_defuncion, hora_defuncion}   Y: {lugar_defuncion}
+ 
+ 	Fecha Hora Lugar={fecha_defuncion, hora_defuncion, lugar_defuncion}
+  
+ 	Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia} (se mantiene igual)
