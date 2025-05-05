@@ -556,6 +556,63 @@ ORDER BY municipio_residencia;
 📌 **Resultados:**  
 Se obutiveron varias inconsistencias, las siguientes:
 
+| municipio_residencia                | entidades_distintas  |
+|------------------------|--------|
+|10 DE ABRIL	|2|
+|ACAJETE	|2|
+|ACAYUCAN	|2|
+|ACTOPAN	|2|
+|AGUA BENDITA	|2|
+|AGUA DULCE	|4|
+|AGUA ZARCA	|2|
+|ALVARO OBREGON	|3|
+|AMATEPEC	|2|
+|AZCAPOTZALCO|	7|
+|BARRIO DE GUADALUPE|	2|
+|BENITO JUAREZ	|7|
+|BUENAVISTA	|2|
+|COYOACAN	|3|
+|CRUZ BLANCA|	2|
+|CUAUHTEMOC|	7|
+|CUAUTEPEC|	2|
+|DOS RIOS|	2|
+|EL ARENAL	|2|
+|EL CARMEN	|2|
+|EMILIANO ZAPATA|	3|	
+|GUADALUPE VICTORIA|	3|
+|GUSTAVO A. MADERO|	3|
+|IZTACALCO	|2|
+|LA LOMA	|2|
+|LA NOPALERA	|2|
+|LA PAZ	2|
+|METEPEC|	3|
+|NINGUNO|	8|
+|OJO DE AGUA|	2|
+|PAPALOTLA|	2|
+|PARACUARO|	2|
+|PIEDRAS NEGRAS|	2|
+|SAN AGUSTIN|	2|
+|SAN FELIPE|	3|
+|SAN FERNANDO	|2|
+|SAN ISIDRO	|2|
+|SAN MARCOS	|2|
+|SAN MIGUEL	|3|
+|SANTA CLARA	|2|
+|TECAMACHALCO	|2|
+|TENANGO	|2|
+|TEPETITLAN	|2|
+TEPETZINTLA	|2|
+|TLALNEPANTLA	|2|
+|TLAXCO	|2|
+|TONALA	|2|
+|TUXPAN	|3|
+|VENUSTIANO CARRANZA	|2|
+|VILLA CUAUHTEMOC	|2|
+|XICO	|2|
+|ZACUALPAN	|2|
+|ZARAGOZA	|3|
+|NULL	|32|
+
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
 ### 14. **Inconsistencias entre entidad de defuncion y alcaldia**
