@@ -2134,12 +2134,13 @@ Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_even
 | 3FN          | ¿Hay dependencias transitivas?                                       | Sí     | Cumple, ya que no hay dependencias transitivas |
 | BCNF         | ¿Toda DF tiene como determinante una superclave?                    | No-Sí     | No es super clave, aplicar Heath                            |
 | 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | Sí     | Cumple, no hay dependencia multivaluada en esta relación                
+
 Nos dimos cuenta que no se cumplia la forma norma de Boyce_Codd en ninguna de las dos dependencias, por lo que decidimos utilizar el Teroema de Heath para descomponer las dependencias
-	X: {municipio_ocurrencia}   Y: {entidad_defuncion}
+X: {municipio_ocurrencia}   Y: {entidad_defuncion}
  
- 	Evento Defuncion 2={municipio_ocurrencia, entidad_defuncion}
+ Evento Defuncion 2={municipio_ocurrencia, entidad_defuncion}
   
- 	Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia} (ya no tiene entidad_defunción)
+ Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia} (ya no tiene entidad_defunción)
 
 Nos damos cuenta que al aplicar el Teorema de Heath entidada_defuncion ya no esta en la entidad Evento Defuncion, ya no está junto a alcaldía, por lo tanto la dependencia de DF5: {alcaldia} → {entidad_defuncion} ya no existe en la tabla original, lo que indica que no puede violar ninguna forma normal.
 
@@ -2190,12 +2191,13 @@ Muerte={causa_defuncion, durante_embarazo, causado_embarazo, muerte_accidental_v
 | 3FN          | ¿Hay dependencias transitivas?                                       | Sí     | Cumple, ya que no hay dependencias transitivas |
 | BCNF         | ¿Toda DF tiene como determinante una superclave?                    | No-Sí     | No es super clave, aplicar Heath                            |
 | 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | Sí     | Cumple, no hay dependencia multivaluada en esta relación                
+
 Nos dimos cuenta que no se cumplia la forma norma de Boyce_Codd en esta dependencia, por lo que decidimos utilizar el Teroema de Heath para descomponer la dependencia
-	X: {causa_defuncion, durante_embarazo}   Y: {complicacion_embarazo}
+X: {causa_defuncion, durante_embarazo}   Y: {complicacion_embarazo}
  
- 	Muerte 2={causa_defuncion, durante_embarazo, complicacion_embarazo}
+ Muerte 2={causa_defuncion, durante_embarazo, complicacion_embarazo}
   
- 	Muerte={causa_defuncion, durante_embarazo, causado_embarazo, muerte_accidental_violenta}
+ Muerte={causa_defuncion, durante_embarazo, causado_embarazo, muerte_accidental_violenta}
 
 **-DF6: {causa_defuncion, tipo_evento} → {muerte_accidental_violenta}**  
 Los atributos que conforman esta dependencia pertenecen a dos entidades, los atributos de causa_defuncion y muerte_acidental_violenta pertenecen a la entidad de Muerte y tipo_evento pertence a le entidad de Evento Defuncion, con los atributos siguientes.
@@ -2217,6 +2219,7 @@ Muerte Accidental={causa_defuncion, tipo_evento, muerte_accidental_violenta}
 | 3FN          | ¿Hay dependencias transitivas?                                       | Sí     | Cumple, ya que no hay dependencias transitivas |
 | BCNF         | ¿Toda DF tiene como determinante una superclave?                    | Sí     | Cumple, ya que es super clave                           |
 | 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | Sí     | Cumple, no hay dependencia multivaluada en esta relación                
+
 Al ver que eta nueva entidad si está en cuarta forma normal, es correcta. Muerte ya no necesita contener el atributo muerte_accidental_violenta, ya que ahora va a estar en la nueva entidad de Muerte Accidental.
 
 Las entidades se verian de la siguiente manera:
@@ -2250,12 +2253,13 @@ Sexo Edad Causa={sexo, fecha_nacimiento, edad, causa_defuncion}
 | BCNF         | ¿Toda DF tiene como determinante una superclave?                    | Sí     | Cumple, es super clave        |
 | 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | No-Sí     | No ya que hay dependencias multivaluadas, aplicamos Fagin
 
+
 Nos dimos cuena que era una dependencia multivaluada, por lo que aplicamos Teorema Fagin
-	X: {sexo, fecha_nacimiento, edad}   Y: {causa_defuncion}
+X: {sexo, fecha_nacimiento, edad}   Y: {causa_defuncion}
  
- 	Sexo Edad Causa={sexo, fecha_nacimiento, edad, causa_defuncion}
+ Sexo Edad Causa={sexo, fecha_nacimiento, edad, causa_defuncion}
   
- 	Muerte={causa_defuncion, durante_embarazo, causado_embarazo, muerte_accidental_violenta} (se mantiene igual)
+ Muerte={causa_defuncion, durante_embarazo, causado_embarazo, muerte_accidental_violenta} (se mantiene igual)
 
 **-DM2: {fecha_defuncion, hora_defuncion} →→ {lugar_defuncion}**
 Los atributos que conforman esta dependencia multivaluada pertenecen a la entidad de Evento Defuncion, con los siguientes atributos:
@@ -2275,8 +2279,8 @@ Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_even
 | 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | No-Sí     | No ya que hay dependencias multivaluadas, aplicamos Fagin
 
 Nos dimos cuena que era una dependencia multivaluada, por lo que aplicamos Teorema Fagin
-	X: {fecha_defuncion, hora_defuncion}   Y: {lugar_defuncion}
+X: {fecha_defuncion, hora_defuncion}   Y: {lugar_defuncion}
  
- 	Fecha Hora Lugar={fecha_defuncion, hora_defuncion, lugar_defuncion}
+ Fecha Hora Lugar={fecha_defuncion, hora_defuncion, lugar_defuncion}
   
- 	Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia} (se mantiene igual)
+ Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia} (se mantiene igual)
