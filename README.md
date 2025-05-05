@@ -2100,6 +2100,7 @@ Nos dimos cuenta que la base de datos no tenia ningun atributo que fuera el id d
 Para llegar hasta cuarta forma normal, hicimos:
 
 **-DF1: {municipio_residencia} → {entidad_residencia}** 
+
 Los atributos que conforman esta dependencia pertenecen a la entidad de Residencia con los atributos siguientes.
 
 Residencia={municipio_residencia, entidad_residencia}
@@ -2117,6 +2118,7 @@ Residencia={municipio_residencia, entidad_residencia}
 | 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | Sí     | Cumple, no hay dependencia multivaluada en esta relación                
 
 **-DF2: {municipio_ocurrencia} → {entidad_defuncion} y DF5: {alcaldia} → {entidad_defuncion}** 
+
 Los atributos que conforman estas dependencias pertenecen a la entidad de Evento Defunción con los atributos siguientes.
 
 Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, entidad_defuncion, alcaldia}
@@ -2142,9 +2144,10 @@ X: {municipio_ocurrencia}   Y: {entidad_defuncion}
   
  Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia} (ya no tiene entidad_defunción)
 
-Nos damos cuenta que al aplicar el Teorema de Heath entidada_defuncion ya no esta en la entidad Evento Defuncion, ya no está junto a alcaldía, por lo tanto la dependencia de DF5: {alcaldia} → {entidad_defuncion} ya no existe en la tabla original, lo que indica que no puede violar ninguna forma normal.
+Nos damos cuenta que al aplicar el Teorema de Heath entidada_defuncion ya no esta en la entidad Evento Defuncion, ya no estan los atributos alcaldia y entidad_defuncion en la misma entidad, por lo tanto la dependencia de DF5: {alcaldia} → {entidad_defuncion} ya no existe en la tabla original, lo que indica que no puede violar ninguna forma normal.
 
 **-DF3: {fecha_nacimiento, fecha_defuncion} → {edad}** 
+
 Los atributos que conforman esta dependencia pertenecen a diferentes entidades, fecha_nacimiento y edad pertenecen a la entidad de Persona y fecha_defuncion pertenece a Evento Defuncion, con los atributos siguientes
 
 Persona={sexo, fecha_nacimiento, nacionalidad, lengua_indígena, estado_civil, escolaridad, ocupación, edad)
@@ -2176,6 +2179,7 @@ Evento Defuncion={fecha_defuncion, hora_defuncion, lugar_defuncion, tipo_evento,
 Edad={fecha_nacimiento, fecha_defuncion, edad}
 
 **-DF4: {causa_defuncion, durante_embarazo} → {complicacion_embarazo}**  
+
 Los atributos que conforman esta dependencia pertenecen a la entidad de Muerte con los atributos siguientes.
 
 Muerte={causa_defuncion, durante_embarazo, causado_embarazo, muerte_accidental_violenta, complicacion_embarazo}
@@ -2199,7 +2203,8 @@ X: {causa_defuncion, durante_embarazo}   Y: {complicacion_embarazo}
   
  Muerte={causa_defuncion, durante_embarazo, causado_embarazo, muerte_accidental_violenta}
 
-**-DF6: {causa_defuncion, tipo_evento} → {muerte_accidental_violenta}**  
+**-DF6: {causa_defuncion, tipo_evento} → {muerte_accidental_violenta}** 
+
 Los atributos que conforman esta dependencia pertenecen a dos entidades, los atributos de causa_defuncion y muerte_acidental_violenta pertenecen a la entidad de Muerte y tipo_evento pertence a le entidad de Evento Defuncion, con los atributos siguientes.
 
 Muerte={causa_defuncion, durante_embarazo, causado_embarazo, muerte_accidental_violenta} (recordemos que ya no tiene complicacion embarazo)
@@ -2231,6 +2236,7 @@ Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_even
 Muerte Accidental={causa_defuncion, tipo_evento, muerte_accidental_violenta}
 
 **-DM1: {sexo, fecha_nacimiento, edad} →→ {causa_defuncion}**
+
 Los atributos que conforman esta dependencia multivaluada pertenecen a varias entidades diferentes, los atributos sexo y fecha de nacimiento pertencen a la entidad de Persona, el atributo de edad pertenece a la nueva entidad de Edad y causa defuncion pertenece a la entidad de Muerte, con los atributos siguientes (después de aplicar todas las dependencias funcionales):
 
 Muerte={causa_defuncion, durante_embarazo, causado_embarazo}
@@ -2262,6 +2268,7 @@ X: {sexo, fecha_nacimiento, edad}   Y: {causa_defuncion}
  Muerte={causa_defuncion, durante_embarazo, causado_embarazo, muerte_accidental_violenta} (se mantiene igual)
 
 **-DM2: {fecha_defuncion, hora_defuncion} →→ {lugar_defuncion}**
+
 Los atributos que conforman esta dependencia multivaluada pertenecen a la entidad de Evento Defuncion, con los siguientes atributos:
 
 Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia}
