@@ -2104,14 +2104,18 @@ Los atributos que conforman esta dependencia pertenecen a la entidad de Residenc
 
 Residencia={municipio_residencia, entidad_residencia}
 
-	{municipio_residencia}<sup>+</sup>={municipio_residencia, entidad_residencia}
+{municipio_residencia}<sup>+</sup>={municipio_residencia, entidad_residencia}
  
  Para checar si está en 4FN checaremos si cumple cada una de las formas normales anteriores:
  
  1FN: ¿Todos los atributos contienen valores atómicos? Sí cumple ya que no hay listas ni estructuras repetidas
+ 
  2FN: ¿Algún atributo no clave depende solo de parte de la clave? Sí cumple ya que no hay clave compuesta
+ 
  3FN: ¿Hay dependencias transitivas? Sí cumple ya que municipio_residencia es la clave, no hay transitivas
+ 
  BCNF: ¿Todo DF tiene como determinante una superclave? Sí cumple ya que municipio residencia es super clave
+ 
  4FN: ¿Toda DMV tiene como determinante una superclave? No hay dependencia multivaluada en esta relación
 
 **-DF2: {municipio_ocurrencia} → {entidad_defuncion} y DF5: {alcaldia} → {entidad_defuncion}** 
