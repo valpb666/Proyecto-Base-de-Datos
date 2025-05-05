@@ -546,11 +546,11 @@ No obtuvimos ninguna inconsistencia, todas las fechas son iguales en ambas colum
 ### 13. **Inconsistencias entre los municipios residenciales y las entidades residenciales**
 Para checar si hay algun municipio que tenga varias entidades residenciales, ejecutamos:
 ```sql
-SELECT municipio_ocurrencia, COUNT(DISTINCT entidad_defuncion) AS entidades_distintas
+SELECT municipio_residencia, COUNT(DISTINCT entidad_residencia) AS entidades_distintas
 FROM staging
-GROUP BY municipio_ocurrencia
-HAVING COUNT(DISTINCT entidad_defuncion) > 1
-ORDER BY municipio_ocurrencia;
+GROUP BY municipio_residencia
+HAVING COUNT(DISTINCT entidad_residencia) > 1
+ORDER BY municipio_residencia;
 ```
 ----------------------------------------------------------------------------------------------------------------------------------------------
 📌 **Resultados:**  
