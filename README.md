@@ -2101,9 +2101,13 @@ Para llegar hasta cuarta forma normal, hicimos:
 
 **-DF1: {municipio_residencia} → {entidad_residencia}** 
 Los atributos que conforman esta dependencia pertenecen a la entidad de Residencia con los atributos siguientes.
+
 Residencia={municipio_residencia, entidad_residencia}
+
 	{municipio_residencia}<sup>+</sup>={municipio_residencia, entidad_residencia}
+ 
  Para checar si está en 4FN checaremos si cumple cada una de las formas normales anteriores:
+ 
  1FN: ¿Todos los atributos contienen valores atómicos? Sí cumple ya que no hay listas ni estructuras repetidas
  2FN: ¿Algún atributo no clave depende solo de parte de la clave? Sí cumple ya que no hay clave compuesta
  3FN: ¿Hay dependencias transitivas? Sí cumple ya que municipio_residencia es la clave, no hay transitivas
