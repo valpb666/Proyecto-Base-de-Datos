@@ -543,6 +543,36 @@ WHERE fecha_defuncion1!=fecha_defuncion;
 📌 **Resultados:**  
 No obtuvimos ninguna inconsistencia, todas las fechas son iguales en ambas columnas.
 
+### 13. **Inconsistencias entre los municipios residenciales y las entidaes residenciales**
+Para checar si hay algun municipio que tenga varias entidades residenciales, ejecutamos:
+```sql
+SELECT municipio_ocurrencia, COUNT(DISTINCT entidad_defuncion) AS entidades_distintas
+FROM staging
+GROUP BY municipio_ocurrencia
+HAVING COUNT(DISTINCT entidad_defuncion) > 1
+ORDER BY municipio_ocurrencia;
+```
+----------------------------------------------------------------------------------------------------------------------------------------------
+📌 **Resultados:**  
+Se obutiveron varias inconsistencias, las siguientes:
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+### 14. **Inconsistencias entre entidad defuncion y alcaldia**
+Para checar si hay alguna alcaldia que tenga varias entidades de defuncion, ejecutamos:
+```sql
+SELECT 
+    alcaldia, 
+    COUNT(DISTINCT entidad_defuncion) AS entidades_distintas
+FROM staging
+WHERE alcaldia IS NOT NULL AND entidad_defuncion IS NOT NULL
+GROUP BY alcaldia
+HAVING COUNT(DISTINCT entidad_defuncion) > 1;
+```
+
+📌 **Resultados:**  
+No obtuvimos ninguna inconsistencia, todas las alcaldias solo tienen una entidad de defuncion.
+
 ## 🧹 Limpieza de datos
 
 ### • Actualización de Valores Nulos
