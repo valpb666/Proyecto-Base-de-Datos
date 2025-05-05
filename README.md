@@ -565,7 +565,6 @@ SELECT
     alcaldia, 
     COUNT(DISTINCT entidad_defuncion) AS entidades_distintas
 FROM staging
-WHERE alcaldia IS NOT NULL AND entidad_defuncion IS NOT NULL
 GROUP BY alcaldia
 HAVING COUNT(DISTINCT entidad_defuncion) > 1;
 ```
@@ -2006,4 +2005,60 @@ UPDATE staging
 SET complicacion_embarazo='NO'
 WHERE durante_embarazo ILIKE 'NO ESTUVO EMBARAZADA%' AND complicacion_embarazo ILIKE 'SI';
 ```
+
+## Normalización de datos
+
+### • Entidades intuitivas
+A partir de los datos contenidos en la base de datos, se decidió dividirlos en las siguientes entidades:
+
+# Entidad: Persona
+| Persona           |
+|-------------------|
+| id_persona        |
+| sexo              |
+| fecha_nacimiento  |
+| nacionalidad      |
+| lengua_indígena   |
+| estado_civil      |
+| escolaridad       |
+| ocupación         |
+| edad              |
+
+# Entidad: Residencia
+| Residencia             |
+|------------------------|
+| id_persona (clave foránea) |
+| municipio_residencia   |
+| entidad_residencia     |
+
+# Entidad: Evento Defunción
+| Evento Defunción       |
+|------------------------|
+| id_evento              |
+| fecha_defuncion        |
+| hora_defuncion         |
+| lugar_defuncion        |
+| tipo_evento            |
+| en_trabajo             |
+| sitio_lesion           |
+| municipio_ocurrencia   |
+| entidad_defuncion      |
+| alcaldía               |
+
+# Entidad: Atención Médica
+| Atención Médica    |
+|--------------------|
+| id_atencion        |
+| afiliación_medica  |
+| atención_medica    |
+| necropsia          |
+
+# Entidad: Muerte
+| Muerte                    |
+|---------------------------|
+| id_muerte                 |
+| causa_defuncion           |
+| durante_embarazo          |
+| causado_embarazo          |
+| muerte_accidental_violenta|
 
