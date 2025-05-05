@@ -2360,7 +2360,7 @@ A partir de las entidades que generamos intuitivamente y las dependenciales func
 #### Entidad: Persona
 | Persona           |
 |-------------------|
-| id_persona        |
+| id                |
 | sexo              |
 | fecha_nacimiento  |
 | nacionalidad      |
@@ -2451,3 +2451,165 @@ A partir de las entidades que generamos intuitivamente y las dependenciales func
 | id_defuncion_ocurrencia   |
 | municipio_ocurrencia      |
 | entidad_defuncion         |
+
+### • Creación de tablas en SQL
+Dado que ambas columnas de fecha_defuncion contienen valores idénticos, se optó por ignorar la segunda y utilizar únicamente una de ellas para el modelado.
+
+```sql
+ALTER TABLE staging ADD COLUMN id BIGSERIAL NOT NULL;
+
+DROP TABLE IF EXISTS persona;
+CREATE TABLE persona(
+	id BIGSERIAL PRIMARY KEY,
+	sexo VARCHAR (10),
+	fecha_nacimiento DATE,
+	nacionalidad VARCHAR (50),
+	lengua_indigena BOOLEAN, 
+	estado_civil VARCHAR(50),
+	escolaridad VARCHAR(200),
+	ocupacion VARCHAR(200),
+	id_staging BIGINT--Solo se va a usar para la relación, después se eliminará
+);
+
+INSERT INTO persona(sexo, fecha_nacimiento, nacionalidad, lengua_indigena, estado_civil, escolaridad, ocupacion, id_staging)
+SELECT sexo, fecha_nacimiento, nacionalidad, lengua_indigena, estado_civil, escolaridad, ocupacion, id
+FROM staging;
+
+CREATE TABLE residencia(
+	id BIGSERIAL PRIMARY KEY,
+	id_persona BIGINT NOT NULL CONSTRAINT fk_id_persona REFERENCES persona(id),
+	municipio_residencia VARCHAR(200),
+	entidad_residencia VARCHAR(200)
+);
+
+INSERT INTO residencia(id_persona, municipio_residencia, entidad_residencia)
+SELECT persona.id, municipio_residencia, entidad_residencia
+FROM staging
+JOIN persona ON staging.id = persona.id_staging;
+
+DROP TABLE IF EXISTS evento_defuncion;
+CREATE TABLE evento_defuncion(
+	id BIGSERIAL PRIMARY KEY,
+	id_persona BIGINT NOT NULL CONSTRAINT fk_id_persona REFERENCES persona(id),
+	fecha_defuncion DATE NOT NULL,
+	hora_defuncion TIME,
+	lugar_defuncion VARCHAR(500),
+	tipo_evento VARCHAR(500),
+	en_trabajo BOOLEAN DEFAULT FALSE, 
+	sitio_lesion VARCHAR(500),
+	municipio_ocurrencia VARCHAR(500),
+	alcaldia VARCHAR(500),
+	id_residencia BIGINT NOT NULL CONSTRAINT fk_id_residencia REFERENCES residencia(id)
+);
+
+INSERT INTO evento_defuncion(id_persona, fecha_defuncion, hora_defuncion, lugar_defuncion, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia, id_residencia)
+SELECT persona.id, fecha_defuncion, hora_defuncion, lugar_defuncion, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia, residencia.id
+FROM staging
+JOIN persona ON staging.id = persona.id_staging
+JOIN residencia ON persona.id = residencia.id_persona;
+
+DROP TABLE IF EXISTS evento_medico;
+CREATE TABLE atencion_medica(
+	id BIGSERIAL PRIMARY KEY,
+	id_persona BIGINT NOT NULL CONSTRAINT fk_id_persona REFERENCES persona(id),
+	afiliacion_medica VARCHAR(500),
+	atencion_medica BOOLEAN DEFAULT FALSE,
+	necropsia BOOLEAN DEFAULT FALSE
+);
+
+INSERT INTO atencion_medica(id_persona, afiliacion_medica, atencion_medica, necropsia)
+SELECT persona.id, afiliacion_medica, atencion_medica, necropsia
+FROM staging
+JOIN persona ON staging.id = persona.id_staging;
+
+CREATE TABLE muerte(
+	id BIGSERIAL PRIMARY KEY,
+	id_persona BIGINT CONSTRAINT fk_id_persona REFERENCES persona(id),
+	causa_defuncion VARCHAR(500),
+	durante_embarazo VARCHAR(500),
+	causado_embarazo VARCHAR (500)
+);
+
+INSERT INTO muerte(id_persona, causa_defuncion, durante_embarazo, causado_embarazo)
+SELECT persona.id, causa_defuncion, durante_embarazo, causado_embarazo
+FROM staging
+JOIN persona ON staging.id = persona.id_staging;
+
+CREATE TABLE edad(
+	id BIGSERIAL PRIMARY KEY,
+	id_persona BIGINT NOT NULL CONSTRAINT fk_id_persona REFERENCES persona(id),
+	fecha_nacimiento DATE,
+	fecha_defuncion DATE,
+	edad SMALLINT
+);
+
+INSERT INTO edad(id_persona, fecha_nacimiento, fecha_defuncion, edad)
+SELECT persona.id, staging.fecha_nacimiento, fecha_defuncion, edad 
+FROM staging
+JOIN persona ON staging.id = persona.id_staging;
+
+CREATE TABLE sexo_edad_causa(
+	id BIGSERIAL PRIMARY KEY,
+	id_persona BIGINT NOT NULL CONSTRAINT fk_id_persona REFERENCES persona(id),
+	sexo VARCHAR(10),
+	fecha_nacimiento DATE,
+	edad SMALLINT,
+	causa_defuncion VARCHAR(500)
+);
+
+INSERT INTO sexo_edad_causa(id_persona, sexo, fecha_nacimiento, edad, causa_defuncion)
+SELECT persona.id, staging.sexo, staging.fecha_nacimiento, edad, causa_defuncion
+FROM staging
+JOIN persona ON staging.id = persona.id_staging;
+
+CREATE TABLE fecha_hora_lugar(
+	id BIGSERIAL PRIMARY KEY,
+	id_persona BIGINT NOT NULL CONSTRAINT fk_id_persona REFERENCES persona(id),
+	fecha_defuncion DATE,
+	hora_defuncion TIME,
+	lugar_defuncion VARCHAR(500)
+);
+
+INSERT INTO fecha_hora_lugar(id_persona, fecha_defuncion, hora_defuncion, lugar_defuncion)
+SELECT persona.id, fecha_defuncion, hora_defuncion, lugar_defuncion
+FROM staging
+JOIN persona ON staging.id = persona.id_staging;
+
+CREATE TABLE muerte_accidental(
+	id BIGSERIAL PRIMARY KEY,
+	id_persona BIGINT NOT NULL CONSTRAINT fk_id_persona REFERENCES persona(id),
+	causa_defuncion VARCHAR(500),
+	tipo_evento VARCHAR(500),
+	muerte_accidental_violenta BOOLEAN
+);
+
+INSERT INTO muerte_accidental(id_persona, causa_defuncion, tipo_evento, muerte_accidental_violenta)
+SELECT persona.id, causa_defuncion, tipo_evento, muerte_accidental_violenta
+FROM staging
+JOIN persona ON staging.id = persona.id_staging;
+
+
+CREATE TABLE muerte_embarazo(
+	id BIGSERIAL PRIMARY KEY,
+	id_persona BIGINT NOT NULL CONSTRAINT fk_id_persona REFERENCES persona(id),
+	durante_embarazo VARCHAR(500),
+	complicacion_embarazo VARCHAR(100)
+);
+
+INSERT INTO muerte_embarazo(id_persona, durante_embarazo, complicacion_embarazo)
+SELECT persona.id, durante_embarazo, complicacion_embarazo
+FROM staging
+JOIN persona ON staging.id = persona.id_staging;
+
+CREATE TABLE defuncion_ocurrencia(
+	id BIGSERIAL PRIMARY KEY,
+	id_persona BIGINT NOT NULL CONSTRAINT fk_id_persona REFERENCES persona(id),
+	municipio_ocurrencia VARCHAR(500),
+	entidad_defuncion VARCHAR(500)
+);
+
+INSERT INTO defuncion_ocurrencia(id_persona, municipio_ocurrencia, entidad_defuncion)
+SELECT persona.id, municipio_ocurrencia, entidad_defuncion
+FROM staging
+JOIN persona ON staging.id = persona.id_staging;
+```
