@@ -2024,13 +2024,6 @@ A partir de los datos contenidos en la base de datos, se decidió dividirlos en 
 | ocupación         |
 | edad              |
 
-#### Entidad: Residencia
-| Residencia             |
-|------------------------|
-| id_persona (clave foránea) |
-| municipio_residencia   |
-| entidad_residencia     |
-
 #### Entidad: Evento Defunción
 | Evento Defunción       |
 |------------------------|
@@ -2060,6 +2053,7 @@ A partir de los datos contenidos en la base de datos, se decidió dividirlos en 
 | causa_defuncion           |
 | durante_embarazo          |
 | causado_embarazo          |
+| complicacion_embarazo     |
 | muerte_accidental_violenta|
 
 ### • Dependencias funcionales y multivaluadas
@@ -2291,3 +2285,101 @@ X: {fecha_defuncion, hora_defuncion}   Y: {lugar_defuncion}
  Fecha Hora Lugar={fecha_defuncion, hora_defuncion, lugar_defuncion}
   
  Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia} (se mantiene igual)
+
+ ### • Entidades finales
+A partir de las entidades que generamos intuitivamente y las dependenciales funcionales y multivaluadas que encontramos normalizamod los datos y llegamos a las siguientes entidades:
+
+#### Entidad: Persona
+| Persona           |
+|-------------------|
+| id_persona        |
+| sexo              |
+| fecha_nacimiento  |
+| nacionalidad      |
+| lengua_indígena   |
+| estado_civil      |
+| escolaridad       |
+| ocupación         |
+
+#### Entidad: Residencia
+| Residencia             |
+|------------------------|
+| id_persona (clave foránea) |
+| municipio_residencia   |
+| entidad_residencia     |
+
+#### Entidad: Evento Defunción
+| Evento Defunción       |
+|------------------------|
+| id_evento              |
+| fecha_defuncion        |
+| hora_defuncion         |
+| lugar_defuncion        |
+| tipo_evento            |
+| en_trabajo             |
+| sitio_lesion           |
+| municipio_ocurrencia   |
+| alcaldía               |
+ 
+#### Entidad: Atención Médica
+| Atención Médica    |
+|--------------------|
+| id_atencion        |
+| afiliación_medica  |
+| atención_medica    |
+| necropsia          |
+
+#### Entidad: Muerte
+| Muerte                    |
+|---------------------------|
+| id_muerte                 |
+| causa_defuncion           |
+| durante_embarazo          |
+| causado_embarazo          |
+
+#### Entidad: Edad
+| Edad                      |
+|---------------------------|
+| id_edad                   |
+| fecha_nacimiento          |
+| fecha_defuncion           |
+| edad                      |
+
+#### Entidad: SexoEdadCausa
+| SexoEdadCausa             |
+|---------------------------|
+| id_sexo_edad_causa        |
+| sexo                      |
+| fecha_nacimiento          |
+| edad                      |
+| causa_defuncion           |
+
+#### Entidad: FechaHoraLugar
+| FechaHoraLugar            |
+|---------------------------|
+| id_fecha_hora_lugar       |
+| fecha_defuncion           |
+| hora_defuncion            |
+| lugar_defuncion           |
+
+#### Entidad: MuerteAccidental
+| MuerteAccidental          |
+|---------------------------|
+| id_muerte_accidental      |
+| causa_defuncion           |
+| tipo_evento               |
+| muerte_accidental_violenta|
+
+#### Entidad: MuerteEmbarazo
+| MuerteAccidental          |
+|---------------------------|
+| id_muerte_embarazo        |
+| durante_embarazo          |
+| complicacion_embarazo     |
+
+#### Entidad: DefuncionOcurrencia
+| DefuncionOcurrencia       |
+|---------------------------|
+| id_defuncion_ocurrencia   |
+| municipio_ocurrencia      |
+| entidad_defuncion         |
