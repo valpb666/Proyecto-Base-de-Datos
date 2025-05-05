@@ -2024,6 +2024,13 @@ A partir de los datos contenidos en la base de datos, se decidió dividirlos en 
 | ocupación         |
 | edad              |
 
+#### Entidad: Residencia
+| Residencia             |
+|------------------------|
+| id_persona (clave foránea) |
+| municipio_residencia   |
+| entidad_residencia     |
+
 #### Entidad: Evento Defunción
 | Evento Defunción       |
 |------------------------|
