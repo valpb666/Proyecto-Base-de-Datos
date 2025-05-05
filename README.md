@@ -2630,3 +2630,9 @@ ALTER TABLE staging DROP COLUMN id;
 
 ALTER TABLE staging RENAME TO staging_backup;
 ```
+### ERD
+
+El ERD con todas las entidades después de la normalización, es el siguiente:
+
+
+## Análisis de datos a través de consultas SQL
