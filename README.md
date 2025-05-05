@@ -2075,7 +2075,7 @@ A partir de los datos contenidos en la base de datos, se decidió dividirlos en 
 #### Entidad: Persona
 | Persona           |
 |-------------------|
-| id_persona        |
+| id                |
 | sexo              |
 | fecha_nacimiento  |
 | nacionalidad      |
@@ -2372,14 +2372,17 @@ A partir de las entidades que generamos intuitivamente y las dependenciales func
 #### Entidad: Residencia
 | Residencia             |
 |------------------------|
-| id_persona (clave foránea) |
+| id                     |
+| id_persona             |
 | municipio_residencia   |
 | entidad_residencia     |
 
 #### Entidad: Evento Defunción
 | Evento Defunción       |
 |------------------------|
-| id_evento              |
+| id                     |
+| id_persona             |
+| id_residencia          |
 | fecha_defuncion        |
 | hora_defuncion         |
 | lugar_defuncion        |
@@ -2392,7 +2395,8 @@ A partir de las entidades que generamos intuitivamente y las dependenciales func
 #### Entidad: Atención Médica
 | Atención Médica    |
 |--------------------|
-| id_atencion        |
+| id                 |
+| id_persona         |
 | afiliación_medica  |
 | atención_medica    |
 | necropsia          |
@@ -2400,7 +2404,8 @@ A partir de las entidades que generamos intuitivamente y las dependenciales func
 #### Entidad: Muerte
 | Muerte                    |
 |---------------------------|
-| id_muerte                 |
+| id                        |
+| id_persona                |
 | causa_defuncion           |
 | durante_embarazo          |
 | causado_embarazo          |
@@ -2408,7 +2413,8 @@ A partir de las entidades que generamos intuitivamente y las dependenciales func
 #### Entidad: Edad
 | Edad                      |
 |---------------------------|
-| id_edad                   |
+| id                        |
+| id_persona                |
 | fecha_nacimiento          |
 | fecha_defuncion           |
 | edad                      |
@@ -2416,7 +2422,8 @@ A partir de las entidades que generamos intuitivamente y las dependenciales func
 #### Entidad: SexoEdadCausa
 | SexoEdadCausa             |
 |---------------------------|
-| id_sexo_edad_causa        |
+| id                        |
+| id_persona                |
 | sexo                      |
 | fecha_nacimiento          |
 | edad                      |
@@ -2425,7 +2432,8 @@ A partir de las entidades que generamos intuitivamente y las dependenciales func
 #### Entidad: FechaHoraLugar
 | FechaHoraLugar            |
 |---------------------------|
-| id_fecha_hora_lugar       |
+| id                        |
+| id_persona                |
 | fecha_defuncion           |
 | hora_defuncion            |
 | lugar_defuncion           |
@@ -2433,7 +2441,8 @@ A partir de las entidades que generamos intuitivamente y las dependenciales func
 #### Entidad: MuerteAccidental
 | MuerteAccidental          |
 |---------------------------|
-| id_muerte_accidental      |
+| id                        |
+| id_persona                |
 | causa_defuncion           |
 | tipo_evento               |
 | muerte_accidental_violenta|
@@ -2441,14 +2450,16 @@ A partir de las entidades que generamos intuitivamente y las dependenciales func
 #### Entidad: MuerteEmbarazo
 | MuerteAccidental          |
 |---------------------------|
-| id_muerte_embarazo        |
+| id                        |
+| id_persona                |
 | durante_embarazo          |
 | complicacion_embarazo     |
 
 #### Entidad: DefuncionOcurrencia
 | DefuncionOcurrencia       |
 |---------------------------|
-| id_defuncion_ocurrencia   |
+| id                        |
+| id_persona                |
 | municipio_ocurrencia      |
 | entidad_defuncion         |
 
@@ -2612,6 +2623,8 @@ INSERT INTO defuncion_ocurrencia(id_persona, municipio_ocurrencia, entidad_defun
 SELECT persona.id, municipio_ocurrencia, entidad_defuncion
 FROM staging
 JOIN persona ON staging.id = persona.id_staging;
+
+ALTER TABLE persona DROP COLUMN id_staging;
 
 ALTER TABLE staging DROP COLUMN id;
 
