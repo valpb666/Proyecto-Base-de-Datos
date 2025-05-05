@@ -543,7 +543,7 @@ WHERE fecha_defuncion1!=fecha_defuncion;
 📌 **Resultados:**  
 No obtuvimos ninguna inconsistencia, todas las fechas son iguales en ambas columnas.
 
-### 13. **Inconsistencias entre los municipios residenciales y las entidaes residenciales**
+### 13. **Inconsistencias entre los municipios residenciales y las entidades residenciales**
 Para checar si hay algun municipio que tenga varias entidades residenciales, ejecutamos:
 ```sql
 SELECT municipio_ocurrencia, COUNT(DISTINCT entidad_defuncion) AS entidades_distintas
@@ -558,7 +558,7 @@ Se obutiveron varias inconsistencias, las siguientes:
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
-### 14. **Inconsistencias entre entidad defuncion y alcaldia**
+### 14. **Inconsistencias entre entidad de defuncion y alcaldia**
 Para checar si hay alguna alcaldia que tenga varias entidades de defuncion, ejecutamos:
 ```sql
 SELECT 
@@ -570,7 +570,7 @@ HAVING COUNT(DISTINCT entidad_defuncion) > 1;
 ```
 
 📌 **Resultados:**  
-No obtuvimos ninguna inconsistencia, todas las alcaldias solo tienen una entidad de defuncion.
+No obtuvimos ninguna inconsistencia; todas las alcaldias solo tienen una entidad de defunción.
 
 ## 🧹 Limpieza de datos
 
@@ -716,7 +716,7 @@ ALTER COLUMN atencion_medica TYPE BOOLEAN USING atencion_medica::boolean;
 
 Se llevó a cabo una reclasificación de las ocupaciones dentro de la tabla staging, agrupándolas en categorías más generales y funcionales. Se aplicó una actualización (UPDATE) con una estructura CASE para normalizar las distintas denominaciones de ocupaciones y reducir la complejidad de la información, facilitando su análisis y uso en procesos posteriores.
 
-La clasificación original contenía múltiples variaciones y denominaciones específicas que dificultaban la agregación y el análisis de datos. Con esta limpieza, se unificaron ocupaciones en categorías más manejables. Al reducir la granularidad de las ocupaciones en categorías más generales (ej. "Directivos y gerentes", "Profesionales y científicos", "Trabajadores en servicios"), se mejora la comprensión de los datos. Al estructurar los datos de esta manera, se simplifican consultas y reportes estadísticos sin perder información relevante.
+La clasificación original contenía múltiples variaciones y denominaciones específicas que dificultaban la agregación y el análisis de datos. Con esta limpieza, se unificaron ocupaciones en categorías más manejables. Al reducir la granularidad de las ocupaciones en categorías más generales (ej. "Directivos y gerentes", "Profesionales y científicos", "Trabajadores en servicios"), se mejora la comprensión de los datos. Al estructurar los datos de esta manera, se simplifican consultas y reportes estadísticos sin perder información relevante, manteniendo la integridad de la base de datos. 
 
 ```sql
 UPDATE staging
@@ -809,9 +809,9 @@ SET ocupacion = CASE
     ELSE 'Ocupaciones no especificadas'
     END;
 ```
-### • Agrupar enfermedades (causa de defunción)
+### • Agrupar enfermedades (Causa de defunción)
 
-Se decidió agrupar las causas de defunción en categorías ya que nos simplifica y facilita su análisis. Dado que la base de datos contiene una gran cantidad de causas específicas que, en muchos casos, pueden resultar redundantes o muy detalladas, se optó por clasificarlas en categorías generales. Esta agrupación permite identificar patrones y tendencias más fácilmente, facilitando la toma de decisiones basadas en datos y garantizando que los análisis sean más comprensibles y manejables. 
+Se decidió agrupar las causas de defunción en categorías ya que esto simplifica y facilita su análisis. Dado que la base de datos contiene una gran cantidad de causas de muerte específicas que, en muchos casos, pueden resultar redundantes o muy detalladas, se optó por clasificarlas en categorías generales, cuidandonos de no perder información. Esta agrupación permite identificar patrones y tendencias más facilmente, facilitando asi la toma de decisiones basadas en datos y garantizando que los análisis sean más comprensibles y manejables. 
 
 ```sql
 --LIMPIEZA
