@@ -662,7 +662,7 @@ UPDATE staging
 SET entidad_residencia = NULL WHERE entidad_residencia IS NULL OR entidad_residencia ILIKE 'SE IGNORA';
 
 UPDATE staging
-SET municipio_residencia = NULL WHERE municipio_residencia IS NULL OR municipio_residencia ILIKE 'SE IGNORA' OR municipio_residencia ILIKE 'NO ESPECIFICADO' OR municipio_residencia ILIKE 'NINGUNO;
+SET municipio_residencia = NULL WHERE municipio_residencia IS NULL OR municipio_residencia ILIKE 'SE IGNORA' OR municipio_residencia ILIKE 'NO ESPECIFICADO' OR municipio_residencia ILIKE 'NINGUNO';
 
 UPDATE staging
 SET escolaridad = NULL WHERE escolaridad IS NULL OR escolaridad ILIKE 'SE IGNORA' OR escolaridad ILIKE 'NO ESPECIFICADO';
@@ -689,10 +689,10 @@ UPDATE staging
 SET alcaldia = NULL WHERE alcaldia IS NULL OR alcaldia ILIKE 'SE IGNORA' OR alcaldia ILIKE 'NO ESPECIFICADO';
 
 UPDATE staging
-SET atencion_medica = NULL WHERE atencion_medica IS NULL OR atencion_medica ILIKE 'SE IGNORA';
+SET atencion_medica = NULL WHERE atencion_medica IS NULL OR atencion_medica ILIKE 'SE IGNORA' OR atencion_medica ILIKE 'NO ESPECIFICADO';
 
 UPDATE staging
-SET necropsia = NULL WHERE necropsia IS NULL OR necropsia ILIKE 'SE IGNORA';
+SET necropsia = NULL WHERE necropsia IS NULL OR necropsia ILIKE 'SE IGNORA' OR necropsia ILIKE 'NO ESPECIFICADO';
 
 UPDATE staging
 SET causa_defuncion = NULL WHERE causa_defuncion IS NULL OR causa_defuncion ILIKE 'SE IGNORA' OR causa_defuncion ILIKE 'NO ESPECIFICADO';
@@ -713,7 +713,7 @@ UPDATE staging
 SET tipo_evento = NULL WHERE tipo_evento IS NULL OR tipo_evento ILIKE 'SE IGNORA';
 
 UPDATE staging
-SET en_trabajo = NULL WHERE en_trabajo IS NULL OR en_trabajo ILIKE 'SE IGNORA';
+SET en_trabajo = NULL WHERE en_trabajo IS NULL OR en_trabajo ILIKE 'SE IGNORA' OR en_trabajo ILIKE 'NO APLICA' OR en_trabajo ILIKE 'NO ESPECIFICADO';
 
 UPDATE staging
 SET sitio_lesion = NULL WHERE sitio_lesion IS NULL OR sitio_lesion ILIKE 'SE IGNORA' OR sitio_lesion ILIKE 'NO ESPECIFICADO';
@@ -757,6 +757,12 @@ set muerte_accidental_violenta = TRUE where muerte_accidental_violenta ILIKE 'SI
 UPDATE staging
 set muerte_accidental_violenta = FALSE where muerte_accidental_violenta ILIKE 'NO';
 
+UPDATE staging
+SET en_trabajo=FALSE WHERE en_trabajo ILIKE 'NO' OR en_trabajo IS NULL;
+
+UPDATE staging
+SET en_trabajo=TRUE WHERE en_trabajo ILIKE 'SI'; 
+
 ALTER TABLE staging
 ALTER COLUMN lengua_indigena TYPE BOOLEAN USING lengua_indigena::boolean;
 
@@ -768,6 +774,9 @@ ALTER COLUMN muerte_accidental_violenta TYPE BOOLEAN USING muerte_accidental_vio
 
 ALTER TABLE staging
 ALTER COLUMN atencion_medica TYPE BOOLEAN USING atencion_medica::boolean;
+
+ALTER TABLE staging
+ALTER COLUMN en_trabajo TYPE BOOLEAN USING en_trabajo::boolean;
 ```
 
 ### • Reclasificación de las ocupaciones
