@@ -643,7 +643,8 @@ Se ejecutan una serie de consultas UPDATE sobre la tabla staging, estableciendo 
 
 ```sql
 UPDATE staging
-SET sexo = NULL WHERE sexo IS NULL OR sexo = '';
+SET sexo=NULL 
+WHERE sexo IS NULL OR sexo='' OR sexo ILIKE '%se ignora%' OR sexo ILIKE 'no especificado';
 
 UPDATE staging
 SET fecha_nacimiento = NULL WHERE fecha_nacimiento IS NULL;
