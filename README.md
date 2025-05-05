@@ -2011,7 +2011,7 @@ WHERE durante_embarazo ILIKE 'NO ESTUVO EMBARAZADA%' AND complicacion_embarazo I
 ### • Entidades intuitivas
 A partir de los datos contenidos en la base de datos, se decidió dividirlos en las siguientes entidades:
 
-# Entidad: Persona
+#### Entidad: Persona
 | Persona           |
 |-------------------|
 | id_persona        |
@@ -2024,14 +2024,14 @@ A partir de los datos contenidos en la base de datos, se decidió dividirlos en 
 | ocupación         |
 | edad              |
 
-# Entidad: Residencia
+#### Entidad: Residencia
 | Residencia             |
 |------------------------|
 | id_persona (clave foránea) |
 | municipio_residencia   |
 | entidad_residencia     |
 
-# Entidad: Evento Defunción
+#### Entidad: Evento Defunción
 | Evento Defunción       |
 |------------------------|
 | id_evento              |
@@ -2045,7 +2045,7 @@ A partir de los datos contenidos en la base de datos, se decidió dividirlos en 
 | entidad_defuncion      |
 | alcaldía               |
 
-# Entidad: Atención Médica
+#### Entidad: Atención Médica
 | Atención Médica    |
 |--------------------|
 | id_atencion        |
@@ -2053,7 +2053,7 @@ A partir de los datos contenidos en la base de datos, se decidió dividirlos en 
 | atención_medica    |
 | necropsia          |
 
-# Entidad: Muerte
+#### Entidad: Muerte
 | Muerte                    |
 |---------------------------|
 | id_muerte                 |
