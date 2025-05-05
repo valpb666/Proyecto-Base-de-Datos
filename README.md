@@ -2612,4 +2612,8 @@ INSERT INTO defuncion_ocurrencia(id_persona, municipio_ocurrencia, entidad_defun
 SELECT persona.id, municipio_ocurrencia, entidad_defuncion
 FROM staging
 JOIN persona ON staging.id = persona.id_staging;
+
+ALTER TABLE staging DROP COLUMN id;
+
+ALTER TABLE staging RENAME TO staging_backup;
 ```
