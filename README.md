@@ -1630,6 +1630,14 @@ WHERE causa_defuncion ILIKE '%CELULITIS%';
 UPDATE staging_backup
 SET causa_defuncion='CELULITIS' 
 WHERE causa_defuncion ILIKE '%CELULITIS%';
+
+SELECT causa_defuncion
+FROM staging_backup
+WHERE causa_defuncion ILIKE '%RESPI%';
+
+UPDATE staging_backup
+SET causa_defuncion='ENFERMEDAD RESPIRATORIA' 
+WHERE causa_defuncion ILIKE '%RESPI%';
 ```
 ### • Revisar ubicación residencial (municipio residencia y entidad residencia)
 
