@@ -2760,7 +2760,7 @@ A partir de las entidades que generamos intuitivamente y las dependenciales func
 | muerte_accidental_violenta|
 
 #### Entidad: MuerteEmbarazo
-| MuerteAccidental          |
+| MuerteEmbarazo            |
 |---------------------------|
 | id                        |
 | id_persona                |
