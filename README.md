@@ -2948,3 +2948,293 @@ El ERD con todas las entidades después de la normalización, es el siguiente:
 
 
 ## Análisis de datos a través de consultas SQL
+
+Algunas de las consultas que hicimos son las siguientes:
+
+### 1. **Análisis de mortalidad y contexto socioeconómico**
+
+Pregunta: ¿Existe una relación entre esolaridad y causa de defunción por sexo? 
+
+Ejecutamos:
+```sql
+SELECT sexo_edad_causa.sexo, causa_defuncion, persona.escolaridad, COUNT(*) as total
+FROM sexo_edad_causa
+JOIN persona ON sexo_edad_causa.id_persona=persona.id
+GROUP BY sexo_edad_causa.sexo, persona.escolaridad, causa_defuncion
+HAVING COUNT(*) > 1000
+ORDER BY total DESC;
+```
+📌 **Resultados:**  
+
+| Sexo  | Causa Defunción           | Escolaridad                              | Total |
+|-------|------------------------------|------------------------------------------|--------|
+| hombre | COVID-19                    | PRIMARIA COMPLETA                        | 10938  |
+| hombre | COVID-19                    | SECUNDARIA COMPLETA                      | 10382  |
+| mujer  | COVID-19                    | PRIMARIA COMPLETA                        | 7852   |
+| hombre | COVID-19                    | LICENCIATURA O PROFESIONAL COMPLETO     | 7554   |
+| hombre | COVID-19                    | BACHILLERATO O PREPARATORIA COMPLETA    | 7520   |
+| hombre | DIABETES                    | PRIMARIA COMPLETA                        | 5444   |
+| mujer  | DIABETES                    | PRIMARIA COMPLETA                        | 5250   |
+| hombre | INFARTO                     | PRIMARIA COMPLETA                        | 4890   |
+| mujer  | INFARTO                     | PRIMARIA COMPLETA                        | 4720   |
+| hombre | COVID-19                    | PRIMARIA INCOMPLETA                      | 4640   |
+| mujer  | COVID-19                    | SECUNDARIA COMPLETA                      | 4388   |
+| mujer  | COVID-19                    | PRIMARIA INCOMPLETA                      | 3602   |
+| mujer  | COVID-19                    | BACHILLERATO O PREPARATORIA COMPLETA    | 3494   |
+| hombre | DIABETES                    | SECUNDARIA COMPLETA                      | 3430   |
+| mujer  | DIABETES                    | PRIMARIA INCOMPLETA                      | 3014   |
+| hombre | ENFERMEDAD PULMONAR         | PRIMARIA COMPLETA                        | 2858   |
+| mujer  | INFARTO                     | PRIMARIA INCOMPLETA                      | 2844   |
+| mujer  | CANCER                      | PRIMARIA COMPLETA                        | 2816   |
+| mujer  | ENFERMEDAD PULMONAR         | PRIMARIA COMPLETA                        | 2578   |
+| hombre | INFARTO                     | PRIMARIA INCOMPLETA                      | 2568   |
+| hombre | INFARTO                     | SECUNDARIA COMPLETA                      | 2542   |
+| hombre | DIABETES                    | PRIMARIA INCOMPLETA                      | 2312   |
+| hombre | COVID-19                    | BACHILLERATO O PREPARATORIA INCOMPLETA  | 2244   |
+| hombre | INFARTO                     | LICENCIATURA O PROFESIONAL COMPLETO     | 2192   |
+| mujer  | INFARTO                     | NINGUNA                                  | 2120   |
+| mujer  | COVID-19                    | LICENCIATURA O PROFESIONAL COMPLETO     | 2116   |
+| hombre | CANCER                      | PRIMARIA COMPLETA                        | 2072   |
+| mujer  | DIABETES                    | SECUNDARIA COMPLETA                      | 2068   |
+| hombre | ENFERMEDAD PULMONAR         | SECUNDARIA COMPLETA                      | 2066   |
+| mujer  | CANCER                      | SECUNDARIA COMPLETA                      | 2012   |
+| mujer  | CANCER                      | BACHILLERATO O PREPARATORIA COMPLETA    | 2010   |
+| hombre | CANCER                      | LICENCIATURA O PROFESIONAL COMPLETO     | 2008   |
+| hombre | DIABETES                    | LICENCIATURA O PROFESIONAL COMPLETO     | 1984   |
+| mujer  | DIABETES                    | NINGUNA                                  | 1952   |
+| hombre | DIABETES                    | BACHILLERATO O PREPARATORIA COMPLETA    | 1922   |
+| mujer  | COVID-19                    | NINGUNA                                  | 1898   |
+| mujer  | CANCER                      | LICENCIATURA O PROFESIONAL COMPLETO     | 1854   |
+| hombre | INFARTO                     | BACHILLERATO O PREPARATORIA COMPLETA    | 1800   |
+| hombre | ENFERMEDAD PULMONAR         | LICENCIATURA O PROFESIONAL COMPLETO     | 1652   |
+| hombre | COVID-19                    | LICENCIATURA O PROFESIONAL INCOMPLETO   | 1634   |
+| hombre | CANCER                      | SECUNDARIA COMPLETA                      | 1628   |
+| hombre | COVID-19                    | SECUNDARIA INCOMPLETA                    | 1622   |
+| mujer  | INFARTO                     | SECUNDARIA COMPLETA                      | 1542   |
+| hombre | CANCER                      | BACHILLERATO O PREPARATORIA COMPLETA    | 1478   |
+| mujer  | INFARTO                     | BACHILLERATO O PREPARATORIA COMPLETA    | 1476   |
+| mujer  | ENFERMEDAD CARDIACA         | PRIMARIA COMPLETA                        | 1386   |
+| mujer  | ENFERMEDAD PULMONAR         | PRIMARIA INCOMPLETA                      | 1370   |
+| hombre | ENFERMEDAD PULMONAR         | BACHILLERATO O PREPARATORIA COMPLETA    | 1366   |
+| hombre | ENFERMEDAD PULMONAR         | PRIMARIA INCOMPLETA                      | 1366   |
+| hombre | COVID-19                    | NINGUNA                                  | 1326   |
+| hombre | COVID-19                    | NULL                                     | 1314   |
+| mujer  | DIABETES                    | BACHILLERATO O PREPARATORIA COMPLETA    | 1294   |
+| mujer  | CANCER                      | PRIMARIA INCOMPLETA                      | 1286   |
+| mujer  | ENFERMEDAD PULMONAR         | SECUNDARIA COMPLETA                      | 1208   |
+| hombre | INFARTO                     | NINGUNA                                  | 1096   |
+| hombre | CANCER                      | PRIMARIA INCOMPLETA                      | 1078   |
+| mujer  | ENFERMEDAD PULMONAR         | BACHILLERATO O PREPARATORIA COMPLETA    | 1064   |
+| mujer  | INFARTO                     | LICENCIATURA O PROFESIONAL COMPLETO     | 1044   |
+| hombre | ENFERMEDAD CARDIACA         | PRIMARIA COMPLETA                        | 1008   |
+
+### 2. **Análisis de enfermedades por alcaldías**
+
+Pregunta: ¿Qué alcaldías concentran más muertes por enfermedades respiratorias (o por COVID-19, si tienes esa categoría)?
+
+Ejecutamos:
+```sql
+SELECT alcaldia, sexo_edad_causa.causa_defuncion, COUNT(*) AS total
+FROM evento_defuncion
+JOIN sexo_edad_causa ON sexo_edad_causa.id_persona=evento_defuncion.id_persona
+WHERE causa_defuncion ILIKE '%RESP%' OR causa_defuncion ILIKE '%COVID%'
+GROUP BY alcaldia, sexo_edad_causa.causa_defuncion;
+```
+📌 **Resultados:**  
+
+| Alcaldía               | Causa Defunción                                                                                     | Total |
+|------------------------------------|---------------------------------------------------------------------------------------------------------|-------|
+| AZCAPOTZALCO                       | TRASTORNO RESPIRATORIO, NO ESPECIFICADO                                                                 | 12    |
+| MIGUEL HIDALGO                     | TUBERCULOSIS RESPIRATORIA NO ESPECIFICADA, SIN MENCIÓN DE CONFIRMACIÓN BACTERIOLÓGICA O HISTOLÓGICA     | 2     |
+| IZTAPALAPA                         | TRASTORNO RESPIRATORIO, NO ESPECIFICADO                                                                 | 2     |
+| BENITO JUAREZ                      | TRASTORNO RESPIRATORIO, NO ESPECIFICADO                                                                 | 4     |
+| GUSTAVO A. MADERO                  | COVID-19                                                                                                | 9430  |
+| BENITO JUAREZ                      | OTROS TRASTORNOS RESPIRATORIOS ESPECIFICADOS                                                            | 8     |
+| GUSTAVO A. MADERO                  | OTRAS DIFICULTADES RESPIRATORIAS DEL RECIÉN NACIDO                                                      | 2     |
+| IZTACALCO                          | INFLUENZA CON OTRAS MANIFESTACIONES RESPIRATORIAS, VIRUS NO IDENTIFICADO                                | 2     |
+| ALVARO OBREGON                     | OTROS PROBLEMAS RESPIRATORIOS ESPECIFICADOS DEL RECIÉN NACIDO                                          | 2     |
+| VENUSTIANO CARRANZA                | INSUFICIENCIA RESPIRATORIA, NO ESPECIFICADA                                                             | 2     |
+| TLALPAN                            | INHALACIÓN E INGESTIÓN DE OTROS OBJETOS QUE CAUSAN OBSTRUCCIÓN DE LAS VÍAS RESPIRATORIAS               | 2     |
+| BENITO JUAREZ                      | COVID-19                                                                                                | 8568  |
+| TLALPAN                            | OTRAS ENFERMEDADES ESPECIFICADAS DE LAS VÍAS RESPIRATORIAS SUPERIORES                                  | 2     |
+| CUAUHTEMOC                         | TRASTORNO RESPIRATORIO, NO ESPECIFICADO                                                                 | 8     |
+| CUAUHTEMOC                         | OTRAS OBSTRUCCIONES ESPECIFICADAS DE LA RESPIRACIÓN                                                     | 4     |
+| ALVARO OBREGON                     | INSUFICIENCIA RESPIRATORIA AGUDA                                                                        | 28    |
+| IZTAPALAPA                         | INSUFICIENCIA RESPIRATORIA, NO ESPECIFICADA                                                             | 4     |
+| LA MAGDALENA CONTRERAS             | COVID-19                                                                                                | 212   |
+| MIGUEL HIDALGO                     | INSUFICIENCIA RESPIRATORIA AGUDA                                                                        | 2     |
+| OJO DE AGUA                        | COVID-19                                                                                                | 4     |
+| IZTACALCO                          | OBSTRUCCIÓN NO ESPECIFICADA DE LA RESPIRACIÓN                                                           | 4     |
+| ALVARO OBREGON                     | TRASTORNO RESPIRATORIO, NO ESPECIFICADO                                                                 | 2     |
+| IZTACALCO                          | TRASTORNO RESPIRATORIO, NO ESPECIFICADO                                                                 | 2     |
+| NULL                               | OTRAS OBSTRUCCIONES ESPECIFICADAS DE LA RESPIRACIÓN                                                     | 2     |
+| IZTACALCO                          | INSUFICIENCIA RESPIRATORIA AGUDA                                                                        | 18    |
+| BENITO JUAREZ                      | TUBERCULOSIS RESPIRATORIA NO ESPECIFICADA, SIN MENCIÓN DE CONFIRMACIÓN BACTERIOLÓGICA O HISTOLÓGICA     | 4     |
+| BENITO JUAREZ                      | INSUFICIENCIA RESPIRATORIA AGUDA                                                                        | 8     |
+| ALVARO OBREGON                     | COVID-19                                                                                                | 5826  |
+| IZTAPALAPA                         | PARO RESPIRATORIO                                                                                       | 2     |
+| ...                                | ...                                                                                                     | ...   |
+
+
+### 3. **Análisis de muertes por fechas**
+
+Pregunta: ¿Se repiten ciertos patrones de mortalidad en los mismos meses a lo largo de los años?
+
+Ejecutamos:
+```sql
+SELECT EXTRACT (MONTH FROM fecha_defuncion) as año, COUNT(*) cant_muertes
+FROM evento_defuncion
+GROUP BY EXTRACT (MONTH FROM fecha_defuncion);
+```
+📌 **Resultados:**  
+
+| Mes_en_numero | Cant Muertes |
+|-----|----------------------|
+| 1   | 15,834               |
+| 2   | 12,746               |
+| 3   | 12,814               |
+| 4   | 17,516               |
+| 5   | 33,940               |
+| 6   | 26,764               |
+| 7   | 20,212               |
+| 8   | 20,348               |
+| 9   | 18,952               |
+| 10  | 19,686               |
+| 11  | 20,338               |
+| 12  | 35,422               |
+
+### 4. **Análisis mortalidad materna**
+
+Pregunta: ¿Cuántas muertes relacionadas con embarazo se reportan, y en qué etapas?
+
+Ejecutamos:
+```sql
+SELECT sexo_edad_causa.edad, persona.escolaridad, durante_embarazo, complicacion_embarazo
+FROM muerte_embarazo
+JOIN sexo_edad_causa ON sexo_edad_causa.id_persona=muerte_embarazo.id_persona
+JOIN persona ON persona.id=muerte_embarazo.id_persona
+WHERE complicacion_embarazo IS NOT NULL AND durante_embarazo IS NOT NULL AND durante_embarazo NOT LIKE 'NO %'
+GROUP BY sexo_edad_causa.edad, persona.escolaridad, durante_embarazo, complicacion_embarazo
+ORDER BY edad ASC;
+```
+📌 **Resultados:**  
+
+| Edad | Escolaridad                                | Durante Embarazo                                    | Complicación Embarazo |
+|------|--------------------------------------------------|---------------------------------------------|------------------------|
+| 17   | Secundaria completa                             | El puerperio                                | No                     |
+| 19   | Bachillerato o preparatoria incompleta          | 43 días a 11 meses después del parto o aborto | Sí                     |
+| 19   | Secundaria completa                             | 43 días a 11 meses después del parto o aborto | No                     |
+| 19   | Secundaria completa                             | El embarazo                                 | Sí                     |
+| 20   | Licenciatura o profesional incompleto           | El puerperio                                | Sí                     |
+| 21   | Bachillerato o preparatoria incompleta          | 43 días a 11 meses después del parto o aborto | No                     |
+| 22   | Bachillerato o preparatoria completa            | El puerperio                                | Sí                     |
+| 22   | Bachillerato o preparatoria incompleta          | El puerperio                                | Sí                     |
+| 22   | Secundaria completa                             | El embarazo                                 | No                     |
+| 23   | Bachillerato o preparatoria completa            | El embarazo                                 | No                     |
+| 23   | Bachillerato o preparatoria completa            | El puerperio                                | Sí                     |
+| 23   | Bachillerato o preparatoria incompleta          | El puerperio                                | Sí                     |
+| 24   | Bachillerato o preparatoria completa            | 43 días a 11 meses después del parto o aborto | No                     |
+| 24   | Licenciatura o profesional completo             | 43 días a 11 meses después del parto o aborto | No                     |
+| 24   | Secundaria completa                             | 43 días a 11 meses después del parto o aborto | No                     |
+| 25   | Bachillerato o preparatoria incompleta          | El puerperio                                | Sí                     |
+| 25   | Licenciatura o profesional incompleto           | 43 días a 11 meses después del parto o aborto | No                     |
+| 26   | Licenciatura o profesional completo             | El embarazo                                 | Sí                     |
+| 26   | Licenciatura o profesional completo             | El puerperio                                | Sí                     |
+| 27   | Bachillerato o preparatoria completa            | 43 días a 11 meses después del parto o aborto | Sí                     |
+
+### 5. **Análisis entre atención médica y tipo de muerte**
+
+Pregunta: ¿Las personas que recibieron atención médica tienen menor probabilidad de morir por causas violentas?
+
+Ejecutamos:
+```sql
+SELECT causa_defuncion, atencion_medica.atencion_medica, COUNT(*) AS total
+FROM sexo_edad_causa
+JOIN atencion_medica ON sexo_edad_causa.id_persona=atencion_medica.id_persona
+GROUP BY causa_defuncion, atencion_medica.atencion_medica
+ORDER BY total DESC;
+
+SELECT sexo_edad_causa.causa_defuncion, atencion_medica.atencion_medica, muerte_accidental.muerte_accidental_violenta, COUNT(*) AS total
+FROM sexo_edad_causa
+JOIN atencion_medica ON sexo_edad_causa.id_persona=atencion_medica.id_persona
+JOIN muerte_accidental ON
+sexo_edad_causa.id_persona=muerte_accidental.id_persona
+WHERE muerte_accidental_violenta=TRUE
+GROUP BY sexo_edad_causa.causa_defuncion, atencion_medica.atencion_medica, muerte_accidental_violenta
+ORDER BY total DESC;
+```
+📌 **Resultados:**  
+| Causa defunción                                      | Atención Médica | Total |
+|---------------------------------------------------------|------------|-------|
+| COVID-19                                                | true       | 74250 |
+| Diabetes                                                | true       | 32658 |
+| Infarto                                                 | true       | 30338 |
+| Cáncer                                                  | true       | 21764 |
+| Enfermedad pulmonar                                     | true       | 19858 |
+| Enfermedad cardiaca                                     | true       | 7384  |
+| Enfermedad renal                                        | true       | 5802  |
+| Infección                                               | true       | 5042  |
+| Hemorragia                                              | true       | 4426  |
+| Enfermedad cerebral                                     | true       | 3566  |
+| Alcoholismo                                             | true       | 3244  |
+| Síndrome                                                | true       | 2218  |
+| Enfermedad en el hígado                                 | true       | 2132  |
+| Accidente                                               | true       | 2010  |
+| Enfermedad hepática                                     | true       | 1998  |
+| Sepsis                                                  | true       | 1408  |
+| Enfermedad en el intestino                              | true       | 1156  |
+| Mala alimentación                                       | true       | 1036  |
+| Agresión                                                | true       | 998   |
+
+### 6. **Análisis entre municipio residencia y municipio ocurrencia**
+
+Pregunta: ¿Cuántos casos ocurren fuera del municipio o entidad de residencia?
+
+Ejecutamos:
+```sql
+WITH mismo_lugar AS(
+	SELECT municipio_residencia, COUNT(*) as total
+	FROM residencia
+	JOIN defuncion_ocurrencia ON residencia.id_persona=defuncion_ocurrencia.id_persona
+	WHERE municipio_residencia=defuncion_ocurrencia.municipio_ocurrencia
+	GROUP BY municipio_residencia
+	ORDER BY total DESC
+),
+diferente_lugar AS(
+	SELECT municipio_residencia, COUNT(*) as total
+	FROM residencia
+	JOIN defuncion_ocurrencia ON residencia.id_persona=defuncion_ocurrencia.id_persona
+	WHERE municipio_residencia!=defuncion_ocurrencia.municipio_ocurrencia
+	GROUP BY municipio_residencia
+	ORDER BY total DESC
+)
+
+SELECT mismo_lugar.municipio_residencia, mismo_lugar.total AS total_mismo_lugar, diferente_lugar.total AS total_diferente_lugar
+FROM mismo_lugar 
+LEFT JOIN diferente_lugar ON mismo_lugar.municipio_residencia= diferente_lugar.municipio_residencia
+ORDER BY mismo_lugar.municipio_residencia;
+```
+📌 **Resultados:**  
+| Sexo   | Causa Defuncion                | Escolaridad                                 | Total |
+|--------|----------------------|---------------------------------------------|--------|
+| hombre | COVID-19             | PRIMARIA COMPLETA                           | 10938  |
+| hombre | COVID-19             | SECUNDARIA COMPLETA                         | 10382  |
+| mujer  | COVID-19             | PRIMARIA COMPLETA                           | 7852   |
+| hombre | COVID-19             | LICENCIATURA O PROFESIONAL COMPLETO         | 7554   |
+| hombre | COVID-19             | BACHILLERATO O PREPARATORIA COMPLETA        | 7520   |
+| hombre | DIABETES             | PRIMARIA COMPLETA                           | 5444   |
+| mujer  | DIABETES             | PRIMARIA COMPLETA                           | 5250   |
+| hombre | INFARTO              | PRIMARIA COMPLETA                           | 4890   |
+| mujer  | INFARTO              | PRIMARIA COMPLETA                           | 4720   |
+| hombre | COVID-19             | PRIMARIA INCOMPLETA                         | 4640   |
+| mujer  | COVID-19             | SECUNDARIA COMPLETA                         | 4388   |
+| mujer  | COVID-19             | PRIMARIA INCOMPLETA                         | 3602   |
+| mujer  | COVID-19             | BACHILLERATO O PREPARATORIA COMPLETA        | 3494   |
+| hombre | DIABETES             | SECUNDARIA COMPLETA                         | 3430   |
+| mujer  | DIABETES             | PRIMARIA INCOMPLETA                         | 3014   |
+| hombre | ENFERMEDAD PULMONAR  | PRIMARIA COMPLETA                           | 2858   |
+| mujer  | INFARTO              | PRIMARIA INCOMPLETA                         | 2844   |
+| mujer  | CANCER               | PRIMARIA COMPLETA                           | 2816   |
+| mujer  | ENFERMEDAD PULMONAR  | PRIMARIA COMPLETA                           | 2578   |
+| hombre | INFARTO              | PRIMARIA INCOMPLETA                         | 256    |
+      
