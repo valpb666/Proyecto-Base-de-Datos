@@ -1331,311 +1331,311 @@ SELECT causa_defuncion
 FROM staging
 WHERE causa_defuncion ILIKE '%SUSTANCIAS%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='SUSTANCIAS' 
 WHERE causa_defuncion ILIKE '%SUSTANCIAS%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%PERINATAL%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='COMPLICACIONES EN EL EMBARAZO' 
 WHERE causa_defuncion ILIKE '%PERINATAL%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%ERITEMATOSA%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD DERMATOLÓGICA' 
 WHERE causa_defuncion ILIKE '%ERITEMATOSA%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%AHOGAMIENTO%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='AHOGAMIENTO' 
 WHERE causa_defuncion ILIKE '%AHOGAMIENTO%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%AUTOINFLIGIDA%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='SUICIDIO' 
 WHERE causa_defuncion ILIKE '%AUTOINFLIGIDA%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%AHORCAMIENTO%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='AHORCAMIENTO' 
 WHERE causa_defuncion ILIKE '%AHORCAMIENTO%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%ALETEO AURICULAR%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD CARDIACA' 
 WHERE causa_defuncion ILIKE '%ALETEO AURICULAR%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%CARDIA%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD CARDIACA' 
 WHERE causa_defuncion ILIKE '%CARDIA%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%AMEBIASIS%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='INFECCION' 
 WHERE causa_defuncion ILIKE '%AMEBIASIS%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%AMILOIDOSIS%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD DEGENERATIVA' 
 WHERE causa_defuncion ILIKE '%AMILOIDOSIS%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%ANEMIA%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD DE LA SANGRE' 
 WHERE causa_defuncion ILIKE '%ANEMIA%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%ANENCEFALIA%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD CEREBRAL' 
 WHERE causa_defuncion ILIKE '%ANENCEFALIA%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%ALCALOSIS%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='TRASTORNOS DEL EQUILIBRIO ÁCIDO-BASE' 
 WHERE causa_defuncion ILIKE '%ALCALOSIS%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%ANGII%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD DE LA SANGRE' 
 WHERE causa_defuncion ILIKE '%ANGII%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%ANGINA%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD CARDIACA' 
 WHERE causa_defuncion ILIKE '%ANGINA%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%HEMANGIOMA%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='CANCER' 
 WHERE causa_defuncion ILIKE '%HEMANGIOMA%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%MICROANGIOPATIA%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD DE LA SANGRE' 
 WHERE causa_defuncion ILIKE '%MICROANGIOPATIA%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%NEFROPA%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD RENAL' 
 WHERE causa_defuncion ILIKE '%NEFROPA%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%LINFANGIOMA%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='CANCER' 
 WHERE causa_defuncion ILIKE '%LINFANGIOMA%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%COLON%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD EN EL COLON' 
 WHERE causa_defuncion ILIKE '%COLON%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%ANOMALI%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ANOMALIA' 
 WHERE causa_defuncion ILIKE '%ANOMALI%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%ANQUILOSIS%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD AUDITIVA' 
 WHERE causa_defuncion ILIKE '%ANQUILOSIS%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%APLASIA%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD HEMATOLOGICA' 
 WHERE causa_defuncion ILIKE '%APLASIA%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%ARTR%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD AUDITIVA' 
 WHERE causa_defuncion ILIKE '%ARTR%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%ARTERITI%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD DE LA SANGRE' 
 WHERE causa_defuncion ILIKE '%ARTERITI%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%ASFIXIA%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ASFIXIA' 
 WHERE causa_defuncion ILIKE '%ASFIXIA%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%ASMA%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD RESPIRATORIA' 
 WHERE causa_defuncion ILIKE '%ASMA%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%APNEA DEL SUEIOO%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD RESPIRATORIA' 
 WHERE causa_defuncion ILIKE '%APNEA DEL SUEIOO%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%APNEA PRIMARIA DEL SUEIOO DEL RECIIaN NACIDO%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD RESPIRATORIA' 
 WHERE causa_defuncion ILIKE '%APNEA PRIMARIA DEL SUEIOO DEL RECIIaN NACIDO%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%ATROFIA%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD NEUROLOGICA' 
 WHERE causa_defuncion ILIKE '%ATROFIA%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%BIPOLAR%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD PSIQUIATRICA' 
 WHERE causa_defuncion ILIKE '%BIPOLAR%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%CARDIO%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD DE LA SANGRE' 
 WHERE causa_defuncion ILIKE '%CARDIO%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%CIRROSIS%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD DIGESTIVA' 
 WHERE causa_defuncion ILIKE '%CIRROSIS%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%CONVULSIONES%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD NEUROLOGICA' 
 WHERE causa_defuncion ILIKE '%CONVULSIONES%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%DEPRESI%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD PSIQUIATRICA' 
 WHERE causa_defuncion ILIKE '%DEPRESI%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%CAIDA%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='CAIDA' 
 WHERE causa_defuncion ILIKE '%CAIDA%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%COMA %';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='COMA' 
 WHERE causa_defuncion ILIKE '%COMA %';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM stagin
 WHERE causa_defuncion ILIKE '%CELULITIS%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='CELULITIS' 
 WHERE causa_defuncion ILIKE '%CELULITIS%';
 
 SELECT causa_defuncion
-FROM staging_backup
+FROM staging
 WHERE causa_defuncion ILIKE '%RESPI%';
 
-UPDATE staging_backup
+UPDATE staging
 SET causa_defuncion='ENFERMEDAD RESPIRATORIA' 
 WHERE causa_defuncion ILIKE '%RESPI%';
 ```
