@@ -623,19 +623,6 @@ Aunque inicialmente podría parecer que existen inconsistencias debido a que alg
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
-### 14. **Inconsistencias entre entidad de defuncion y alcaldia**
-Para checar si hay alguna alcaldia que tenga varias entidades de defuncion, ejecutamos:
-```sql
-SELECT 
-    alcaldia, 
-    COUNT(DISTINCT entidad_defuncion) AS entidades_distintas
-FROM staging
-GROUP BY alcaldia
-HAVING COUNT(DISTINCT entidad_defuncion) > 1;
-```
-
-📌 **Resultados:**  
-No obtuvimos ninguna inconsistencia; todas las alcaldias solo tienen una entidad de defunción.
 
 ## 🧹 Limpieza de datos
 
