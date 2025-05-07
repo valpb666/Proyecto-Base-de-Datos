@@ -41,18 +41,18 @@ El dataset cuenta con 127,286 tuplas y 28 atributos, descritos a continuación:
 | causado_embarazo           | text (Categórica)              | Indica si la defunción fue causada por el embarazo.           |
 | complicacion_embarazo      | text (Categórica)              | Indica si hubo complicaciones relacionadas con el embarazo.   |
 | muerte_accidental_violenta | text (Categórica)              | Indica si la muerte fue accidental o violenta.                |
-| tipo_evento                | text (Categórica)              | Tipo de evento relacionado con la muerte.                     |
-| en_trabajo                 | text (Categórica)              | Indica si el evento ocurrió en el trabajo.                    |
-| sitio_lesion               | text (Categórica)              | Lugar físico donde ocurrió la lesión.                         |
-| municipio_ocurrencia       | text (Categórica)              | Municipio donde ocurrió el evento.                            |
+| tipo_evento                | text (Categórica)              | Tipo de evento relacionado con la muerte accidental o violenta|
+| en_trabajo                 | text (Categórica)              | Indica si la muerte accidental o violenta ocurrió en el trabajo.                    |
+| sitio_lesion               | text (Categórica)              | Lugar físico donde ocurrió la muerte accidental o violenta                  |
+| municipio_ocurrencia       | text (Categórica)              | Municipio donde ocurrió la muerte accidental o violenta.                            |
 | fecha_defuncion            | date (Fecha)                   | Fecha de la defunción.                                         |
 | edad                       | int (Numérica)                 | Edad de la persona en años.                                   |
 
-El objetivo del conjunto de datos es llevar un control riguroso y detallado de los patrones de mortalidad en la Ciudad de México. Esto incluye estudios epidemiológicos para identificar la incidencia de diversas enfermedades, el análisis de épocas con mayor mortalidad (como la pandemia de COVID-19), la evaluación geográfica de las tasas de defunción en distintas alcaldías, y el análisis demográfico de los fallecimientos. Este análisis permitirá detectar correlaciones entre factores demográficos, socioeconómicos y de salud, y evaluar la eficacia de la atención médica brindada.
+El objetivo del conjunto de datos es llevar un control riguroso y detallado de los patrones de mortalidad en la Ciudad de México, enfocándose exclusivamente en personas mexicanas y en defunciones por causas naturales o relacionadas con la salud, excluyendo aquellas de origen accidental o violento. Esto incluye estudios epidemiológicos para identificar la incidencia de diversas enfermedades, el análisis de épocas con mayor mortalidad (como la pandemia de COVID-19), la evaluación geográfica de las tasas de defunción en distintas alcaldías, y el análisis demográfico de los fallecimientos. Este análisis permitirá detectar correlaciones entre factores demográficos, socioeconómicos y de salud, y evaluar la eficacia de la atención médica brindada.
 
-El uso previsto por el equipo consiste en realizar un análisis profundo de la mortalidad en la ciudad, identificando y comparando tendencias a lo largo del tiempo. El estudio buscará establecer correlaciones entre variables demográficas y geográficas para comprender mejor la incidencia de diferentes causas de defunción, lo que podría aportar elementos clave para mejorar las estrategias de prevención y atención médica, y optimizar la distribucion de servicios de salud en la ciudad de México. 
+El uso previsto por el equipo consiste en realizar un análisis profundo de la mortalidad en la ciudad, identificando y comparando tendencias a lo largo del tiempo. El estudio buscará establecer correlaciones entre variables demográficas y geográficas para comprender mejor la incidencia de diferentes causas de defunción natural o sanitaria, lo que podría aportar elementos clave para mejorar las estrategias de prevención y atención médica, así como optimizar la distribución de servicios de salud en la Ciudad de México.
 
-El manejo y análisis de esta base de datos conlleva importantes consideraciones éticas, ya que se trata de información sensible sobre personas fallecidas. Es esencial respetar la privacidad y confidencialidad de los datos, asegurándose de que la información procesada no permita identificar a individuos específicos, con el fin de proteger la dignidad de los fallecidos y la integridad de sus familias. Debemos ser concientes en la eliminación o modificación de tuplas de no invisibilizar a las personas que estas tuplas representan. Además, se debe evitar la introducción de sesgos en la interpretación de los resultados, ya que conclusiones erróneas o discriminatorias podrían tener repercusiones negativas en ciertos grupos poblacionales o regiones. La transparencia en la comunicación de los hallazgos y en las limitaciones del análisis es crucial para mantener la objetividad y la responsabilidad ética en todo el estudio.
+El manejo y análisis de esta base de datos conlleva importantes consideraciones éticas, ya que se trata de información sensible sobre personas fallecidas. Debemos ser concientes en la eliminación o modificación de tuplas de no invisibilizar a las personas que estas tuplas representan. Además, se debe evitar la introducción de sesgos en la interpretación de los resultados, ya que conclusiones erróneas o discriminatorias podrían tener repercusiones negativas en ciertos grupos poblacionales o regiones. La transparencia en la comunicación de los hallazgos y en las limitaciones del análisis es crucial para mantener la objetividad y la responsabilidad ética en todo el estudio.
 
 Este análisis, realizado con un enfoque riguroso y ético, pretende ofrecer una visión integral de la situación epidemiológica en la Ciudad de México y contribuir a la toma de decisiones informadas en materia de salud pública.
     
@@ -200,11 +200,29 @@ ORDER BY frecuencia DESC;
 
 ### 5. **Columnas redundantes**
 
-En este conjunto de datos, se ha identificado una columna redundante:  
+En este conjunto de datos, se han identificado varias columnas redundantes o innecesarias, considerando el enfoque específico del análisis, que se limita a personas mexicanas fallecidas por causas naturales o relacionadas con la salud, y dentro del territorio de la Ciudad de México.
 
-- **`fecha_defuncion1`**: Esta columna se repite y debe ser eliminada, ya que no aporta valor adicional.
+`fecha_defuncion1`: Esta columna está duplicada y debe ser eliminada, ya que no aporta información adicional respecto a fecha_defuncion.
 
-Además, aunque no es estrictamente redundante, podría considerarse la columna **`fecha_nacimiento`** como tal, ya que contamos con la columna **`edad`** que podría derivarse de la fecha de nacimiento. Sin embargo, no es redundante en sí misma, sino que proporciona una referencia directa que puede ser útil en ciertos análisis.
+`edad`: Aunque puede parecer útil como referencia directa, es una columna redundante, ya que puede calcularse a partir de la diferencia entre fecha_nacimiento y fecha_defuncion. Por lo tanto, puede eliminarse para evitar inconsistencias entre valores calculados y registrados manualmente.
+
+`entidad_defuncion`: Es redundante porque todas las muertes consideradas ocurrieron en la Ciudad de México. No aporta variabilidad al conjunto de datos, por lo que puede eliminarse.
+
+`nacionalidad`: También se considera redundante, ya que el análisis solo incluirá personas de nacionalidad mexicana, lo cual hace innecesaria esta columna.
+
+Además, debido a que el estudio no considera muertes accidentales ni violentas, sino únicamente aquellas relacionadas con causas naturales o de salud, se eliminarán las siguientes columnas, ya que no aportan valor dentro del objetivo definido:
+
+`muerte_accidental_violenta`: Indica si la muerte fue accidental o violenta. Esta categoría queda fuera del enfoque del análisis.
+
+`tipo_evento`: Describe si el fallecimiento fue por homicidio, suicidio u otro evento violento. Esta información no es relevante dado que se excluyen dichas causas.
+
+`en_trabajo`: Especifica si la muerte violenta o accidental ocurrió durante una actividad laboral.
+
+`sitio_lesion`: Señala el lugar físico donde ocurrió un accidente o lesión. Dado el enfoque sanitario del análisis, esta columna es irrelevante.
+
+`municipio_ocurrencia`: Indica el municipio donde ocurrió el incidente, utilizado en casos de muertes accidentales o violentas. Como el análisis se restringe a la Ciudad de México y a causas naturales, esta columna también puede eliminarse.
+
+Estas eliminaciones ayudarán a depurar el conjunto de datos, reducir su complejidad y mejorar la precisión de los análisis centrados exclusivamente en la mortalidad natural de personas mexicanas en la Ciudad de México.
 
 ### 6. **Conteo de tuplas por cada categoría**
 En esta sección, analizamos la distribución de valores dentro de las columnas categóricas del conjunto de datos. Esto nos permite identificar qué categorías son más comunes y si hay valores atípicos o poco frecuentes.
@@ -496,18 +514,6 @@ fecha de nacimiento: 2020-11-01
 
 fecha de defunción: 2020-03-20
 
-### 9. **Inconsistencias en la edad**
-Para checar si hay alguna inconsitencia en las edades de la base de datos, checamos si la edad que está en la base de datos va concorde a la fecha de nacimiento y fecha de defunción:
-```sql
-SELECT edad, 
-       EXTRACT(YEAR FROM AGE(fecha_defuncion, fecha_nacimiento)) AS edad_checada, 
-       (EXTRACT(YEAR FROM AGE(fecha_defuncion, fecha_nacimiento)) = edad) AS coincide
-FROM staging
-WHERE EXTRACT(YEAR FROM AGE(fecha_defuncion, fecha_nacimiento)) <> edad;
-```
-
-📌 **Resultados:**  
-Obtuvimos 33 casos en donde la edad no coincide, pero solamente es por 1 año.
 
 ### 10. **Inconsistencias en la hora de defunción**
 Para checar si hay alguna hora que este fuera de los rangos de un día, ejecutamos:
