@@ -661,7 +661,8 @@ DROP COLUMN tipo_evento,
 DROP COLUMN en_trabajo,
 DROP COLUMN sitio_lesion,
 DROP COLUMN municipio_ocurrencia,
-DROP COLUMN fecha_defuncion1;
+DROP COLUMN fecha_defuncion1
+DROP COLUMN entidad_defuncion;
 ```
 
 
