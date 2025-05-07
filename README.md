@@ -640,6 +640,19 @@ No obtuvimos ninguna inconsistencia; todas las alcaldias solo tienen una entidad
 ## 🧹 Limpieza de datos
 
 ### • Eliminación de Tuplas 
+DELETE FROM staging
+WHERE nacionalidad != 'MEXICANA' OR muerte_accidental_violenta = 'SI';
+
+### • Eliminación de columnas
+ALTER TABLE staging 
+DROP COLUMN edad,
+DROP COLUMN nacionalidad,
+DROP COLUMN muerte_accidental_violenta,
+DROP COLUMN tipo_evento,
+DROP COLUMN en_trabajo,
+DROP COLUMN sitio_lesion,
+DROP COLUMN municipio_ocurrencia,
+DROP COLUMN fecha_defuncion1;
 
 
 ### • Actualización de Valores Nulos
