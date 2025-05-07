@@ -619,6 +619,8 @@ TEPETZINTLA	|2|
 |ZARAGOZA	|3|
 |NULL	|32|
 
+Aunque inicialmente podría parecer que existen inconsistencias debido a que algunos municipios aparecen asociados con múltiples entidades federativas, esto no representa un error en sí mismo. En México, es común que distintos estados tengan municipios con nombres homónimos, como "Benito Juárez", "Álvaro Obregón" o "San Miguel", por lo que es perfectamente posible que un mismo nombre de municipio aparezca con distintas entidades en el conjunto de datos. Esta situación no indica una contradicción, sino una limitación del uso de nombres sin claves geográficas únicas, como los códigos del INEGI. Por otro lado, el valor NULL en la columna municipio_residencia no representa una inconsistencia con entidad_residencia, sino un dato faltante que debe tratarse como tal. Por lo tanto, no se eliminarán estos registros por considerarse inconsistentes, pero se recomienda revisar y, de ser posible, normalizar la información utilizando catálogos oficiales para mayor precisión en el análisis.
+
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
 ### 14. **Inconsistencias entre entidad de defuncion y alcaldia**
@@ -636,6 +638,9 @@ HAVING COUNT(DISTINCT entidad_defuncion) > 1;
 No obtuvimos ninguna inconsistencia; todas las alcaldias solo tienen una entidad de defunción.
 
 ## 🧹 Limpieza de datos
+
+### • Eliminación de Tuplas 
+
 
 ### • Actualización de Valores Nulos
 Este cambio en la base de datos tiene como objetivo mejorar la consistencia y calidad de los datos almacenados en la base de datos. Se reemplazan valores ambiguos o indeterminados ('SE IGNORA', 'NO ESPECIFICADO', cadenas vacías '', entre otros) por NULL, asegurando una mejor interpretación de la información y facilitando su análisis posterior.
