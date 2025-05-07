@@ -640,10 +640,19 @@ No obtuvimos ninguna inconsistencia; todas las alcaldias solo tienen una entidad
 ## 🧹 Limpieza de datos
 
 ### • Eliminación de Tuplas 
+
+Las tuplas donde la nacionalidad no es mexicana o donde la muerte fue clasificada como accidental o violenta fueron eliminadas, ya que el estudio se enfoca exclusivamente en muertes por causas naturales o de salud de personas mexicanas. Esta depuración garantiza que el análisis se mantenga alineado con el objetivo principal del proyecto y evita introducir sesgos derivados de casos que no corresponden al enfoque epidemiológico buscado.
+
+```sql
 DELETE FROM staging
 WHERE nacionalidad != 'MEXICANA' OR muerte_accidental_violenta = 'SI';
+```
 
 ### • Eliminación de columnas
+
+Se eliminaron columnas que ya no aportan valor al conjunto de datos tras el filtrado anterior o que resultan redundantes. Por ejemplo, la columna edad se considera redundante porque puede calcularse a partir de `fecha_nacimiento` y `fecha_defuncion`. También se eliminó `nacionalidad` al haberse filtrado previamente solo a personas mexicanas. Las columnas `muerte_accidental_violenta`, `tipo_evento`, `en_trabajo`, `sitio_lesion` y `municipio_ocurrencia` quedaron fuera del análisis al excluirse las muertes accidentales o violentas. Finalmente, `fecha_defuncion1` fue eliminada por ser una duplicación sin valor adicional.
+
+```sql
 ALTER TABLE staging 
 DROP COLUMN edad,
 DROP COLUMN nacionalidad,
@@ -653,6 +662,7 @@ DROP COLUMN en_trabajo,
 DROP COLUMN sitio_lesion,
 DROP COLUMN municipio_ocurrencia,
 DROP COLUMN fecha_defuncion1;
+```
 
 
 ### • Actualización de Valores Nulos
