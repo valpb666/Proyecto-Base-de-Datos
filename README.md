@@ -1779,24 +1779,24 @@ Teniendo en cuenta que el enfoque de nuestro proyecto es analizar las deficienci
 3. ¿De que municipio vienen las personas que mayor atención medica recibieron?
 4. Por municipio, cual es la escolaridad más común ? Esta relacionado con las muertes por municipio?
 5. ¿Hay relacion entre la ocupación y la cantidad de muertes?
-'''sql
+```sql
 SELECT p.ocupacion, COUNT(*) AS total_defunciones
 FROM Persona p
 JOIN Defuncion d ON p.defuncion_id = d.id
 GROUP BY p.ocupacion
 ORDER BY total_defunciones DESC;
-'''
+```
 6. ¿Cual es el total de defunciones sin asistencia medica por municipio?
-'''sql
+```sql
 SELECT m.nombre AS municipio, COUNT(*) AS defunciones_sin_atencion
 FROM Defuncion d
 JOIN Municipio m ON d.alcaldia_defuncion_id = m.id
 WHERE d.atencion_medica = FALSE
 GROUP BY m.nombre
 ORDER BY defunciones_sin_atencion DESC;
-'''
+```
 7. ¿Cual es el porcentaje de defunciones sin atención médica por entidad ?
-'''sql
+```sql
 SELECT e.nombre AS entidad,
        ROUND(100.0 * SUM(CASE WHEN d.atencion_medica = FALSE THEN 1 ELSE 0 END) / COUNT(*), 2) AS porcentaje_sin_atencion
 FROM Defuncion d
@@ -1804,18 +1804,18 @@ JOIN Municipio m ON d.alcaldia_defuncion_id = m.id
 JOIN Entidad e ON m.entidad_id = e.id
 GROUP BY e.nombre
 ORDER BY porcentaje_sin_atencion DESC;
-'''
+```
 8. ¿Cual es el municipio con mayor cantidad de muertes en domicilio?
-'''sql
+```sql
 SELECT m.nombre AS municipio, COUNT(*) AS defunciones_en_domicilio
 FROM Defuncion d
 JOIN Municipio m ON d.alcaldia_defuncion_id = m.id
 WHERE LOWER(d.lugar_defuncion) LIKE '%domicilio%'
 GROUP BY m.nombre
 ORDER BY defunciones_en_domicilio DESC;
-'''
+```
 9. ¿Que entidades son las que realizan la menor cantidad de necropsias ?
-'''sql
+```sql
 SELECT e.nombre AS entidad, COUNT(*) AS defunciones_sin_necropsia
 FROM Defuncion d
 JOIN Municipio m ON d.alcaldia_defuncion_id = m.id
@@ -1823,7 +1823,8 @@ JOIN Entidad e ON m.entidad_id = e.id
 WHERE d.necropsia = FALSE
 GROUP BY e.nombre
 ORDER BY defunciones_sin_necropsia DESC;
-'''
+```
+
 
 
 
