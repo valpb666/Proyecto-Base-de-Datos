@@ -636,12 +636,16 @@ WHERE
 GROUP BY
 	causa_defuncion;
 ```
+📌 **Resultados:**  
+
 | causa_defuncion                | causas_inconsistentes  |
 |------------------------|--------|
 |AHOGAMIENTO Y SUMERSIÌÒN NO ESPECIFICADOS, LUGAR NO ESPECIFICADO	|3|
 |AHOGAMIENTO Y SUMERSIÌÒN, DE INTENCIÌÒN NO DETERMINADA, LUGAR NO ESPECIFICADO	|1|
 |LESIÌÒN AUTOINFLIGIDA INTENCIONALMENTE POR AHOGAMIENTO Y SUMERSIÌÒN, LUGAR NO ESPECIFICADO	|1|
+
 ```sql
+
 SELECT
 	causa_defuncion,
 	COUNT(causa_defuncion) AS causas_inconsistentes
@@ -650,9 +654,16 @@ FROM
 WHERE
 	muerte_accidental_violenta = 'NO'
 	AND causa_defuncion ILIKE '%AUTOINFLIGIDA%'
+	AND causa_defuncion NOT ILIKE '%AHOGAMIENTO%'
 GROUP BY
 	causa_defuncion;
 ```
+📌 **Resultados:**  
+| causa_defuncion                | causas_inconsistentes  |
+|------------------------|--------|
+|LESIÌÒN AUTOINFLIGIDA INTENCIONALMENTE POR AHORCAMIENTO, ESTRANGULAMIENTO O SOFOCACIÌÒN, LUGAR NO ESPECIFICADO	|30|
+|ALESIÌÒN AUTOINFLIGIDA INTENCIONALMENTE POR OTROS MEDIOS ESPECIFICADOS, LUGAR NO ESPECIFICADO	|1|
+
 
 ```sql
 SELECT
@@ -667,6 +678,12 @@ WHERE
 GROUP BY
 	causa_defuncion;
 ```
+📌 **Resultados:**  
+| causa_defuncion                | causas_inconsistentes  |
+|------------------------|--------|
+ASFIXIA	|2|
+
+
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
 ## 🧹 Limpieza de datos
