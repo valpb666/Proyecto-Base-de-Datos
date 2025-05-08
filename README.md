@@ -621,6 +621,9 @@ TEPETZINTLA	|2|
 
 Aunque inicialmente podría parecer que existen inconsistencias debido a que algunos municipios aparecen asociados con múltiples entidades federativas, esto no representa un error en sí mismo. En México, es común que distintos estados tengan municipios con nombres homónimos, como "Benito Juárez", "Álvaro Obregón" o "San Miguel", por lo que es perfectamente posible que un mismo nombre de municipio aparezca con distintas entidades en el conjunto de datos. Esta situación no indica una contradicción, sino una limitación del uso de nombres sin claves geográficas únicas, como los códigos del INEGI. Por otro lado, el valor NULL en la columna municipio_residencia no representa una inconsistencia con entidad_residencia, sino un dato faltante que debe tratarse como tal. Por lo tanto, no se eliminarán estos registros por considerarse inconsistentes, pero se recomienda revisar y, de ser posible, normalizar la información utilizando catálogos oficiales para mayor precisión en el análisis.
 
+### 14. Inconsistencias en las causas de muerte 
+
+Aunque ciertos registros no están etiquetados explícitamente como "muerte_accidental_violenta" en la columna correspondiente, al revisar la columna "causa_defuncion", se observa que las causas de defunción reportadas corresponden a situaciones que deberían ser clasificadas como muertes accidentales violentas.
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
 
