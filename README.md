@@ -624,7 +624,49 @@ Aunque inicialmente podría parecer que existen inconsistencias debido a que alg
 ### 14. Inconsistencias en las causas de muerte 
 
 Aunque ciertos registros no están etiquetados explícitamente como "muerte_accidental_violenta" en la columna correspondiente, al revisar la columna "causa_defuncion", se observa que las causas de defunción reportadas corresponden a situaciones que deberían ser clasificadas como muertes accidentales violentas.
+```sql
+SELECT
+	causa_defuncion,
+	COUNT(causa_defuncion) AS causas_inconsistentes
+FROM
+	staging
+WHERE
+	muerte_accidental_violenta = 'NO'
+	AND causa_defuncion ILIKE '%AHOGAMIENTO%'
+GROUP BY
+	causa_defuncion;
+```
+| causa_defuncion                | causas_inconsistentes  |
+|------------------------|--------|
+|AHOGAMIENTO Y SUMERSIÌÒN NO ESPECIFICADOS, LUGAR NO ESPECIFICADO	|3|
+|AHOGAMIENTO Y SUMERSIÌÒN, DE INTENCIÌÒN NO DETERMINADA, LUGAR NO ESPECIFICADO	|1|
+|LESIÌÒN AUTOINFLIGIDA INTENCIONALMENTE POR AHOGAMIENTO Y SUMERSIÌÒN, LUGAR NO ESPECIFICADO	|1|
+```sql
+SELECT
+	causa_defuncion,
+	COUNT(causa_defuncion) AS causas_inconsistentes
+FROM
+	staging
+WHERE
+	muerte_accidental_violenta = 'NO'
+	AND causa_defuncion ILIKE '%AUTOINFLIGIDA%'
+GROUP BY
+	causa_defuncion;
+```
 
+```sql
+SELECT
+	causa_defuncion,
+	COUNT(causa_defuncion) AS causas_inconsistentes
+FROM
+	staging
+WHERE
+	muerte_accidental_violenta = 'NO'
+	AND causa_defuncion ILIKE '%ASFIXIA%'
+	AND causa_defuncion NOT ILIKE '%NACIMIENTO%'
+GROUP BY
+	causa_defuncion;
+```
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
 ## 🧹 Limpieza de datos
