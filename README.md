@@ -1506,56 +1506,52 @@ WHERE durante_embarazo ILIKE 'NO ESTUVO EMBARAZADA%' AND complicacion_embarazo I
 A partir de los datos contenidos en la base de datos, se decidió dividirlos en las siguientes entidades:
 
 #### Entidad: Persona
-| Persona           |
+| persona                 |
+|-------------------------|
+| id                      |
+| sexo                    |
+| fecha_nacimiento        |
+| lengua_indígena         | 
+| estado_civil            |
+| residencia_id       (fk)|
+| escolaridad             |
+| ocupación               |
+| afiliación_medica       |
+| defuncion_id        (fk)|
+
+#### Entidad: municipio
+| municipio         |
+--------------------|
+| id                |
+| entidad_id    (fk)|
+| nombre            |
+
+#### Entidad: entidad
+| entidad           |
 |-------------------|
 | id                |
-| sexo              |
-| fecha_nacimiento  |
-| nacionalidad      |
-| lengua_indígena   |
-| estado_civil      |
-| escolaridad       |
-| ocupación         |
-| edad              |
+| nombre            |
 
-#### Entidad: Residencia
-| Residencia             |
-|------------------------|
-| id_persona (clave foránea) |
-| municipio_residencia   |
-| entidad_residencia     |
+#### Entidad: Defunción
+| defunción                   |
+|-----------------------------|
+| id                          |
+| fecha_defuncion             |
+| hora_defuncion              |
+| lugar_defuncion             |
+| causa_defuncion             |
+| alcaldia_defuncion_id  (fk) |
+| atención                    |
+| necropsia                   |
 
-#### Entidad: Evento Defunción
-| Evento Defunción       |
-|------------------------|
-| id_evento              |
-| fecha_defuncion        |
-| hora_defuncion         |
-| lugar_defuncion        |
-| tipo_evento            |
-| en_trabajo             |
-| sitio_lesion           |
-| municipio_ocurrencia   |
-| entidad_defuncion      |
-| alcaldía               |
 
-#### Entidad: Atención Médica
-| Atención Médica    |
-|--------------------|
-| id_atencion        |
-| afiliación_medica  |
-| atención_medica    |
-| necropsia          |
-
-#### Entidad: Muerte
-| Muerte                    |
+#### Entidad: Embarazo
+| embarazo                  |
 |---------------------------|
-| id_muerte                 |
-| causa_defuncion           |
-| durante_embarazo          |
+| id                        |
+| persona_id           (fk) |
 | causado_embarazo          |
 | complicacion_embarazo     |
-| muerte_accidental_violenta|
 
 ### • Dependencias funcionales y multivaluadas
 Después de analizar los datos se encontraron las siguientes dependencias:
@@ -1720,7 +1716,7 @@ Muerte Accidental={causa_defuncion, tipo_evento, muerte_accidental_violenta}
 | BCNF         | ¿Toda DF tiene como determinante una superclave?                    | Sí     | Cumple, ya que es super clave                           |
 | 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | Sí     | Cumple, no hay dependencia multivaluada en esta relación                
 
-Al ver que eta nueva entidad si está en cuarta forma normal, es correcta. Muerte ya no necesita contener el atributo muerte_accidental_violenta, ya que ahora va a estar en la nueva entidad de Muerte Accidental.
+Al ver que esta nueva entidad si está en cuarta forma normal, es correcta. Muerte ya no necesita contener el atributo muerte_accidental_violenta, ya que ahora va a estar en la nueva entidad de Muerte Accidental.
 
 Las entidades se verian de la siguiente manera:
 
