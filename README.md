@@ -1629,7 +1629,7 @@ Después de analizar los datos se encontraron las siguientes dependencias:
 
 #### Dependencias Funcionales no triviales:
 
-Como nuestras tablas estan normalizadas correctamente y en FNBC, no hay dependencias multivariadas, y las unicas dependencias funcionales nacen de la superclave de cada tabla, el ID.
+Como nuestras tablas estan normalizadas correctamente y en FNBC, no hay dependencias multivariadas, y las unicas dependencias funcionales nacen de la superclave de cada tabla; el ID.
 
 **-DF1: {persona.id} → {sexo, fecha_nacimiento, lengua_indigena, estado_civil, residencia_id, escolaridad, ocupacion, afiliacion_medica, defuncion_id}**  
 Esta dependencia funcional se justifica en el hecho de que cada atributo presente en la tabla persona está relacionado únicamente con el identificador (id) de la misma. Por lo tanto, al conocer el valor del identificador, es posible determinar de manera unívoca todos los demás atributos de la tabla.
@@ -1646,492 +1646,122 @@ Esta dependencia funcional se justifica en el hecho de que cada atributo present
 **-DF5: {embarazo.id} → {persona_id, durante_embarazo, causa_embarazo, complicacion_embarazo}**  
 Esta dependencia funcional se justifica en el hecho de que cada atributo presente en la tabla embarazo está relacionado únicamente con el identificador (id) de la misma. Por lo tanto, al conocer el valor del identificador, es posible determinar de manera unívoca todos los demás atributos de la tabla.
 
-**-DF6: {causa_defuncion, tipo_evento} → {muerte_accidental_violenta}**  
-Ciertas combinaciones entre la causa de defunción y el tipo de evento (como accidente, homicidio, suicidio) permiten determinar si se trata o no de una muerte accidental o violenta. Esta relación expresa una dependencia directa entre esas variables.
+### • Normalización de los datos hasta cuarta forma normal para llegar a las tablas
+Nos dimos cuenta que la base de datos no tenia ningun atributo que fuera el id de cada persona, por lo que decidimos agregar un id_persona que determina a cada una de las personas y todos los atributos de esa persona. Este ID unico es la base de nuestra descomposición, y nos ayuda a no tener DF ineccesarias.
+Veamos ahora la normalización hasta 4FN de cada una de nuestras tablas. 
 
+# Análisis de Normalización de Tablas
 
-#### Dependencias Multivaluadas no triviales
+## **1. Tabla: `Persona`**
 
-**-DM1: {sexo, fecha_nacimiento, edad} →→ {causa_defuncion}**  
-Esta dependencia multivaluada indica que para una misma combinación de sexo, fecha de nacimiento y edad, pueden existir múltiples causas de defunción asociadas. Esto refleja la variedad de posibles causas estadísticas en personas con esas características.
+| **Pregunta** | **Respuesta** |
+| --- | --- |
+| **¿Está en 1FN?** (¿La tabla tiene solo valores atómicos?) | Sí, todos los atributos de la tabla `persona` son atómicos (no hay listas o conjuntos de valores). |
+| **¿Está en 2FN?** (¿Está en 1FN y no hay dependencias parciales?) | Sí, todos los atributos dependen completamente de la clave primaria `id`. No hay dependencias parciales. |
+| **¿Está en 3FN?** (¿Está en 2FN y no hay dependencias transitivas?) | Sí, todos los atributos dependen directamente de `id`, sin depender de otros atributos. |
+| **¿Está en 4FN?** (¿Está en 3FN y no hay dependencias multivaluadas?) | Sí, no hay dependencias multivaluadas. Cada atributo depende exclusivamente de `id`. |
 
-**-DM2: {fecha_defuncion, hora_defuncion} →→ {lugar_defuncion}**  
-Dado un conjunto específico de fecha y hora de defunción, pueden estar asociadas múltiples ubicaciones posibles donde pudo haber ocurrido el fallecimiento (como hospital, domicilio, vía pública), lo cual establece una dependencia multivaluada.
+---
 
-### • Normalización de los datos hasta cuarta forma normal
-Nos dimos cuenta que la base de datos no tenia ningun atributo que fuera el id de cada persona, por lo que decidimos agregar un id_persona que determina a cada una de las personas, todos los atributos de esa persona. Se decidió agregar este id_persona en la entidad de persona.
+## **2. Tabla: `Municipio`**
 
-Para llegar hasta cuarta forma normal, hicimos:
+| **Pregunta** | **Respuesta** |
+| --- | --- |
+| **¿Está en 1FN?** (¿La tabla tiene solo valores atómicos?) | Sí, todos los atributos en la tabla `municipio` son atómicos. |
+| **¿Está en 2FN?** (¿Está en 1FN y no hay dependencias parciales?) | Sí, todos los atributos dependen completamente de la clave primaria `id` de municipio. No hay dependencias parciales. |
+| **¿Está en 3FN?** (¿Está en 2FN y no hay dependencias transitivas?) | Sí, todos los atributos dependen directamente de `id`, sin depender de otros atributos. |
+| **¿Está en 4FN?** (¿Está en 3FN y no hay dependencias multivaluadas?) | Sí, no hay dependencias multivaluadas. Cada atributo depende exclusivamente de `id`. |
 
-**-DF1: {municipio_residencia} → {entidad_residencia}** 
+---
 
-Los atributos que conforman esta dependencia pertenecen a la entidad de Residencia con los atributos siguientes.
+## **3. Tabla: `Entidad`**
 
-Residencia={municipio_residencia, entidad_residencia}
+| **Pregunta** | **Respuesta** |
+| --- | --- |
+| **¿Está en 1FN?** (¿La tabla tiene solo valores atómicos?) | Sí, los atributos `id` y `nombre` son atómicos. |
+| **¿Está en 2FN?** (¿Está en 1FN y no hay dependencias parciales?) | Sí, todos los atributos dependen completamente de la clave primaria `id`. No hay dependencias parciales. |
+| **¿Está en 3FN?** (¿Está en 2FN y no hay dependencias transitivas?) | Sí, no hay dependencias transitivas, ya que `nombre` depende exclusivamente de `id`. |
+| **¿Está en 4FN?** (¿Está en 3FN y no hay dependencias multivaluadas?) | Sí, no hay dependencias multivaluadas, ya que no hay atributos que dependan de otros atributos en forma multivaluada. |
 
-{municipio_residencia}<sup>+</sup>={municipio_residencia, entidad_residencia}
- 
- Para checar si está en 4FN checaremos si cumple cada una de las formas normales anteriores:
- 
-| Forma Normal | Pregunta                                                             | Cumple | Justificación                                                                 |
-|--------------|----------------------------------------------------------------------|--------|--------------------------------------------------------------------------------|
-| 1FN          | ¿Todos los atributos contienen valores atómicos?                     | Sí     | Cumple, ya que no hay listas ni estructuras repetidas                        |
-| 2FN          | ¿Algún atributo no clave depende solo de parte de la clave?          | Sí     | Cumple, ya que no hay clave compuesta                                        |
-| 3FN          | ¿Hay dependencias transitivas?                                       | Sí     | Cumple, ya que municipio_residencia es la clave y no hay dependencias transitivas. |
-| BCNF         | ¿Toda DF tiene como determinante una superclave?                    | Sí     | Cumple, ya que municipio_residencia es superclave                            |
-| 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | Sí     | Cumple, no hay dependencia multivaluada en esta relación                
+---
 
-**-DF2: {municipio_ocurrencia} → {entidad_defuncion} y DF5: {alcaldia} → {entidad_defuncion}** 
+## **4. Tabla: `Defuncion`**
 
-Los atributos que conforman estas dependencias pertenecen a la entidad de Evento Defunción con los atributos siguientes.
+| **Pregunta** | **Respuesta** |
+| --- | --- |
+| **¿Está en 1FN?** (¿La tabla tiene solo valores atómicos?) | Sí, todos los atributos de la tabla `defuncion` son atómicos. |
+| **¿Está en 2FN?** (¿Está en 1FN y no hay dependencias parciales?) | Sí, todos los atributos dependen completamente de la clave primaria `id` de `defuncion`. No hay dependencias parciales. |
+| **¿Está en 3FN?** (¿Está en 2FN y no hay dependencias transitivas?) | Sí, no hay dependencias transitivas en la tabla `defuncion`. |
+| **¿Está en 4FN?** (¿Está en 3FN y no hay dependencias multivaluadas?) | Sí, no hay dependencias multivaluadas en la tabla `defuncion`. |
 
-Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, entidad_defuncion, alcaldia}
+---
 
-{municipio_ocurrencia}<sup>+</sup>={municipio_ocurrencia, entidad_defunción}
+## **5. Tabla: `Embarazo`**
 
-{alcaldia}<sup>+</sup>={alcaldia, entidad_defunción}
+| **Pregunta** | **Respuesta** |
+| --- | --- |
+| **¿Está en 1FN?** (¿La tabla tiene solo valores atómicos?) | Sí, todos los atributos de la tabla `embarazo` son atómicos. |
+| **¿Está en 2FN?** (¿Está en 1FN y no hay dependencias parciales?) | Sí, todos los atributos dependen completamente de la clave primaria `id` de `embarazo`. No hay dependencias parciales. |
+| **¿Está en 3FN?** (¿Está en 2FN y no hay dependencias transitivas?) | Sí, todos los atributos dependen directamente de `id`, sin depender de otros atributos. |
+| **¿Está en 4FN?** (¿Está en 3FN y no hay dependencias multivaluadas?) | Sí, no hay dependencias multivaluadas en la tabla `embarazo`. |
 
- Para checar si está en 4FN checaremos si cumple cada una de las formas normales anteriores:
- 
-| Forma Normal | Pregunta                                                             | Cumple | Justificación                                                                 |
-|--------------|----------------------------------------------------------------------|--------|--------------------------------------------------------------------------------|
-| 1FN          | ¿Todos los atributos contienen valores atómicos?                     | Sí     | Cumple, ya que no hay listas ni estructuras repetidas                        |
-| 2FN          | ¿Algún atributo no clave depende solo de parte de la clave?          | Sí     | Cumple, ya que no hay clave compuesta                                        |
-| 3FN          | ¿Hay dependencias transitivas?                                       | Sí     | Cumple, ya que no hay dependencias transitivas |
-| BCNF         | ¿Toda DF tiene como determinante una superclave?                    | No-Sí     | No es super clave, aplicar Heath                            |
-| 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | Sí     | Cumple, no hay dependencia multivaluada en esta relación                
+No modificamos nada de las tablas que propusimos originalmente, pues ya estaban en Cuarta Forma Normal desde el principio. Las tablas no presentaban dependencias multivaluadas no triviales, lo cual es el criterio principal para cumplir con 4FN. Cada atributo de las tablas depende exclusivamente de la clave primaria, y no existían atributos que dependieran de otros de manera multivaluada, lo que podría generar redundancias o problemas de integridad de datos. Además, no había necesidad de dividir las tablas ni eliminar dependencias, ya que todas las dependencias funcionales eran triviales y las relaciones entre los datos estaban bien definidas sin violar las reglas de normalización. Por lo tanto, las tablas ya cumplían con las condiciones necesarias para estar en 4FN.
 
-Nos dimos cuenta que no se cumplia la forma norma de Boyce_Codd en ninguna de las dos dependencias, por lo que decidimos utilizar el Teroema de Heath para descomponer las dependencias
-X: {municipio_ocurrencia}   Y: {entidad_defuncion}
- 
- Evento Defuncion 2={municipio_ocurrencia, entidad_defuncion}
-  
- Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia} (ya no tiene entidad_defunción)
-
-Nos damos cuenta que al aplicar el Teorema de Heath entidada_defuncion ya no esta en la entidad Evento Defuncion, ya no estan los atributos alcaldia y entidad_defuncion en la misma entidad, por lo tanto la dependencia de DF5: {alcaldia} → {entidad_defuncion} ya no existe en la tabla original, lo que indica que no puede violar ninguna forma normal.
-
-**-DF3: {fecha_nacimiento, fecha_defuncion} → {edad}** 
-
-Los atributos que conforman esta dependencia pertenecen a diferentes entidades, fecha_nacimiento y edad pertenecen a la entidad de Persona y fecha_defuncion pertenece a Evento Defuncion, con los atributos siguientes
-
-Persona={sexo, fecha_nacimiento, nacionalidad, lengua_indígena, estado_civil, escolaridad, ocupación, edad)
-
-Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia} (Recordamos que ya no tiene entidad_defuncion)
-
-Como los atributos de la dependencia funcional estan en diferentes entidades, necesitamos crear una nueva entidad en donde los atributos esten juntos:
-
-Edad={fecha_nacimiento, fecha_defuncion, edad}
-
- Para checar si esta nueva entidad Edad en 4FN checaremos si cumple cada una de las formas normales anteriores:
- 
-| Forma Normal | Pregunta                                                             | Cumple | Justificación                                                                 |
-|--------------|----------------------------------------------------------------------|--------|--------------------------------------------------------------------------------|
-| 1FN          | ¿Todos los atributos contienen valores atómicos?                     | Sí     | Cumple, ya que no hay listas ni estructuras repetidas                        |
-| 2FN          | ¿Algún atributo no clave depende solo de parte de la clave?          | Sí     | Cumple, edad depende completamente de ambas                                       |
-| 3FN          | ¿Hay dependencias transitivas?                                       | Sí     | Cumple, ya que no hay dependencias transitivas. |
-| BCNF         | ¿Toda DF tiene como determinante una superclave?                    | Sí     | Cumple ya que es super clave                           |
-| 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | Sí     | Cumple, no hay dependencia multivaluada en esta relación                
-
-Al ver que eta nueva entidad si está en cuarta forma normal, es correcta. Persona ya no necesita contener el atributo edad, ya que ahora va a estar en la nueva entidad de Edad.
-
-Las entidades se verian de la siguiente manera:
-
-Persona={sexo, fecha_nacimiento, nacionalidad, lengua_indígena, estado_civil, escolaridad, ocupación}
-
-Evento Defuncion={fecha_defuncion, hora_defuncion, lugar_defuncion, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia}
-
-Edad={fecha_nacimiento, fecha_defuncion, edad}
-
-**-DF4: {causa_defuncion, durante_embarazo} → {complicacion_embarazo}**  
-
-Los atributos que conforman esta dependencia pertenecen a la entidad de Muerte con los atributos siguientes.
-
-Muerte={causa_defuncion, durante_embarazo, causado_embarazo, muerte_accidental_violenta, complicacion_embarazo}
-
-{causa_defuncion, durante_embarazo}<sup>+</sup>={causa_defuncion, durante_embarazo, complicacion_embarazo}
-
- Para checar si está en 4FN checaremos si cumple cada una de las formas normales anteriores:
- 
-| Forma Normal | Pregunta                                                             | Cumple | Justificación                                                                 |
-|--------------|----------------------------------------------------------------------|--------|--------------------------------------------------------------------------------|
-| 1FN          | ¿Todos los atributos contienen valores atómicos?                     | Sí     | Cumple, ya que no hay listas ni estructuras repetidas                        |
-| 2FN          | ¿Algún atributo no clave depende solo de parte de la clave?          | Sí     | Cumple, ya que no hay clave compuesta                                        |
-| 3FN          | ¿Hay dependencias transitivas?                                       | Sí     | Cumple, ya que no hay dependencias transitivas |
-| BCNF         | ¿Toda DF tiene como determinante una superclave?                    | No-Sí     | No es super clave, aplicar Heath                            |
-| 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | Sí     | Cumple, no hay dependencia multivaluada en esta relación                
-
-Nos dimos cuenta que no se cumplia la forma norma de Boyce_Codd en esta dependencia, por lo que decidimos utilizar el Teroema de Heath para descomponer la dependencia
-X: {causa_defuncion, durante_embarazo}   Y: {complicacion_embarazo}
- 
- Muerte 2={causa_defuncion, durante_embarazo, complicacion_embarazo}
-  
- Muerte={causa_defuncion, durante_embarazo, causado_embarazo, muerte_accidental_violenta}
-
-**-DF6: {causa_defuncion, tipo_evento} → {muerte_accidental_violenta}** 
-
-Los atributos que conforman esta dependencia pertenecen a dos entidades, los atributos de causa_defuncion y muerte_acidental_violenta pertenecen a la entidad de Muerte y tipo_evento pertence a le entidad de Evento Defuncion, con los atributos siguientes.
-
-Muerte={causa_defuncion, durante_embarazo, causado_embarazo, muerte_accidental_violenta} (recordemos que ya no tiene complicacion embarazo)
-
-Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia} (recordemos que ya no tiene entidad_defunción)
-
-Como los atributos de la dependencia funcional están en diferentes entidades, necesitamos crear una nueva entidad en donde los atributos esten juntos:
-
-Muerte Accidental={causa_defuncion, tipo_evento, muerte_accidental_violenta}
-
- Para checar si está en 4FN checaremos si cumple cada una de las formas normales anteriores:
- 
-| Forma Normal | Pregunta                                                             | Cumple | Justificación                                                                 |
-|--------------|----------------------------------------------------------------------|--------|--------------------------------------------------------------------------------|
-| 1FN          | ¿Todos los atributos contienen valores atómicos?                     | Sí     | Cumple, ya que no hay listas ni estructuras repetidas                        |
-| 2FN          | ¿Algún atributo no clave depende solo de parte de la clave?          | Sí     | Cumple, ya que no hay clave compuesta                                        |
-| 3FN          | ¿Hay dependencias transitivas?                                       | Sí     | Cumple, ya que no hay dependencias transitivas |
-| BCNF         | ¿Toda DF tiene como determinante una superclave?                    | Sí     | Cumple, ya que es super clave                           |
-| 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | Sí     | Cumple, no hay dependencia multivaluada en esta relación                
-
-Al ver que esta nueva entidad si está en cuarta forma normal, es correcta. Muerte ya no necesita contener el atributo muerte_accidental_violenta, ya que ahora va a estar en la nueva entidad de Muerte Accidental.
-
-Las entidades se verian de la siguiente manera:
-
-Muerte={causa_defuncion, durante_embarazo, causado_embarazo}
-
-Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia} (recordemos que ya no tiene entidad_defunción)
-
-Muerte Accidental={causa_defuncion, tipo_evento, muerte_accidental_violenta}
-
-**-DM1: {sexo, fecha_nacimiento, edad} →→ {causa_defuncion}**
-
-Los atributos que conforman esta dependencia multivaluada pertenecen a varias entidades diferentes, los atributos sexo y fecha de nacimiento pertencen a la entidad de Persona, el atributo de edad pertenece a la nueva entidad de Edad y causa defuncion pertenece a la entidad de Muerte, con los atributos siguientes (después de aplicar todas las dependencias funcionales):
-
-Muerte={causa_defuncion, durante_embarazo, causado_embarazo}
-
-Persona={sexo, fecha_nacimiento, nacionalidad, lengua_indígena, estado_civil, escolaridad, ocupación}
-
-Edad={fecha_nacimiento, fecha_defuncion, edad}
-
-Como los atributos de la dependencia multivaluada están en diferentes entidades, necesitamos crear una nueva entidad en donde los atributos esten juntos:
-
-Sexo Edad Causa={sexo, fecha_nacimiento, edad, causa_defuncion}
-
- Para checar si está en 4FN checaremos si cumple cada una de las formas normales anteriores:
- 
-| Forma Normal | Pregunta                                                             | Cumple | Justificación                                                                 |
-|--------------|----------------------------------------------------------------------|--------|--------------------------------------------------------------------------------|
-| 1FN          | ¿Todos los atributos contienen valores atómicos?                     | Sí     | Cumple, ya que no hay listas ni estructuras repetidas                        |
-| 2FN          | ¿Algún atributo no clave depende solo de parte de la clave?          | Sí     | Cumple, ya que no hay clave compuesta                                        |
-| 3FN          | ¿Hay dependencias transitivas?                                       | Sí     | Cumple, ya que no hay dependencias transitivas |
-| BCNF         | ¿Toda DF tiene como determinante una superclave?                    | Sí     | Cumple, es super clave        |
-| 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | No-Sí     | No ya que hay dependencias multivaluadas, aplicamos Fagin
-
-
-Nos dimos cuena que era una dependencia multivaluada, por lo que aplicamos Teorema Fagin
-X: {sexo, fecha_nacimiento, edad}   Y: {causa_defuncion}
- 
- Sexo Edad Causa={sexo, fecha_nacimiento, edad, causa_defuncion}
-  
- Muerte={causa_defuncion, durante_embarazo, causado_embarazo, muerte_accidental_violenta} (se mantiene igual)
-
-**-DM2: {fecha_defuncion, hora_defuncion} →→ {lugar_defuncion}**
-
-Los atributos que conforman esta dependencia multivaluada pertenecen a la entidad de Evento Defuncion, con los siguientes atributos:
-
-Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia}
-
-{fecha_defuncion, hora_defuncion}<sup>+</sup>={lugar_defuncion}
-
- Para checar si está en 4FN checaremos si cumple cada una de las formas normales anteriores:
- 
-| Forma Normal | Pregunta                                                             | Cumple | Justificación                                                                 |
-|--------------|----------------------------------------------------------------------|--------|--------------------------------------------------------------------------------|
-| 1FN          | ¿Todos los atributos contienen valores atómicos?                     | Sí     | Cumple, ya que no hay listas ni estructuras repetidas                        |
-| 2FN          | ¿Algún atributo no clave depende solo de parte de la clave?          | Sí     | Cumple, ya que no hay clave compuesta                                        |
-| 3FN          | ¿Hay dependencias transitivas?                                       | Sí     | Cumple, ya que no hay dependencias transitivas |
-| BCNF         | ¿Toda DF tiene como determinante una superclave?                    | Sí     | Cumple, es super clave        |
-| 4FN          | ¿Toda DMV tiene como determinante una superclave?                    | No-Sí     | No ya que hay dependencias multivaluadas, aplicamos Fagin
-
-Nos dimos cuena que era una dependencia multivaluada, por lo que aplicamos Teorema Fagin
-X: {fecha_defuncion, hora_defuncion}   Y: {lugar_defuncion}
- 
- Fecha Hora Lugar={fecha_defuncion, hora_defuncion, lugar_defuncion}
-  
- Evento Defuncion={fecha_defunción, hora_defunción, lugar_defunción, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia} (se mantiene igual)
-
- ### • Entidades finales
-A partir de las entidades que generamos intuitivamente y las dependenciales funcionales y multivaluadas que encontramos normalizamod los datos y llegamos a las siguientes entidades:
-
-#### Entidad: Persona
-| Persona           |
-|-------------------|
-| id                |
-| sexo              |
-| fecha_nacimiento  |
-| nacionalidad      |
-| lengua_indígena   |
-| estado_civil      |
-| escolaridad       |
-| ocupación         |
-
-#### Entidad: Residencia
-| Residencia             |
-|------------------------|
-| id                     |
-| id_persona             |
-| municipio_residencia   |
-| entidad_residencia     |
-
-#### Entidad: Evento Defunción
-| Evento Defunción       |
-|------------------------|
-| id                     |
-| id_persona             |
-| id_residencia          |
-| fecha_defuncion        |
-| hora_defuncion         |
-| lugar_defuncion        |
-| tipo_evento            |
-| en_trabajo             |
-| sitio_lesion           |
-| municipio_ocurrencia   |
-| alcaldía               |
- 
-#### Entidad: Atención Médica
-| Atención Médica    |
-|--------------------|
-| id                 |
-| id_persona         |
-| afiliación_medica  |
-| atención_medica    |
-| necropsia          |
-
-#### Entidad: Muerte
-| Muerte                    |
-|---------------------------|
-| id                        |
-| id_persona                |
-| causa_defuncion           |
-| durante_embarazo          |
-| causado_embarazo          |
-
-#### Entidad: Edad
-| Edad                      |
-|---------------------------|
-| id                        |
-| id_persona                |
-| fecha_nacimiento          |
-| fecha_defuncion           |
-| edad                      |
-
-#### Entidad: SexoEdadCausa
-| SexoEdadCausa             |
-|---------------------------|
-| id                        |
-| id_persona                |
-| sexo                      |
-| fecha_nacimiento          |
-| edad                      |
-| causa_defuncion           |
-
-#### Entidad: FechaHoraLugar
-| FechaHoraLugar            |
-|---------------------------|
-| id                        |
-| id_persona                |
-| fecha_defuncion           |
-| hora_defuncion            |
-| lugar_defuncion           |
-
-#### Entidad: MuerteAccidental
-| MuerteAccidental          |
-|---------------------------|
-| id                        |
-| id_persona                |
-| causa_defuncion           |
-| tipo_evento               |
-| muerte_accidental_violenta|
-
-#### Entidad: MuerteEmbarazo
-| MuerteEmbarazo            |
-|---------------------------|
-| id                        |
-| id_persona                |
-| durante_embarazo          |
-| complicacion_embarazo     |
-
-#### Entidad: DefuncionOcurrencia
-| DefuncionOcurrencia       |
-|---------------------------|
-| id                        |
-| id_persona                |
-| municipio_ocurrencia      |
-| entidad_defuncion         |
+Estas tablas fueron diseñadas teniendo en cuenta la **naturaleza de los datos** que representan, lo que garantizó que se cumplieran las reglas de normalización y se mantuviera la integridad de los mismos. Cada tabla refleja una entidad específica del dominio, como `Persona`, `Municipio`, `Entidad`, `Defuncion`, y `Embarazo`, las cuales están estructuradas de forma que reflejan la relación única y directa entre los atributos de cada entidad. Por ejemplo, la tabla `Persona` contiene atributos como `sexo`, `fecha_nacimiento`, `estado_civil`, etc., que dependen exclusivamente del identificador único de la persona, lo cual refleja su naturaleza única y no repetitiva. Asimismo, las relaciones entre las tablas están definidas de manera que se eviten redundancias y se optimice el acceso y la manipulación de los datos, lo que hace que el modelo sea eficiente y adecuado para representar la realidad del dominio de forma clara y coherente. Las dependencias funcionales fueron cuidadosamente consideradas para asegurar que las tablas se mantuvieran en 4FN, evitando dependencias multivaluadas y asegurando que cada conjunto de atributos dependiera únicamente de la clave primaria. Así, el diseño de las tablas no solo sigue las reglas de normalización, sino que también refleja la estructura y la lógica inherente a los datos que se almacenan.
 
 ### • Creación de tablas en SQL
-Dado que ambas columnas de fecha_defuncion contienen valores idénticos, se optó por ignorar la segunda y utilizar únicamente una de ellas para el modelado.
-
-```sql
-ALTER TABLE staging ADD COLUMN id BIGSERIAL NOT NULL;
-
-DROP TABLE IF EXISTS persona;
-CREATE TABLE persona(
-	id BIGSERIAL PRIMARY KEY,
-	sexo VARCHAR (10),
-	fecha_nacimiento DATE,
-	nacionalidad VARCHAR (50),
-	lengua_indigena BOOLEAN, 
-	estado_civil VARCHAR(50),
-	escolaridad VARCHAR(200),
-	ocupacion VARCHAR(200),
-	id_staging BIGINT--Solo se va a usar para la relación, después se eliminará
+-- Tabla: Entidad
+CREATE TABLE Entidad (
+    id INT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL
 );
 
-INSERT INTO persona(sexo, fecha_nacimiento, nacionalidad, lengua_indigena, estado_civil, escolaridad, ocupacion, id_staging)
-SELECT sexo, fecha_nacimiento, nacionalidad, lengua_indigena, estado_civil, escolaridad, ocupacion, id
-FROM staging;
-
-CREATE TABLE residencia(
-	id BIGSERIAL PRIMARY KEY,
-	id_persona BIGINT NOT NULL CONSTRAINT fk_id_persona REFERENCES persona(id),
-	municipio_residencia VARCHAR(200),
-	entidad_residencia VARCHAR(200)
+-- Tabla: Municipio
+CREATE TABLE Municipio (
+    id INT PRIMARY KEY,
+    entidad_id INT ON DELETE CASCADE,
+    nombre VARCHAR(255) NOT NULL,
+    FOREIGN KEY (entidad_id) REFERENCES Entidad(id)
 );
 
-INSERT INTO residencia(id_persona, municipio_residencia, entidad_residencia)
-SELECT persona.id, municipio_residencia, entidad_residencia
-FROM staging
-JOIN persona ON staging.id = persona.id_staging;
-
-DROP TABLE IF EXISTS evento_defuncion;
-CREATE TABLE evento_defuncion(
-	id BIGSERIAL PRIMARY KEY,
-	id_persona BIGINT NOT NULL CONSTRAINT fk_id_persona REFERENCES persona(id),
-	fecha_defuncion DATE NOT NULL,
-	hora_defuncion TIME,
-	lugar_defuncion VARCHAR(500),
-	tipo_evento VARCHAR(500),
-	en_trabajo BOOLEAN DEFAULT FALSE, 
-	sitio_lesion VARCHAR(500),
-	municipio_ocurrencia VARCHAR(500),
-	alcaldia VARCHAR(500),
-	id_residencia BIGINT NOT NULL CONSTRAINT fk_id_residencia REFERENCES residencia(id)
+-- Tabla: Persona
+CREATE TABLE Persona (
+    id INT PRIMARY KEY,
+    sexo VARCHAR(10),
+    fecha_nacimiento DATE,
+    lengua_indigena VARCHAR(100),
+    estado_civil VARCHAR(20),
+    residencia_id INT ON DELETE SET NULL,
+    escolaridad VARCHAR(50),
+    ocupacion VARCHAR(50),
+    afiliacion_medica VARCHAR(50),
+    defuncion_id INT ON DELETE SET NULL,
+    FOREIGN KEY (residencia_id) REFERENCES Municipio(id),  -- Relación con Municipio
+    FOREIGN KEY (defuncion_id) REFERENCES Defuncion(id)   -- Relación con Defuncion
 );
 
-INSERT INTO evento_defuncion(id_persona, fecha_defuncion, hora_defuncion, lugar_defuncion, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia, id_residencia)
-SELECT persona.id, fecha_defuncion, hora_defuncion, lugar_defuncion, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, alcaldia, residencia.id
-FROM staging
-JOIN persona ON staging.id = persona.id_staging
-JOIN residencia ON persona.id = residencia.id_persona;
-
-DROP TABLE IF EXISTS evento_medico;
-CREATE TABLE atencion_medica(
-	id BIGSERIAL PRIMARY KEY,
-	id_persona BIGINT NOT NULL CONSTRAINT fk_id_persona REFERENCES persona(id),
-	afiliacion_medica VARCHAR(500),
-	atencion_medica BOOLEAN DEFAULT FALSE,
-	necropsia BOOLEAN DEFAULT FALSE
+-- Tabla: Defuncion
+CREATE TABLE Defuncion (
+    id INT PRIMARY KEY,
+    fecha_defuncion DATE,
+    hora_defuncion TIME,
+    lugar_defuncion VARCHAR(255),
+    causa_defuncion TEXT,
+    alcaldia_defuncion_id INT ON DELETE SET NULL,
+    atencion_medica BOOLEAN,
+    necropsia BOOLEAN,
+    FOREIGN KEY (alcaldia_defuncion_id) REFERENCES Municipio(id)  -- Relación con Municipio
 );
 
-INSERT INTO atencion_medica(id_persona, afiliacion_medica, atencion_medica, necropsia)
-SELECT persona.id, afiliacion_medica, atencion_medica, necropsia
-FROM staging
-JOIN persona ON staging.id = persona.id_staging;
-
-CREATE TABLE muerte(
-	id BIGSERIAL PRIMARY KEY,
-	id_persona BIGINT CONSTRAINT fk_id_persona REFERENCES persona(id),
-	causa_defuncion VARCHAR(500),
-	durante_embarazo VARCHAR(500),
-	causado_embarazo VARCHAR (500)
+-- Tabla: Embarazo
+CREATE TABLE Embarazo (
+    id INT PRIMARY KEY,
+    persona_id INT ON DELETE CASCADE,
+    causado_embarazo TEXT,
+    complicacion_embarazo TEXT,
+    FOREIGN KEY (persona_id) REFERENCES Persona(id)  
 );
 
-INSERT INTO muerte(id_persona, causa_defuncion, durante_embarazo, causado_embarazo)
-SELECT persona.id, causa_defuncion, durante_embarazo, causado_embarazo
-FROM staging
-JOIN persona ON staging.id = persona.id_staging;
-
-CREATE TABLE edad(
-	id BIGSERIAL PRIMARY KEY,
-	id_persona BIGINT NOT NULL CONSTRAINT fk_id_persona REFERENCES persona(id),
-	fecha_nacimiento DATE,
-	fecha_defuncion DATE,
-	edad SMALLINT
-);
-
-INSERT INTO edad(id_persona, fecha_nacimiento, fecha_defuncion, edad)
-SELECT persona.id, staging.fecha_nacimiento, fecha_defuncion, edad 
-FROM staging
-JOIN persona ON staging.id = persona.id_staging;
-
-CREATE TABLE sexo_edad_causa(
-	id BIGSERIAL PRIMARY KEY,
-	id_persona BIGINT NOT NULL CONSTRAINT fk_id_persona REFERENCES persona(id),
-	sexo VARCHAR(10),
-	fecha_nacimiento DATE,
-	edad SMALLINT,
-	causa_defuncion VARCHAR(500)
-);
-
-INSERT INTO sexo_edad_causa(id_persona, sexo, fecha_nacimiento, edad, causa_defuncion)
-SELECT persona.id, staging.sexo, staging.fecha_nacimiento, edad, causa_defuncion
-FROM staging
-JOIN persona ON staging.id = persona.id_staging;
-
-CREATE TABLE fecha_hora_lugar(
-	id BIGSERIAL PRIMARY KEY,
-	id_persona BIGINT NOT NULL CONSTRAINT fk_id_persona REFERENCES persona(id),
-	fecha_defuncion DATE,
-	hora_defuncion TIME,
-	lugar_defuncion VARCHAR(500)
-);
-
-INSERT INTO fecha_hora_lugar(id_persona, fecha_defuncion, hora_defuncion, lugar_defuncion)
-SELECT persona.id, fecha_defuncion, hora_defuncion, lugar_defuncion
-FROM staging
-JOIN persona ON staging.id = persona.id_staging;
-
-CREATE TABLE muerte_accidental(
-	id BIGSERIAL PRIMARY KEY,
-	id_persona BIGINT NOT NULL CONSTRAINT fk_id_persona REFERENCES persona(id),
-	causa_defuncion VARCHAR(500),
-	tipo_evento VARCHAR(500),
-	muerte_accidental_violenta BOOLEAN
-);
-
-INSERT INTO muerte_accidental(id_persona, causa_defuncion, tipo_evento, muerte_accidental_violenta)
-SELECT persona.id, causa_defuncion, tipo_evento, muerte_accidental_violenta
-FROM staging
-JOIN persona ON staging.id = persona.id_staging;
-
-
-CREATE TABLE muerte_embarazo(
-	id BIGSERIAL PRIMARY KEY,
-	id_persona BIGINT NOT NULL CONSTRAINT fk_id_persona REFERENCES persona(id),
-	durante_embarazo VARCHAR(500),
-	complicacion_embarazo VARCHAR(100)
-);
-
-INSERT INTO muerte_embarazo(id_persona, durante_embarazo, complicacion_embarazo)
-SELECT persona.id, durante_embarazo, complicacion_embarazo
-FROM staging
-JOIN persona ON staging.id = persona.id_staging;
-
-CREATE TABLE defuncion_ocurrencia(
-	id BIGSERIAL PRIMARY KEY,
-	id_persona BIGINT NOT NULL CONSTRAINT fk_id_persona REFERENCES persona(id),
-	municipio_ocurrencia VARCHAR(500),
-	entidad_defuncion VARCHAR(500)
-);
-
-INSERT INTO defuncion_ocurrencia(id_persona, municipio_ocurrencia, entidad_defuncion)
-SELECT persona.id, municipio_ocurrencia, entidad_defuncion
-FROM staging
-JOIN persona ON staging.id = persona.id_staging;
-
-ALTER TABLE persona DROP COLUMN id_staging;
-
-ALTER TABLE staging DROP COLUMN id;
-
-ALTER TABLE staging RENAME TO staging_backup;
-```
 ### ERD
 
 El ERD con todas las entidades después de la normalización, es el siguiente:
