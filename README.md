@@ -1583,17 +1583,17 @@ A partir de los datos contenidos en la base de datos, se decidió dividirlos en 
 | fecha_nacimiento        |
 | lengua_indígena         | 
 | estado_civil            |
-| residencia_id       (fk)|
+| residencia_id      (fk) |
 | escolaridad             |
 | ocupación               |
 | afiliación_medica       |
-| defuncion_id        (fk)|
+| defuncion_id       (fk) |
 
 #### Entidad: municipio
 | municipio         |
 --------------------|
 | id                |
-| entidad_id    (fk)|
+| entidad_id   (fk) |
 | nombre            |
 
 #### Entidad: entidad
@@ -1603,7 +1603,7 @@ A partir de los datos contenidos en la base de datos, se decidió dividirlos en 
 | nombre            |
 
 #### Entidad: Defunción
-| defunción                   |
+| defuncion                   |
 |-----------------------------|
 | id                          |
 | fecha_defuncion             |
@@ -1611,7 +1611,7 @@ A partir de los datos contenidos en la base de datos, se decidió dividirlos en 
 | lugar_defuncion             |
 | causa_defuncion             |
 | alcaldia_defuncion_id  (fk) |
-| atención                    |
+| atencion_medica             |
 | necropsia                   |
 
 
@@ -1620,7 +1620,8 @@ A partir de los datos contenidos en la base de datos, se decidió dividirlos en 
 |---------------------------|
 | id                        |
 | persona_id           (fk) |
-| causado_embarazo          |
+| durante_embarazo          |
+| causa_embarazo            |
 | complicacion_embarazo     |
 
 ### • Dependencias funcionales y multivaluadas
@@ -1628,20 +1629,22 @@ Después de analizar los datos se encontraron las siguientes dependencias:
 
 #### Dependencias Funcionales no triviales:
 
-**-DF1: {municipio_residencia} → {entidad_residencia}**  
-Esta dependencia funcional existe porque cada municipio se encuentra ubicado únicamente dentro de una entidad federativa, por lo tanto, al conocer el municipio, se puede determinar sin ambigüedad la entidad de residencia correspondiente.
+Como nuestras tablas estan normalizadas correctamente y en FNBC, no hay dependencias multivariadas, y las unicas dependencias funcionales nacen de la superclave de cada tabla, el ID.
 
-**-DF2: {municipio_ocurrencia} → {entidad_defuncion}**  
-Cada municipio donde ocurre una defunción pertenece a una sola entidad federativa. Esto implica que, dado un municipio de ocurrencia, se puede identificar de forma única la entidad en la que se registró la defunción.
+**-DF1: {persona.id} → {sexo, fecha_nacimiento, lengua_indigena, estado_civil, residencia_id, escolaridad, ocupacion, afiliacion_medica, defuncion_id}**  
+Esta dependencia funcional se justifica en el hecho de que cada atributo presente en la tabla persona está relacionado únicamente con el identificador (id) de la misma. Por lo tanto, al conocer el valor del identificador, es posible determinar de manera unívoca todos los demás atributos de la tabla.
 
-**-DF3: {fecha_nacimiento, fecha_defuncion} → {edad}**  
-La edad de una persona al fallecer puede calcularse directamente a partir de su fecha de nacimiento y la fecha de su defunción. Esta relación permite determinar la edad sin necesidad de que sea almacenada de manera independiente.
+**-DF2: {municipio.id} → {entidad_id, nombre}**  
+Esta dependencia funcional se justifica en el hecho de que cada atributo presente en la tabla municipio está relacionado únicamente con el identificador (id) de la misma. Por lo tanto, al conocer el valor del identificador, es posible determinar de manera unívoca todos los demás atributos de la tabla.
 
-**-DF4: {causa_defuncion, durante_embarazo} → {complicacion_embarazo}**  
-La combinación entre una causa específica de defunción y el hecho de que la persona estuviera embarazada permite inferir si hubo una complicación relacionada con el embarazo, lo que define una dependencia entre estos atributos.
+**-DF3: {entidad.id} → {nombre}**  
+Esta dependencia funcional se justifica en el hecho de que cada atributo presente en la tabla entidad está relacionado únicamente con el identificador (id) de la misma. Por lo tanto, al conocer el valor del identificador, es posible determinar de manera unívoca todos los demás atributos de la tabla. No se considera la dependencia funcional nombre → id, ya que ello implicaría un error en el proceso de normalización. Asumir que el nombre es único y puede actuar como clave primaria no es correcto, pues no se garantiza su unicidad. En consecuencia, la única dependencia funcional válida en esta tabla es id → nombre.
 
-**-DF5: {alcaldía} → {entidad_defuncion}**  
-Cada alcaldía pertenece exclusivamente a una entidad federativa. Por ello, con solo conocer la alcaldía en la que ocurrió la defunción, se puede determinar de manera única la entidad correspondiente.
+**-DF4: {defuncion.id} → {fecha_defuncion, hora_defuncion, lugar_defuncion, causa_defuncion, alcaldia_defuncion_id, atencion_medica, necropsia}**  
+Esta dependencia funcional se justifica en el hecho de que cada atributo presente en la tabla defuncion está relacionado únicamente con el identificador (id) de la misma. Por lo tanto, al conocer el valor del identificador, es posible determinar de manera unívoca todos los demás atributos de la tabla. Por otro lado, lugar_defuncion -> alcaldia_defuncion no es una dependencial funcional, valida porque no es valido asumir que el lugar de defunción es una palabra descriptiva del entorno del acontecimiento, y no una dirección única.
+
+**-DF5: {embarazo.id} → {persona_id, durante_embarazo, causa_embarazo, complicacion_embarazo}**  
+Esta dependencia funcional se justifica en el hecho de que cada atributo presente en la tabla embarazo está relacionado únicamente con el identificador (id) de la misma. Por lo tanto, al conocer el valor del identificador, es posible determinar de manera unívoca todos los demás atributos de la tabla.
 
 **-DF6: {causa_defuncion, tipo_evento} → {muerte_accidental_violenta}**  
 Ciertas combinaciones entre la causa de defunción y el tipo de evento (como accidente, homicidio, suicidio) permiten determinar si se trata o no de una muerte accidental o violenta. Esta relación expresa una dependencia directa entre esas variables.
