@@ -1626,7 +1626,6 @@ A partir de los datos contenidos en la base de datos, se decidió dividirlos en 
 
 ### • Dependencias funcionales y multivaluadas
 Después de analizar los datos se encontraron las siguientes dependencias:
-
 #### Dependencias Funcionales no triviales:
 
 Como nuestras tablas estan normalizadas correctamente y en FNBC, no hay dependencias multivariadas, y las unicas dependencias funcionales nacen de la superclave de cada tabla; el ID.
@@ -1646,9 +1645,11 @@ Esta dependencia funcional se justifica en el hecho de que cada atributo present
 **-DF5: {embarazo.id} → {persona_id, durante_embarazo, causa_embarazo, complicacion_embarazo}**  
 Esta dependencia funcional se justifica en el hecho de que cada atributo presente en la tabla embarazo está relacionado únicamente con el identificador (id) de la misma. Por lo tanto, al conocer el valor del identificador, es posible determinar de manera unívoca todos los demás atributos de la tabla.
 
-### • Normalización de los datos hasta cuarta forma normal para llegar a las tablas
-Nos dimos cuenta que la base de datos no tenia ningun atributo que fuera el id de cada persona, por lo que decidimos agregar un id_persona que determina a cada una de las personas y todos los atributos de esa persona. Este ID unico es la base de nuestra descomposición, y nos ayuda a no tener DF ineccesarias.
-Veamos ahora la normalización hasta 4FN de cada una de nuestras tablas. 
+#### Dependencias Multivaluadas no triviales:
+No hay dependencias multivaluadas porque:
+- Cada atributo de cada entidad depende únicamente de su clave primaria.
+- No hay atributos multivalorados o con combinaciones múltiples independientes.
+- Las relaciones están en FNBC, lo que garantiza la eliminación de este tipo de redundancia.
 
 # Análisis de Normalización de Tablas
 
@@ -1684,7 +1685,6 @@ Veamos ahora la normalización hasta 4FN de cada una de nuestras tablas.
 | **¿Está en 4FN?** (¿Está en 3FN y no hay dependencias multivaluadas?) | Sí, no hay dependencias multivaluadas, ya que no hay atributos que dependan de otros atributos en forma multivaluada. |
 
 ---
-
 ## **4. Tabla: `Defuncion`**
 
 | **Pregunta** | **Respuesta** |
