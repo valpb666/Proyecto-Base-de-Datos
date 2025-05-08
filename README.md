@@ -1710,6 +1710,8 @@ No modificamos nada de las tablas que propusimos originalmente, pues ya estaban 
 Estas tablas fueron diseñadas teniendo en cuenta la **naturaleza de los datos** que representan, lo que garantizó que se cumplieran las reglas de normalización y se mantuviera la integridad de los mismos. Cada tabla refleja una entidad específica del dominio, como `Persona`, `Municipio`, `Entidad`, `Defuncion`, y `Embarazo`, las cuales están estructuradas de forma que reflejan la relación única y directa entre los atributos de cada entidad. Por ejemplo, la tabla `Persona` contiene atributos como `sexo`, `fecha_nacimiento`, `estado_civil`, etc., que dependen exclusivamente del identificador único de la persona, lo cual refleja su naturaleza única y no repetitiva. Asimismo, las relaciones entre las tablas están definidas de manera que se eviten redundancias y se optimice el acceso y la manipulación de los datos, lo que hace que el modelo sea eficiente y adecuado para representar la realidad del dominio de forma clara y coherente. Las dependencias funcionales fueron cuidadosamente consideradas para asegurar que las tablas se mantuvieran en 4FN, evitando dependencias multivaluadas y asegurando que cada conjunto de atributos dependiera únicamente de la clave primaria. Así, el diseño de las tablas no solo sigue las reglas de normalización, sino que también refleja la estructura y la lógica inherente a los datos que se almacenan.
 
 ### • Creación de tablas en SQL
+
+```sql
 -- Tabla: Entidad
 CREATE TABLE Entidad (
     id INT PRIMARY KEY,
@@ -1761,7 +1763,7 @@ CREATE TABLE Embarazo (
     complicacion_embarazo TEXT,
     FOREIGN KEY (persona_id) REFERENCES Persona(id)  
 );
-
+```
 ### ERD
 
 El ERD con todas las entidades después de la normalización, es el siguiente:
