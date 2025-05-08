@@ -624,6 +624,7 @@ Aunque inicialmente podría parecer que existen inconsistencias debido a que alg
 ### 14. Inconsistencias en las causas de muerte 
 
 Aunque ciertos registros no están etiquetados explícitamente como "muerte_accidental_violenta" en la columna correspondiente, al revisar la columna "causa_defuncion", se observa que las causas de defunción reportadas corresponden a situaciones que deberían ser clasificadas como muertes accidentales violentas.
+**Para Ahogamiento como causa_defuncion :**
 ```sql
 SELECT
 	causa_defuncion,
@@ -643,7 +644,7 @@ GROUP BY
 |AHOGAMIENTO Y SUMERSIÌÒN NO ESPECIFICADOS, LUGAR NO ESPECIFICADO	|3|
 |AHOGAMIENTO Y SUMERSIÌÒN, DE INTENCIÌÒN NO DETERMINADA, LUGAR NO ESPECIFICADO	|1|
 |LESIÌÒN AUTOINFLIGIDA INTENCIONALMENTE POR AHOGAMIENTO Y SUMERSIÌÒN, LUGAR NO ESPECIFICADO	|1|
-
+**Para Autoinfligida como causa_defuncion :**
 ```sql
 
 SELECT
@@ -662,9 +663,9 @@ GROUP BY
 | causa_defuncion                | causas_inconsistentes  |
 |------------------------|--------|
 |LESIÌÒN AUTOINFLIGIDA INTENCIONALMENTE POR AHORCAMIENTO, ESTRANGULAMIENTO O SOFOCACIÌÒN, LUGAR NO ESPECIFICADO	|30|
-|ALESIÌÒN AUTOINFLIGIDA INTENCIONALMENTE POR OTROS MEDIOS ESPECIFICADOS, LUGAR NO ESPECIFICADO	|1|
+|LESIÌÒN AUTOINFLIGIDA INTENCIONALMENTE POR OTROS MEDIOS ESPECIFICADOS, LUGAR NO ESPECIFICADO	|1|
 
-
+**Para Asfixia como causa_defuncion :**
 ```sql
 SELECT
 	causa_defuncion,
