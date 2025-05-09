@@ -1714,54 +1714,6 @@ Estas tablas fueron diseñadas teniendo en cuenta la **naturaleza de los datos**
 ```sql
 -- Entidad: entidad_municipio
 
-CREATE TABLE entidad (
-	id BIGSERIAL PRIMARY KEY,
-	nombre VARCHAR(100) UNIQUE
-);
-
-INSERT INTO entidad(nombre)
-SELECT DISTINCT entidad_residencia FROM staging;
-
--- Entidad: municipio
-
-CREATE TABLE municipio (
-	id BIGSERIAL PRIMARY KEY,
-	entidad_id VARCHAR(200), -- Valor provisional en la carga de datos
-	nombre VARCHAR(100),
-	
-	CONSTRAINT pares_unicos UNIQUE(entidad_id,nombre)
-);
-
-INSERT INTO municipio(nombre, entidad_id)
-SELECT DISTINCT municipio_residencia, entidad_residencia
-FROM staging;
-
-INSERT INTO municipio(nombre,entidad_id)
-SELECT DISTINCT alcaldia, 'CIUDAD DE MEXICO'
-FROM staging
-WHERE NOT EXISTS (
-    SELECT 1
-    FROM municipio 
-    WHERE nombre = staging.alcaldia
-      AND entidad_id = 'CIUDAD DE MEXICO'
-);
-
-UPDATE municipio
-SET entidad_id = (
-	SELECT id 
-	FROM entidad
-	WHERE entidad.nombre=municipio.entidad_id
-);
-
-ALTER TABLE municipio
-ALTER COLUMN entidad_id TYPE BIGINT USING entidad_id::bigint,
-ALTER COLUMN entidad_id SET NOT NULL,
-ALTER COLUMN entidad_id SET DEFAULT 30,  
-ADD CONSTRAINT fk_entidad
-FOREIGN KEY (entidad_id) REFERENCES entidad(id) ON DELETE SET DEFAULT;
-
--- Entidad: entidad_municipio
-
 CREATE TABLE entidad_municipio (
 	id BIGSERIAL PRIMARY KEY,
 	entidad VARCHAR(200) NOT NULL,
