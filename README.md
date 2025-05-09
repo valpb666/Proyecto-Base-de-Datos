@@ -1941,7 +1941,7 @@ Algunas de las consultas que hicimos son las siguientes:
 
 ### 1. **Análisis de mortalidad y contexto socioeconómico**
 
-Pregunta: ¿Existe una relación entre esColaridad y causa de defunción por sexo? 
+Pregunta: ¿Existe una relación entre escolaridad y causa de defunción por sexo? 
 
 Ejecutamos:
 ```sql
