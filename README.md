@@ -356,7 +356,7 @@ ORDER BY COUNT(*) DESC;
 |ÌREA DEPORTIVA	|12|
 |GRANJA (RANCHO O PARCELA)	|9|
 
-### 7. **Conteo de valores nulos**
+### 6. **Conteo de valores nulos**
 Para contar los valores nulos contamos las casillas que dijeran 'se ingora' o 'no especificado' ya que es lo mismo a no tener el dato, en realidad es un valor nulo.
 ```sql
 WITH valores_nulos AS (
@@ -502,7 +502,7 @@ WHERE nulos>0;
 | alcaldia               | 3897   |
 | afiliacion_medica      | 9935   |
 
-### 8. **Inconsistencias en las fechas**
+### 7. **Inconsistencias en las fechas**
 Para checar si hay alguna inconsistencia en lsa fechas, que la fecha de nacimiento sea después de la feha de defunción, ejecutamos:
 ```sql
 SELECT fecha_nacimiento, fecha_defuncion
@@ -517,7 +517,7 @@ fecha de nacimiento: 2020-11-01
 fecha de defunción: 2020-03-20
 
 
-### 10. **Inconsistencias en la hora de defunción**
+### 8. **Inconsistencias en la hora de defunción**
 Para checar si hay alguna hora que este fuera de los rangos de un día, ejecutamos:
 ```sql
 SELECT hora_defuncion
@@ -529,7 +529,7 @@ WHERE hora_defuncion<'00:00:00' OR hora_defuncion>'23:59:59';
 No obtuvimos ningun caso que estuviera fuera de los rangos de un día de 24 horas.
 
 
-### 11. **Inconsistencias en el sexo**
+### 9. **Inconsistencias en el sexo**
 Para checar si hay alguna incosistencia en el sexo, checamos si algun hombre esta embarazado:
 ```sql
 SELECT sexo, durante_embarazo
@@ -540,7 +540,7 @@ WHERE sexo ILIKE 'hombre' AND (durante_embarazo NOT ILIKE 'NO APLICA' AND durant
 📌 **Resultados:**  
 No obtuvimos ninguna inconsistencia.
 
-### 12. **Inconsistencias en las dos columnas de fecha de defunción**
+### 10. **Inconsistencias en las dos columnas de fecha de defunción**
 Para checar si la fecha de defunción coincide en ambas columnas, ejectuamos:
 ```sql
 SELECT fecha_defuncion1, fecha_defuncion, fecha_defuncion1=fecha_defuncion AS coincide
@@ -551,7 +551,7 @@ WHERE fecha_defuncion1!=fecha_defuncion;
 📌 **Resultados:**  
 No obtuvimos ninguna inconsistencia, todas las fechas son iguales en ambas columnas.
 
-### 13. **Inconsistencias entre los municipios residenciales y las entidades residenciales**
+### 11. **Inconsistencias entre los municipios residenciales y las entidades residenciales**
 Para checar si hay algun municipio que tenga varias entidades residenciales, ejecutamos:
 ```sql
 SELECT municipio_residencia, COUNT(DISTINCT entidad_residencia) AS entidades_distintas
@@ -623,7 +623,7 @@ TEPETZINTLA	|2|
 
 Aunque inicialmente podría parecer que existen inconsistencias debido a que algunos municipios aparecen asociados con múltiples entidades federativas, esto no representa un error en sí mismo. En México, es común que distintos estados tengan municipios con nombres homónimos, como "Benito Juárez", "Álvaro Obregón" o "San Miguel", por lo que es perfectamente posible que un mismo nombre de municipio aparezca con distintas entidades en el conjunto de datos. Esta situación no indica una contradicción, sino una limitación del uso de nombres sin claves geográficas únicas, como los códigos del INEGI. Por otro lado, el valor NULL en la columna municipio_residencia no representa una inconsistencia con entidad_residencia, sino un dato faltante que debe tratarse como tal. Por lo tanto, no se eliminarán estos registros por considerarse inconsistentes, pero se recomienda revisar y, de ser posible, normalizar la información utilizando catálogos oficiales para mayor precisión en el análisis.
 
-### 14. Inconsistencias en las causas de muerte 
+### 12. Inconsistencias en las causas de muerte 
 
 Aunque ciertos registros no están etiquetados explícitamente como "muerte_accidental_violenta" en la columna correspondiente, al revisar la columna "causa_defuncion", se observa que las causas de defunción reportadas corresponden a situaciones que deberían ser clasificadas como muertes accidentales violentas.
 
