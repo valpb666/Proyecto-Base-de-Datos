@@ -1823,7 +1823,7 @@ FOREIGN KEY (residencia_id) REFERENCES entidad_municipio(id) ON DELETE SET DEFAU
 -- Entidad: Defuncion
 CREATE TABLE defuncion (
 	id BIGSERIAL PRIMARY KEY,
-	persona_id BIGINT NOT NULL CONSTRAINT fk_persona REFERENCES persona(id) ON DELETE CASCADE,
+	persona_id BIGINT UNIQUE NOT NULL CONSTRAINT fk_persona REFERENCES persona(id) ON DELETE CASCADE,
 	fecha_defuncion DATE NOT NULL,
 	hora_defuncion TIME,
 	lugar_defuncion VARCHAR(500) NOT NULL,
