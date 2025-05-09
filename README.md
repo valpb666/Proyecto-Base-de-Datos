@@ -1712,56 +1712,115 @@ Estas tablas fueron diseñadas teniendo en cuenta la **naturaleza de los datos**
 ### • Creación de tablas en SQL
 
 ```sql
--- Tabla: Entidad
-CREATE TABLE Entidad (
-    id INT PRIMARY KEY,
-    nombre VARCHAR(255) NOT NULL
+/* ****************************************** */
+/*          CREACIÓN DE TABLAS EN SQL         */
+/* ****************************************** */
+
+-- Entidad: entidad_municipio
+
+CREATE TABLE entidad (
+	id BIGSERIAL PRIMARY KEY,
+	nombre VARCHAR(100) UNIQUE
 );
 
--- Tabla: Municipio
-CREATE TABLE Municipio (
-    id INT PRIMARY KEY,
-    entidad_id INT ON DELETE CASCADE,
-    nombre VARCHAR(255) NOT NULL,
-    FOREIGN KEY (entidad_id) REFERENCES Entidad(id)
+INSERT INTO entidad(nombre)
+SELECT DISTINCT entidad_residencia FROM staging;
+
+-- Entidad: municipio
+
+CREATE TABLE municipio (
+	id BIGSERIAL PRIMARY KEY,
+	entidad_id VARCHAR(200), -- Valor provisional en la carga de datos
+	nombre VARCHAR(100),
+	
+	CONSTRAINT pares_unicos UNIQUE(entidad_id,nombre)
 );
 
--- Tabla: Persona
-CREATE TABLE Persona (
-    id INT PRIMARY KEY,
-    sexo VARCHAR(10),
-    fecha_nacimiento DATE,
-    lengua_indigena VARCHAR(100),
-    estado_civil VARCHAR(20),
-    residencia_id INT ON DELETE SET NULL,
-    escolaridad VARCHAR(50),
-    ocupacion VARCHAR(50),
-    afiliacion_medica VARCHAR(50),
-    defuncion_id INT ON DELETE SET NULL,
-    FOREIGN KEY (residencia_id) REFERENCES Municipio(id),  -- Relación con Municipio
-    FOREIGN KEY (defuncion_id) REFERENCES Defuncion(id)   -- Relación con Defuncion
+INSERT INTO municipio(nombre, entidad_id)
+SELECT DISTINCT municipio_residencia, entidad_residencia
+FROM staging;
+
+INSERT INTO municipio(nombre,entidad_id)
+SELECT DISTINCT alcaldia, 'CIUDAD DE MEXICO'
+FROM staging
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM municipio 
+    WHERE nombre = staging.alcaldia
+      AND entidad_id = 'CIUDAD DE MEXICO'
 );
 
--- Tabla: Defuncion
-CREATE TABLE Defuncion (
-    id INT PRIMARY KEY,
-    fecha_defuncion DATE,
-    hora_defuncion TIME,
-    lugar_defuncion VARCHAR(255),
-    causa_defuncion TEXT,
-    alcaldia_defuncion_id INT ON DELETE SET NULL,
-    atencion_medica BOOLEAN,
-    necropsia BOOLEAN,
-    FOREIGN KEY (alcaldia_defuncion_id) REFERENCES Municipio(id)  -- Relación con Municipio
+UPDATE municipio
+SET entidad_id = (
+	SELECT id 
+	FROM entidad
+	WHERE entidad.nombre=municipio.entidad_id
 );
 
--- Tabla: Embarazo
-CREATE TABLE Embarazo (
-    id INT PRIMARY KEY,
-    persona_id INT ON DELETE CASCADE,
-    causado_embarazo TEXT,
-    complicacion_embarazo TEXT,
-    FOREIGN KEY (persona_id) REFERENCES Persona(id)  
+ALTER TABLE municipio
+ALTER COLUMN entidad_id TYPE BIGINT USING entidad_id::bigint,
+ALTER COLUMN entidad_id SET NOT NULL,
+ALTER COLUMN entidad_id SET DEFAULT 30,  
+ADD CONSTRAINT fk_entidad
+FOREIGN KEY (entidad_id) REFERENCES entidad(id) ON DELETE SET DEFAULT;
+
+-- Entidad: entidad_municipio
+
+CREATE TABLE entidad_municipio (
+	id BIGSERIAL PRIMARY KEY,
+	entidad VARCHAR(200) NOT NULL,
+	municipio VARCHAR(100) NOT NULL,
+	
+	CONSTRAINT pares_unicos UNIQUE(entidad,municipio)
+);
+
+INSERT INTO entidad_municipio(municipio, entidad)
+SELECT DISTINCT municipio_residencia, entidad_residencia
+FROM staging;
+
+INSERT INTO entidad_municipio(municipio,entidad)
+SELECT DISTINCT alcaldia, 'CIUDAD DE MEXICO'
+FROM staging
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM entidad_municipio 
+    WHERE municipio = staging.alcaldia
+      AND entidad = 'CIUDAD DE MEXICO'
+);
+
+
+-- Entidad: Persona
+
+CREATE TABLE persona (
+	id BIGSERIAL PRIMARY KEY,
+	sexo VARCHAR(10) NOT NULL,
+	fecha_nacimiento DATE,
+	lengua_indigena BOOLEAN,
+	estado_civil VARCHAR(50) NOT NULL,
+	residencia_id BIGINT NOT NULL CONSTRAINT fk_municipio REFERENCES municipio(id) ON DELETE SET DEFAULT 1,
+	escolaridad VARCHAR(200) NOT NULL,
+	ocupacion VARCHAR(200) NOT NULL,
+	afiliacion_medica VARCHAR(200) NOT NULL,
+	defuncion_id BIGINT NOT NULL CONSTRAINT fk_defuncion REFERENCES defuncion(id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE defuncion (
+	id BIGSERIAL PRIMARY KEY,
+	fecha_defuncion DATE NOT NULL,
+	hora_defuncion TIME,
+	lugar_defuncion VARCHAR(500) NOT NULL,
+	causa_defuncion VARCHAR(500) NOT NULL,
+	alcaldia_defuncion_id BIGINT NOT NULL CONSTRAINT fk_municipio REFERENCES municipio(id) ON DELETE SET DEFAULT 1,
+	necropsia BOOLEAN
+);
+
+CREATE TABLE embarazo (
+	id BIGSERIAL PRIMARY KEY,
+	persona_id BIGINT NOT NULL CONSTRAINT fk_persona REFERENCES persona(id) ON DELETE CASCADE,
+	durante_embarazo VARCHAR(500) NOT NULL,
+	causado_embarazo BOOLEAN,
+	complicacion_embarazo BOOLEAN
 );
 ```
 ### ERD
