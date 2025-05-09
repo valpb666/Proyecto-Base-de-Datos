@@ -1712,10 +1712,6 @@ Estas tablas fueron diseñadas teniendo en cuenta la **naturaleza de los datos**
 ### • Creación de tablas en SQL
 
 ```sql
-/* ****************************************** */
-/*          CREACIÓN DE TABLAS EN SQL         */
-/* ****************************************** */
-
 -- Entidad: entidad_municipio
 
 CREATE TABLE entidad (
