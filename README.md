@@ -1877,7 +1877,7 @@ DROP TABLE staging;
 ### ERD
 El ERD con todas las entidades después de la normalización, es el siguiente:
 
-![ERD Mortalidad](https://github.com/user-attachments/assets/2ab79f96-17ee-4dae-96fa-49905e73a446)
+![ERD Mortalidad (1)](https://github.com/user-attachments/assets/fd303732-6810-4cbb-be08-c0be3da539a2)
 
 ## Análisis de datos a través de consultas SQL
 
