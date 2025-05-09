@@ -1881,11 +1881,11 @@ El ERD con todas las entidades después de la normalización, es el siguiente:
 
 ## Análisis de datos a través de consultas SQL
 
-Teniendo en cuenta que el enfoque de nuestro proyecto es analizar las deficiencias de atención medica por municipios y entidades, realizamos las siguientes consultas para obtener una conslusión que responda a nuestro objetivo. 
+Teniendo en cuenta que el enfoque de nuestro proyecto es analizar las deficiencias de atención medica por municipios y entidades, realizamos las siguientes consultas para obtener una conclusión que responda a nuestro objetivo. 
 
-1. ¿Cuantas muertes hubo en total en cada municipio?
-2. En promedio, cuantas muertes hay por dia en cada municipio?
-3. ¿De que municipio vienen las personas que mayor atención medica recibieron?
+1. ¿Cuántas muertes hubo en total en cada municipio?
+2. En promedio, cuántas muertes hay por día en cada municipio?
+3. ¿De qué municipio vienen las personas que mayor atención medica recibieron?
 4. Por municipio, cual es la escolaridad más común ? Esta relacionado con las muertes por municipio?
 5. ¿Hay relacion entre la ocupación y la cantidad de muertes?
 ```sql
@@ -1935,16 +1935,13 @@ ORDER BY defunciones_sin_necropsia DESC;
 ```
 
 
-
-
-
-
+Algunas de las consultas que hicimos son las siguientes:
 
 Algunas de las consultas que hicimos son las siguientes:
 
 ### 1. **Análisis de mortalidad y contexto socioeconómico**
 
-Pregunta: ¿Existe una relación entre esolaridad y causa de defunción por sexo? 
+Pregunta: ¿Existe una relación entre esColaridad y causa de defunción por sexo? 
 
 Ejecutamos:
 ```sql
@@ -2021,50 +2018,72 @@ ORDER BY total DESC;
 
 ### 2. **Análisis de enfermedades por alcaldías**
 
-Pregunta: ¿Qué alcaldías concentran más muertes por enfermedades respiratorias (o por COVID-19, si tienes esa categoría)?
+Pregunta: ¿Qué alcaldías concentran más muertes por enfermedades respiratorias)?
 
 Ejecutamos:
 ```sql
-SELECT alcaldia, sexo_edad_causa.causa_defuncion, COUNT(*) AS total
-FROM evento_defuncion
-JOIN sexo_edad_causa ON sexo_edad_causa.id_persona=evento_defuncion.id_persona
+SELECT entidad_municipio.municipio as alcaldia,causa_defuncion, COUNT(*) as total
+FROM defuncion
+JOIN entidad_municipio ON entidad_municipio.id=alcaldia_defuncion_id
 WHERE causa_defuncion ILIKE '%RESP%' OR causa_defuncion ILIKE '%COVID%'
-GROUP BY alcaldia, sexo_edad_causa.causa_defuncion;
+GROUP BY entidad_municipio.municipio, causa_defuncion
+ORDER BY total DESC;
 ```
 📌 **Resultados:**  
 
-| Alcaldía               | Causa Defunción                                                                                     | Total |
-|------------------------------------|---------------------------------------------------------------------------------------------------------|-------|
-| AZCAPOTZALCO                       | TRASTORNO RESPIRATORIO, NO ESPECIFICADO                                                                 | 12    |
-| MIGUEL HIDALGO                     | TUBERCULOSIS RESPIRATORIA NO ESPECIFICADA, SIN MENCIÓN DE CONFIRMACIÓN BACTERIOLÓGICA O HISTOLÓGICA     | 2     |
-| IZTAPALAPA                         | TRASTORNO RESPIRATORIO, NO ESPECIFICADO                                                                 | 2     |
-| BENITO JUAREZ                      | TRASTORNO RESPIRATORIO, NO ESPECIFICADO                                                                 | 4     |
-| GUSTAVO A. MADERO                  | COVID-19                                                                                                | 9430  |
-| BENITO JUAREZ                      | OTROS TRASTORNOS RESPIRATORIOS ESPECIFICADOS                                                            | 8     |
-| GUSTAVO A. MADERO                  | OTRAS DIFICULTADES RESPIRATORIAS DEL RECIÉN NACIDO                                                      | 2     |
-| IZTACALCO                          | INFLUENZA CON OTRAS MANIFESTACIONES RESPIRATORIAS, VIRUS NO IDENTIFICADO                                | 2     |
-| ALVARO OBREGON                     | OTROS PROBLEMAS RESPIRATORIOS ESPECIFICADOS DEL RECIÉN NACIDO                                          | 2     |
-| VENUSTIANO CARRANZA                | INSUFICIENCIA RESPIRATORIA, NO ESPECIFICADA                                                             | 2     |
-| TLALPAN                            | INHALACIÓN E INGESTIÓN DE OTROS OBJETOS QUE CAUSAN OBSTRUCCIÓN DE LAS VÍAS RESPIRATORIAS               | 2     |
-| BENITO JUAREZ                      | COVID-19                                                                                                | 8568  |
-| TLALPAN                            | OTRAS ENFERMEDADES ESPECIFICADAS DE LAS VÍAS RESPIRATORIAS SUPERIORES                                  | 2     |
-| CUAUHTEMOC                         | TRASTORNO RESPIRATORIO, NO ESPECIFICADO                                                                 | 8     |
-| CUAUHTEMOC                         | OTRAS OBSTRUCCIONES ESPECIFICADAS DE LA RESPIRACIÓN                                                     | 4     |
-| ALVARO OBREGON                     | INSUFICIENCIA RESPIRATORIA AGUDA                                                                        | 28    |
-| IZTAPALAPA                         | INSUFICIENCIA RESPIRATORIA, NO ESPECIFICADA                                                             | 4     |
-| LA MAGDALENA CONTRERAS             | COVID-19                                                                                                | 212   |
-| MIGUEL HIDALGO                     | INSUFICIENCIA RESPIRATORIA AGUDA                                                                        | 2     |
-| OJO DE AGUA                        | COVID-19                                                                                                | 4     |
-| IZTACALCO                          | OBSTRUCCIÓN NO ESPECIFICADA DE LA RESPIRACIÓN                                                           | 4     |
-| ALVARO OBREGON                     | TRASTORNO RESPIRATORIO, NO ESPECIFICADO                                                                 | 2     |
-| IZTACALCO                          | TRASTORNO RESPIRATORIO, NO ESPECIFICADO                                                                 | 2     |
-| NULL                               | OTRAS OBSTRUCCIONES ESPECIFICADAS DE LA RESPIRACIÓN                                                     | 2     |
-| IZTACALCO                          | INSUFICIENCIA RESPIRATORIA AGUDA                                                                        | 18    |
-| BENITO JUAREZ                      | TUBERCULOSIS RESPIRATORIA NO ESPECIFICADA, SIN MENCIÓN DE CONFIRMACIÓN BACTERIOLÓGICA O HISTOLÓGICA     | 4     |
-| BENITO JUAREZ                      | INSUFICIENCIA RESPIRATORIA AGUDA                                                                        | 8     |
-| ALVARO OBREGON                     | COVID-19                                                                                                | 5826  |
-| IZTAPALAPA                         | PARO RESPIRATORIO                                                                                       | 2     |
-| ...                                | ...                                                                                                     | ...   |
+| Alcaldía                         | Causa de defunción         | Total |
+|----------------------------------|-----------------------------|-------|
+| IZTAPALAPA                       | COVID-19                    | 4797  |
+| GUSTAVO A. MADERO               | COVID-19                    | 4687  |
+| BENITO JUAREZ                   | COVID-19                    | 4246  |
+| AZCAPOTZALCO                    | COVID-19                    | 4114  |
+| MIGUEL HIDALGO                  | COVID-19                    | 3520  |
+| CUAUHTEMOC                      | COVID-19                    | 3384  |
+| ALVARO OBREGON                  | COVID-19                    | 2889  |
+| IZTACALCO                       | COVID-19                    | 2809  |
+| COYOACAN                        | COVID-19                    | 2752  |
+| TLALPAN                         | COVID-19                    | 2593  |
+| TLAHUAC                         | COVID-19                    | 633   |
+| VENUSTIANO CARRANZA             | COVID-19                    | 410   |
+| XOCHIMILCO                      | COVID-19                    | 228   |
+| NO ESPECIFICADO                 | COVID-19                    | 212   |
+| VILLA MILPA ALTA                | COVID-19                    | 174   |
+| LA MAGDALENA CONTRERAS          | COVID-19                    | 104   |
+| CUAJIMALPA DE MORELOS           | COVID-19                    | 81    |
+| GUSTAVO A. MADERO               | ENFERMEDAD RESPIRATORIA     | 73    |
+| IZTAPALAPA                      | ENFERMEDAD RESPIRATORIA     | 37    |
+| AA MILPA ALTA                   | COVID-19                    | 34    |
+| ALVARO OBREGON                  | ENFERMEDAD RESPIRATORIA     | 28    |
+| AZCAPOTZALCO                    | ENFERMEDAD RESPIRATORIA     | 27    |
+| BENITO JUAREZ                   | ENFERMEDAD RESPIRATORIA     | 24    |
+| IZTACALCO                       | ENFERMEDAD RESPIRATORIA     | 22    |
+| CUAUHTEMOC                      | ENFERMEDAD RESPIRATORIA     | 20    |
+| TLALPAN                         | ENFERMEDAD RESPIRATORIA     | 13    |
+| NO ESPECIFICADO                 | ENFERMEDAD RESPIRATORIA     | 13    |
+| VENUSTIANO CARRANZA             | ENFERMEDAD RESPIRATORIA     | 12    |
+| COYOACAN                        | ENFERMEDAD RESPIRATORIA     | 12    |
+| MIGUEL HIDALGO                  | ENFERMEDAD RESPIRATORIA     | 10    |
+| XOCHIMILCO                      | ENFERMEDAD RESPIRATORIA     | 6     |
+| ALBERGUE ALPINO AJUSCO         | COVID-19                    | 3     |
+| TLAHUAC                         | ENFERMEDAD RESPIRATORIA     | 2     |
+| ACALIPA                         | COVID-19                    | 2     |
+| OJO DE AGUA                     | COVID-19                    | 2     |
+| SAN PEDRO ATOCPAN               | COVID-19                    | 2     |
+| SAN MIGUEL                      | COVID-19                    | 1     |
+| SANTA ANA TLACOTENCO            | COVID-19                    | 1     |
+| LA MAGDALENA CONTRERAS          | ENFERMEDAD RESPIRATORIA     | 1     |
+| SAN ANDRES MIXQUIC              | COVID-19                    | 1     |
+| SAN MIGUEL TOPILEJO             | COVID-19                    | 1     |
+| COLA DE PATO                    | COVID-19                    | 1     |
+| SANTA CATARINA YECAHUITZOTL     | COVID-19                    | 1     |
+| AMPLIACION SAN MIGUEL           | COVID-19                    | 1     |
+| SAN SALVADOR CUAUHTENCO         | COVID-19                    | 1     |
+| SAN PABLO OZTOTEPEC             | COVID-19                    | 1     |
+| NINGUNO                         | COVID-19                    | 1     |
+| SAN JUAN IXTAYOPAN              | COVID-19                    | 1     |
+| CANSACABALLOS                   | COVID-19                    | 1     |
+| SAN NICOLAS TETELCO             | COVID-19                    | 1     |
+| TEMAXCATITLA (KILOMETRO 32.2)   | COVID-19                    | 1     |
 
 
 ### 3. **Análisis de muertes por fechas**
@@ -2073,26 +2092,27 @@ Pregunta: ¿Se repiten ciertos patrones de mortalidad en los mismos meses a lo l
 
 Ejecutamos:
 ```sql
-SELECT EXTRACT (MONTH FROM fecha_defuncion) as año, COUNT(*) cant_muertes
-FROM evento_defuncion
-GROUP BY EXTRACT (MONTH FROM fecha_defuncion);
+SELECT EXTRACT (MONTH FROM fecha_defuncion) as mes_de_defuncion, COUNT(*) cantidad_de_muertes
+FROM defuncion
+GROUP BY EXTRACT (MONTH FROM fecha_defuncion)
+ORDER BY cantidad_de_muertes DESC;
 ```
 📌 **Resultados:**  
 
-| Mes_en_numero | Cant Muertes |
+| Mes de defuncion | Cantidad de muertes |
 |-----|----------------------|
-| 1   | 15,834               |
-| 2   | 12,746               |
-| 3   | 12,814               |
-| 4   | 17,516               |
-| 5   | 33,940               |
-| 6   | 26,764               |
-| 7   | 20,212               |
-| 8   | 20,348               |
-| 9   | 18,952               |
-| 10  | 19,686               |
-| 11  | 20,338               |
-| 12  | 35,422               |
+|12	|17424|
+|5	|16596|
+|6	|12990|
+|11	|9869|
+|7	|9795|
+|8	|9787|
+|10	|9498|
+|9	|9203|
+|4	|8389|
+|1	|7496|
+|2	|5995|
+|3	|5977|
 
 ### 4. **Análisis mortalidad materna**
 
@@ -2100,132 +2120,206 @@ Pregunta: ¿Cuántas muertes relacionadas con embarazo se reportan, y en qué et
 
 Ejecutamos:
 ```sql
-SELECT sexo_edad_causa.edad, persona.escolaridad, durante_embarazo, complicacion_embarazo
-FROM muerte_embarazo
-JOIN sexo_edad_causa ON sexo_edad_causa.id_persona=muerte_embarazo.id_persona
-JOIN persona ON persona.id=muerte_embarazo.id_persona
-WHERE complicacion_embarazo IS NOT NULL AND durante_embarazo IS NOT NULL AND durante_embarazo NOT LIKE 'NO %'
-GROUP BY sexo_edad_causa.edad, persona.escolaridad, durante_embarazo, complicacion_embarazo
-ORDER BY edad ASC;
+SELECT AGE(defuncion.fecha_defuncion,persona.fecha_nacimiento) as edad, persona.escolaridad, durante_embarazo
+FROM embarazo
+JOIN persona ON persona.id=embarazo.persona_id
+JOIN defuncion ON defuncion.persona_id=persona.id
+WHERE causado_embarazo ILIKE 'SI' AND durante_embarazo IS NOT NULL AND durante_embarazo NOT LIKE 'NO %'
+GROUP BY edad, persona.escolaridad, durante_embarazo
+ORDER BY edad DESC;
 ```
 📌 **Resultados:**  
 
-| Edad | Escolaridad                                | Durante Embarazo                                    | Complicación Embarazo |
-|------|--------------------------------------------------|---------------------------------------------|------------------------|
-| 17   | Secundaria completa                             | El puerperio                                | No                     |
-| 19   | Bachillerato o preparatoria incompleta          | 43 días a 11 meses después del parto o aborto | Sí                     |
-| 19   | Secundaria completa                             | 43 días a 11 meses después del parto o aborto | No                     |
-| 19   | Secundaria completa                             | El embarazo                                 | Sí                     |
-| 20   | Licenciatura o profesional incompleto           | El puerperio                                | Sí                     |
-| 21   | Bachillerato o preparatoria incompleta          | 43 días a 11 meses después del parto o aborto | No                     |
-| 22   | Bachillerato o preparatoria completa            | El puerperio                                | Sí                     |
-| 22   | Bachillerato o preparatoria incompleta          | El puerperio                                | Sí                     |
-| 22   | Secundaria completa                             | El embarazo                                 | No                     |
-| 23   | Bachillerato o preparatoria completa            | El embarazo                                 | No                     |
-| 23   | Bachillerato o preparatoria completa            | El puerperio                                | Sí                     |
-| 23   | Bachillerato o preparatoria incompleta          | El puerperio                                | Sí                     |
-| 24   | Bachillerato o preparatoria completa            | 43 días a 11 meses después del parto o aborto | No                     |
-| 24   | Licenciatura o profesional completo             | 43 días a 11 meses después del parto o aborto | No                     |
-| 24   | Secundaria completa                             | 43 días a 11 meses después del parto o aborto | No                     |
-| 25   | Bachillerato o preparatoria incompleta          | El puerperio                                | Sí                     |
-| 25   | Licenciatura o profesional incompleto           | 43 días a 11 meses después del parto o aborto | No                     |
-| 26   | Licenciatura o profesional completo             | El embarazo                                 | Sí                     |
-| 26   | Licenciatura o profesional completo             | El puerperio                                | Sí                     |
-| 27   | Bachillerato o preparatoria completa            | 43 días a 11 meses después del parto o aborto | Sí                     |
+| Edad                        | Escolaridad                                  | Etapa del Embarazo                                 |
+|----------------------------|----------------------------------------------|----------------------------------------------------|
+| 45 years 3 mons            | SECUNDARIA COMPLETA                          | EL EMBARAZO                                        |
+| 44 years 5 days            | SECUNDARIA COMPLETA                          | EL EMBARAZO                                        |
+| 41 years 5 mons 19 days    | BACHILLERATO O PREPARATORIA COMPLETA         | EL PUERPERIO                                       |
+| 40 years 9 mons 22 days    | LICENCIATURA O PROFESIONAL COMPLETO          | EL EMBARAZO                                        |
+| 39 years 10 mons 23 days   | SECUNDARIA COMPLETA                          | EL PUERPERIO                                       |
+| 39 years 8 mons 25 days    | BACHILLERATO O PREPARATORIA COMPLETA         | EL PUERPERIO                                       |
+| 38 years 11 mons 28 days   | LICENCIATURA O PROFESIONAL COMPLETO          | EL PUERPERIO                                       |
+| 38 years 5 mons 15 days    | BACHILLERATO O PREPARATORIA COMPLETA         | EL PUERPERIO                                       |
+| 38 years 1 day             | POSGRADO COMPLETO                            | EL PUERPERIO                                       |
+| 35 years 7 mons            | SECUNDARIA COMPLETA                          | EL EMBARAZO                                        |
+| 35 years 1 mon 6 days      | LICENCIATURA O PROFESIONAL COMPLETO          | EL PUERPERIO                                       |
+| 34 years 6 mons 14 days    | LICENCIATURA O PROFESIONAL COMPLETO          | EL EMBARAZO                                        |
+| 31 years 5 mons 18 days    | NINGUNA                                      | EL PUERPERIO                                       |
+| 30 years 5 mons 12 days    | BACHILLERATO O PREPARATORIA COMPLETA         | EL PUERPERIO                                       |
+| 30 years 4 mons 1 day      | PRIMARIA COMPLETA                            | EL PUERPERIO                                       |
+| 29 years 11 mons 6 days    | PRIMARIA COMPLETA                            | EL EMBARAZO                                        |
+| 29 years 4 mons 17 days    | PRIMARIA COMPLETA                            | 43 DÍAS A 11 MESES DESPUÉS DEL PARTO O ABORTO     |
+| 27 years 4 mons 29 days    | SECUNDARIA INCOMPLETA                        | EL PUERPERIO                                       |
+| 27 years 12 days           | SECUNDARIA COMPLETA                          | EL PUERPERIO                                       |
+| 26 years 10 mons 1 day     | SECUNDARIA COMPLETA                          | EL PUERPERIO                                       |
+| 25 years 6 mons 2 days     | BACHILLERATO O PREPARATORIA INCOMPLETA       | EL PUERPERIO                                       |
+| 25 years 5 mons 17 days    | SECUNDARIA COMPLETA                          | EL PUERPERIO                                       |
+| 24 years 5 mons 15 days    | BACHILLERATO O PREPARATORIA COMPLETA         | EL PUERPERIO                                       |
+| 23 years 11 mons 9 days    | BACHILLERATO O PREPARATORIA INCOMPLETA       | EL PUERPERIO                                       |
+| 22 years 9 mons 5 days     | BACHILLERATO O PREPARATORIA COMPLETA         | EL PUERPERIO                                       |
+| 20 years 9 mons 10 days    | LICENCIATURA O PROFESIONAL INCOMPLETO        | EL PUERPERIO                                       |
 
-### 5. **Análisis entre atención médica y tipo de muerte**
+### 5. **Análisis entre atención médica y muerte**
 
-Pregunta: ¿Las personas que recibieron atención médica tienen menor probabilidad de morir por causas violentas?
+Pregunta: ¿¿Cuál es la distribución porcentual de la atención médica (recibida, no recibida o desconocida) entre los casos correspondientes a las 10 enfermedades con mayor tasa de mortalidad?
 
 Ejecutamos:
 ```sql
-SELECT causa_defuncion, atencion_medica.atencion_medica, COUNT(*) AS total
-FROM sexo_edad_causa
-JOIN atencion_medica ON sexo_edad_causa.id_persona=atencion_medica.id_persona
-GROUP BY causa_defuncion, atencion_medica.atencion_medica
-ORDER BY total DESC;
+-- Paso 1: Obtener las 10 causas con más muertes
+WITH top_causas AS (
+    SELECT causa_defuncion
+    FROM defuncion
+    GROUP BY causa_defuncion
+    ORDER BY COUNT(*) DESC
+    LIMIT 10
+),
 
-SELECT sexo_edad_causa.causa_defuncion, atencion_medica.atencion_medica, muerte_accidental.muerte_accidental_violenta, COUNT(*) AS total
-FROM sexo_edad_causa
-JOIN atencion_medica ON sexo_edad_causa.id_persona=atencion_medica.id_persona
-JOIN muerte_accidental ON
-sexo_edad_causa.id_persona=muerte_accidental.id_persona
-WHERE muerte_accidental_violenta=TRUE
-GROUP BY sexo_edad_causa.causa_defuncion, atencion_medica.atencion_medica, muerte_accidental_violenta
-ORDER BY total DESC;
+-- Paso 2: Contar atención médica por tipo en esas 10 causas
+atencion_por_causa AS (
+    SELECT 
+        d.causa_defuncion,
+        d.atencion_medica,
+        COUNT(*) AS total
+    FROM defuncion d
+    INNER JOIN top_causas t ON d.causa_defuncion = t.causa_defuncion
+    GROUP BY d.causa_defuncion, d.atencion_medica
+),
+
+-- Paso 3: Total por causa para calcular porcentajes
+total_por_causa AS (
+    SELECT 
+        causa_defuncion,
+        SUM(total) AS total_causa
+    FROM atencion_por_causa
+    GROUP BY causa_defuncion
+)
+
+-- Paso 4: Calcular porcentajes finales
+SELECT 
+    a.causa_defuncion,
+    CASE 
+        WHEN a.atencion_medica IS TRUE THEN 'Sí'
+        WHEN a.atencion_medica IS FALSE THEN 'No'
+        ELSE 'No se sabe'
+    END AS atencion_medica,
+    a.total,
+    ROUND((a.total * 100.0 / t.total_causa), 2) AS porcentaje
+FROM atencion_por_causa a
+JOIN total_por_causa t ON a.causa_defuncion = t.causa_defuncion
+ORDER BY a.causa_defuncion, porcentaje DESC;
 ```
 📌 **Resultados:**  
-| Causa defunción                                      | Atención Médica | Total |
-|---------------------------------------------------------|------------|-------|
-| COVID-19                                                | true       | 74250 |
-| Diabetes                                                | true       | 32658 |
-| Infarto                                                 | true       | 30338 |
-| Cáncer                                                  | true       | 21764 |
-| Enfermedad pulmonar                                     | true       | 19858 |
-| Enfermedad cardiaca                                     | true       | 7384  |
-| Enfermedad renal                                        | true       | 5802  |
-| Infección                                               | true       | 5042  |
-| Hemorragia                                              | true       | 4426  |
-| Enfermedad cerebral                                     | true       | 3566  |
-| Alcoholismo                                             | true       | 3244  |
-| Síndrome                                                | true       | 2218  |
-| Enfermedad en el hígado                                 | true       | 2132  |
-| Accidente                                               | true       | 2010  |
-| Enfermedad hepática                                     | true       | 1998  |
-| Sepsis                                                  | true       | 1408  |
-| Enfermedad en el intestino                              | true       | 1156  |
-| Mala alimentación                                       | true       | 1036  |
-| Agresión                                                | true       | 998   |
+| Enfermedad                   | Atención médica | Total de muertes | Porcentaje (%) |
+|-----------------------------|-----------------|------------------|----------------|
+| CÁNCER                      | Sí              | 10,808           | 98.46%         |
+| CÁNCER                      | No se sabe      | 87               | 0.79%          |
+| CÁNCER                      | No              | 82               | 0.75%          |
+| COVID-19                    | Sí              | 36,908           | 97.93%         |
+| COVID-19                    | No se sabe      | 435              | 1.15%          |
+| COVID-19                    | No              | 347              | 0.92%          |
+| DIABETES                    | Sí              | 16,267           | 98.47%         |
+| DIABETES                    | No              | 127              | 0.77%          |
+| DIABETES                    | No se sabe      | 125              | 0.76%          |
+| ENFERMEDAD CARDIACA         | Sí              | 3,891            | 98.73%         |
+| ENFERMEDAD CARDIACA         | No se sabe      | 26               | 0.66%          |
+| ENFERMEDAD CARDIACA         | No              | 24               | 0.61%          |
+| ENFERMEDAD PULMONAR         | Sí              | 2,919            | 97.04%         |
+| ENFERMEDAD PULMONAR         | No              | 52               | 1.73%          |
+| ENFERMEDAD PULMONAR         | No se sabe      | 37               | 1.23%          |
+| ENFERMEDAD RENAL            | Sí              | 2,888            | 98.70%         |
+| ENFERMEDAD RENAL            | No se sabe      | 23               | 0.79%          |
+| ENFERMEDAD RENAL            | No              | 15               | 0.51%          |
+| HEMORRAGIA                  | Sí              | 2,133            | 98.11%         |
+| HEMORRAGIA                  | No              | 24               | 1.10%          |
+| HEMORRAGIA                  | No se sabe      | 17               | 0.78%          |
+| INFARTO                     | Sí              | 15,028           | 97.50%         |
+| INFARTO                     | No              | 262              | 1.70%          |
+| INFARTO                     | No se sabe      | 123              | 0.80%          |
+| INFECCIÓN                   | Sí              | 2,495            | 98.62%         |
+| INFECCIÓN                   | No se sabe      | 18               | 0.71%          |
+| INFECCIÓN                   | No              | 17               | 0.67%          |
+| NEUMONÍA, NO ESPECIFICADA   | Sí              | 5,922            | 98.49%         |
+| NEUMONÍA, NO ESPECIFICADA   | No se sabe      | 62               | 1.03%          |
+| NEUMONÍA, NO ESPECIFICADA   | No              | 29               | 0.48%          |
 
-### 6. **Análisis entre municipio residencia y municipio ocurrencia**
 
-Pregunta: ¿Cuántos casos ocurren fuera del municipio o entidad de residencia?
+### 6. **Análisis entre ncaimientos y muertes en la misma residencia**
+
+Pregunta: ¿Cuántas personas fallecieron en el mismo municipio de la Ciudad de México en el que residían?
 
 Ejecutamos:
 ```sql
 WITH mismo_lugar AS(
-	SELECT municipio_residencia, COUNT(*) as total
-	FROM residencia
-	JOIN defuncion_ocurrencia ON residencia.id_persona=defuncion_ocurrencia.id_persona
-	WHERE municipio_residencia=defuncion_ocurrencia.municipio_ocurrencia
-	GROUP BY municipio_residencia
+	SELECT residencia_id, COUNT(*) as total
+	FROM persona
+	JOIN defuncion ON defuncion.persona_id=persona.id
+	WHERE residencia_id=defuncion.alcaldia_defuncion_id
+	GROUP BY residencia_id
 	ORDER BY total DESC
 ),
 diferente_lugar AS(
-	SELECT municipio_residencia, COUNT(*) as total
-	FROM residencia
-	JOIN defuncion_ocurrencia ON residencia.id_persona=defuncion_ocurrencia.id_persona
-	WHERE municipio_residencia!=defuncion_ocurrencia.municipio_ocurrencia
-	GROUP BY municipio_residencia
+	SELECT residencia_id, COUNT(*) as total
+	FROM persona
+	JOIN defuncion ON defuncion.persona_id=persona.id
+	WHERE residencia_id!=defuncion.alcaldia_defuncion_id
+	GROUP BY residencia_id
 	ORDER BY total DESC
 )
 
-SELECT mismo_lugar.municipio_residencia, mismo_lugar.total AS total_mismo_lugar, diferente_lugar.total AS total_diferente_lugar
-FROM mismo_lugar 
-LEFT JOIN diferente_lugar ON mismo_lugar.municipio_residencia= diferente_lugar.municipio_residencia
-ORDER BY mismo_lugar.municipio_residencia;
+SELECT entidad_municipio.municipio, mismo_lugar.total AS total_mismo_lugar, diferente_lugar.total AS total_diferente_lugar
+FROM mismo_lugar
+JOIN entidad_municipio ON entidad_municipio.id=residencia_id
+LEFT JOIN diferente_lugar ON mismo_lugar.residencia_id= diferente_lugar.residencia_id
+ORDER BY mismo_lugar.residencia_id;
 ```
 📌 **Resultados:**  
-| Sexo   | Causa Defuncion                | Escolaridad                                 | Total |
-|--------|----------------------|---------------------------------------------|--------|
-| hombre | COVID-19             | PRIMARIA COMPLETA                           | 10938  |
-| hombre | COVID-19             | SECUNDARIA COMPLETA                         | 10382  |
-| mujer  | COVID-19             | PRIMARIA COMPLETA                           | 7852   |
-| hombre | COVID-19             | LICENCIATURA O PROFESIONAL COMPLETO         | 7554   |
-| hombre | COVID-19             | BACHILLERATO O PREPARATORIA COMPLETA        | 7520   |
-| hombre | DIABETES             | PRIMARIA COMPLETA                           | 5444   |
-| mujer  | DIABETES             | PRIMARIA COMPLETA                           | 5250   |
-| hombre | INFARTO              | PRIMARIA COMPLETA                           | 4890   |
-| mujer  | INFARTO              | PRIMARIA COMPLETA                           | 4720   |
-| hombre | COVID-19             | PRIMARIA INCOMPLETA                         | 4640   |
-| mujer  | COVID-19             | SECUNDARIA COMPLETA                         | 4388   |
-| mujer  | COVID-19             | PRIMARIA INCOMPLETA                         | 3602   |
-| mujer  | COVID-19             | BACHILLERATO O PREPARATORIA COMPLETA        | 3494   |
-| hombre | DIABETES             | SECUNDARIA COMPLETA                         | 3430   |
-| mujer  | DIABETES             | PRIMARIA INCOMPLETA                         | 3014   |
-| hombre | ENFERMEDAD PULMONAR  | PRIMARIA COMPLETA                           | 2858   |
-| mujer  | INFARTO              | PRIMARIA INCOMPLETA                         | 2844   |
-| mujer  | CANCER               | PRIMARIA COMPLETA                           | 2816   |
-| mujer  | ENFERMEDAD PULMONAR  | PRIMARIA COMPLETA                           | 2578   |
-| hombre | INFARTO              | PRIMARIA INCOMPLETA                         | 256    |
-      
+| Municipio                         | Muertes (misma residencia) | Muertes (diferente residencia) |
+|----------------------------------|-----------------------------|---------------------------------|
+| AA MILPA ALTA                    | 312                         | 170                             |
+| VENUSTIANO CARRANZA              | 2636                        | 2669                            |
+| XOCHIMILCO                       | 2199                        | 1818                            |
+| SANTA CATARINA YECAHUITZOTL      | 11                          | 11                              |
+| MIGUEL HIDALGO                   | 2312                        | 1406                            |
+| GUSTAVO A. MADERO                | 10529                       | 3009                            |
+| MANANTIALES DE MONTE ALEGRE     | 1                           | 3                               |
+| SAN LORENZO TLACOYUCAN           | 6                           | 8                               |
+| SAN FRANCISCO TECOXPA            | 3                           | 5                               |
+| IZTACALCO                        | 2967                        | 1898                            |
+| SAN LORENZO ACOPILCO             | 2                           | 3                               |
+| SAN NICOLAS TETELCO              | 8                           | 6                               |
+| ALBERGUE ALPINO AJUSCO          | 26                          | 22                              |
+| EJIDOS DE SAN ANDRES TOTOLTEPEC  | 1                           | 1                               |
+| ACALIPA                          | 9                           | 9                               |
+| OJO DE AGUA                      | 25                          | 3                               |
+| SAN PABLO OZTOTEPEC              | 14                          | 29                              |
+| LA CONCEPCION                    | 1                           | NULL                            |
+| NO ESPECIFICADO                  | 2825                        | 2275                            |
+| SAN BARTOLOME XICOMULCO          | 2                           | 10                              |
+| SAN ANDRES MIXQUIC               | 26                          | 11                              |
+| TLAHUAC                          | 1654                        | 1145                            |
+| SAN SALVADOR CUAUHTENCO          | 13                          | 18                              |
+| IZTAPALAPA                       | 11251                       | 5669                            |
+| AMPLIACION SAN MIGUEL            | 7                           | 8                               |
+| BENITO JUAREZ                    | 2617                        | 987                             |
+| VILLA MILPA ALTA                 | 272                         | 191                             |
+| COYOACAN                         | 3691                        | 2540                            |
+| SAN ANTONIO TECOMITL             | 21                          | 36                              |
+| AZCAPOTZALCO                     | 3482                        | 1581                            |
+| SANTA ANA TLACOTENCO             | 12                          | 15                              |
+| CUAJIMALPA DE MORELOS            | 785                         | 682                             |
+| SAN MIGUEL TOPILEJO              | 7                           | 14                              |
+| ACOPIAXCO [CAMPAMENTO FORESTAL]  | 28                          | 52                              |
+| SAN JUAN IXTAYOPAN               | 34                          | 29                              |
+| CRUZ BLANCA                      | 1                           | 1                               |
+| CUAUHTEMOC                       | 3641                        | 2209                            |
+| SAN MIGUEL                       | 29                          | 9                               |
+| LA NOPALERA                      | 1                           | 3                               |
+| TEMAXCATITLA (KILOMETRO 32.2)    | 1                           | 1                               |
+| ALVARO OBREGON                   | 4683                        | 2348                            |
+| SAN PEDRO ATOCPAN                | 15                          | 26                              |
+| LA MAGDALENA CONTRERAS           | 1050                        | 1016                            |
+| TLALPAN                          | 3326                        | 1950                            |
+| COLA DE PATO                     | 14                          | 18                              |
+| SAN MIGUEL AJUSCO                | 1                           | 5                               |
+
+      "
