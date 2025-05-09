@@ -81,35 +81,37 @@ Abre la opción SQL Query e ingresa el siguiente comando para crear la tabla:
 
 ```sql
 CREATE TABLE staging(
-	sexo text,
-	fecha_nacimiento date,
-	nacionalidad text,
-	lengua_indigena text,
-	estado_civil text,
-	entidad_residencia text,
-	municipio_residencia text,
-	escolaridad text,
-	ocupacion text,
-	afiliacion_medica text,
-	fecha_defuncion1 date,
-	hora_defuncion time,
-	lugar_defuncion text,
-	entidad_defuncion text,
-	alcaldia text,
-	atencion_medica text,
-	necropsia text,
-	causa_defuncion text,
-	durante_embarazo text,
-	causado_embarazo text,
-	complicacion_embarazo text,
-	muerte_accidental_violenta text,
-	tipo_evento text,
-	en_trabajo text,
-	sitio_lesion text,
-	municipio_ocurrencia text,
-	fecha_defuncion date,
-	edad bigint
-);
+		id BIGSERIAL PRIMARY KEY,
+		-- Este atributo nos servira para pasar los datos 		posteriormente
+		sexo text,
+		fecha_nacimiento date,
+		nacionalidad text,
+		lengua_indigena text,
+		estado_civil text,
+		entidad_residencia text,
+		municipio_residencia text,
+		escolaridad text,
+		ocupacion text,
+		afiliacion_medica text,
+		fecha_defuncion1 date,
+		hora_defuncion time,
+		lugar_defuncion text,
+		entidad_defuncion text,
+		alcaldia text,
+		atencion_medica text,
+		necropsia text,
+		causa_defuncion text,
+		durante_embarazo text,
+		causado_embarazo text,
+		complicacion_embarazo text,
+		muerte_accidental_violenta text,
+		tipo_evento text,
+		en_trabajo text,
+		sitio_lesion text,
+		municipio_ocurrencia text,
+		fecha_defuncion date,
+		edad bigint
+	);
 
 ```
 #### 3️⃣ Conexión a la Base de Datos y Carga Inicial de Datos
@@ -741,6 +743,7 @@ Beneficios de esta estrategia:
 - Permite un tratamiento más preciso de los datos ausentes, tanto en análisis descriptivos como en modelos automatizados.
 
 ```sql
+
 UPDATE staging
 SET sexo='NO ESPECIFICADO'
 WHERE sexo ILIKE '%se ignora%' OR sexo ILIKE 'no especificado';
@@ -771,7 +774,6 @@ SET alcaldia = 'NO ESPECIFICADO' WHERE alcaldia ILIKE 'SE IGNORA';
 
 UPDATE staging
 SET atencion_medica = NULL WHERE atencion_medica IS NULL OR atencion_medica ILIKE 'SE IGNORA' OR atencion_medica ILIKE 'NO ESPECIFICADO';
-
 
 UPDATE staging
 SET necropsia = NULL WHERE necropsia IS NULL OR necropsia ILIKE 'SE IGNORA' OR necropsia ILIKE 'NO ESPECIFICADO';
@@ -1564,10 +1566,6 @@ Para corregir las inconsistencias en las complicaciones durante el embarazo, se 
 UPDATE staging
 SET complicacion_embarazo='SI'
 WHERE causa_defuncion ILIKE '%EMBARAZO%';
-
-UPDATE staging
-SET complicacion_embarazo='NO'
-WHERE durante_embarazo ILIKE 'NO ESTUVO EMBARAZADA%' AND complicacion_embarazo ILIKE 'SI';
 ```
 
 ## Normalización de datos
@@ -1709,9 +1707,56 @@ No modificamos nada de las tablas que propusimos originalmente, pues ya estaban 
 
 Estas tablas fueron diseñadas teniendo en cuenta la **naturaleza de los datos** que representan, lo que garantizó que se cumplieran las reglas de normalización y se mantuviera la integridad de los mismos. Cada tabla refleja una entidad específica del dominio, como `Persona`, `Municipio`, `Entidad`, `Defuncion`, y `Embarazo`, las cuales están estructuradas de forma que reflejan la relación única y directa entre los atributos de cada entidad. Por ejemplo, la tabla `Persona` contiene atributos como `sexo`, `fecha_nacimiento`, `estado_civil`, etc., que dependen exclusivamente del identificador único de la persona, lo cual refleja su naturaleza única y no repetitiva. Asimismo, las relaciones entre las tablas están definidas de manera que se eviten redundancias y se optimice el acceso y la manipulación de los datos, lo que hace que el modelo sea eficiente y adecuado para representar la realidad del dominio de forma clara y coherente. Las dependencias funcionales fueron cuidadosamente consideradas para asegurar que las tablas se mantuvieran en 4FN, evitando dependencias multivaluadas y asegurando que cada conjunto de atributos dependiera únicamente de la clave primaria. Así, el diseño de las tablas no solo sigue las reglas de normalización, sino que también refleja la estructura y la lógica inherente a los datos que se almacenan.
 
+### • Entidades Finales
+
+#### Entidad: Persona
+| persona                 |
+|-------------------------|
+| id                      |
+| sexo                    |
+| fecha_nacimiento        |
+| lengua_indígena         | 
+| estado_civil            |
+| residencia_id      (fk) |
+| escolaridad             |
+| ocupación               |
+| afiliación_medica       |
+
+#### Entidad: entidad_municipio
+| municipio         |
+--------------------|
+| id                |
+| entidad           |
+| municipio         |
+
+
+#### Entidad: Defunción
+| defuncion                   |
+|-----------------------------|
+| id                          |
+| persona_id             (fk) |
+| fecha_defuncion             |
+| hora_defuncion              |
+| lugar_defuncion             |
+| causa_defuncion             |
+| alcaldia_defuncion_id  (fk) |
+| atencion_medica             |
+| necropsia                   |
+
+
+#### Entidad: Embarazo
+| embarazo                  |
+|---------------------------|
+| id                        |
+| persona_id           (fk) |
+| durante_embarazo          |
+| causa_embarazo            |
+| complicacion_embarazo     |
+
 ### • Creación de tablas en SQL
 
 ```sql
+
 -- Entidad: entidad_municipio
 
 CREATE TABLE entidad_municipio (
@@ -1736,43 +1781,100 @@ WHERE NOT EXISTS (
       AND entidad = 'CIUDAD DE MEXICO'
 );
 
-
 -- Entidad: Persona
-
 CREATE TABLE persona (
 	id BIGSERIAL PRIMARY KEY,
-	sexo VARCHAR(10) NOT NULL,
+	sexo VARCHAR(20) NOT NULL,
 	fecha_nacimiento DATE,
 	lengua_indigena BOOLEAN,
 	estado_civil VARCHAR(50) NOT NULL,
-	residencia_id BIGINT NOT NULL CONSTRAINT fk_municipio REFERENCES municipio(id) ON DELETE SET DEFAULT 1,
+	entidad_residencia VARCHAR(100),
+	municipio_residencia VARCHAR(100),
+	--Estos atributos residencia son temporales en lo que se ingresan los nuevos ids
+	residencia_id BIGINT,
 	escolaridad VARCHAR(200) NOT NULL,
 	ocupacion VARCHAR(200) NOT NULL,
-	afiliacion_medica VARCHAR(200) NOT NULL,
-	defuncion_id BIGINT NOT NULL CONSTRAINT fk_defuncion REFERENCES defuncion(id) ON DELETE CASCADE
+	afiliacion_medica VARCHAR(200) NOT NULL
 );
 
+INSERT INTO persona (id,sexo, fecha_nacimiento, lengua_indigena, estado_civil, entidad_residencia, municipio_residencia, escolaridad, ocupacion, afiliacion_medica)
+SELECT id,sexo, fecha_nacimiento,lengua_indigena,estado_civil,entidad_residencia,municipio_residencia,escolaridad,ocupacion,afiliacion_medica
+FROM staging;
 
+SELECT setval('public.persona_id_seq', (SELECT MAX(id) FROM persona));
+
+UPDATE persona
+SET residencia_id = (
+	SELECT id 
+	FROM entidad_municipio
+	WHERE (entidad_municipio.entidad,entidad_municipio.municipio)=(entidad_residencia, municipio_residencia)
+);
+
+ALTER TABLE persona DROP COLUMN entidad_residencia;
+ALTER TABLE persona DROP COLUMN municipio_residencia;
+
+ALTER TABLE persona
+ALTER COLUMN residencia_id SET NOT NULL,
+ALTER COLUMN residencia_id SET DEFAULT 1539, --> Tupla donde la entidad y el municipio no estan especificados
+ADD CONSTRAINT fk_entidad_municipio
+FOREIGN KEY (residencia_id) REFERENCES entidad_municipio(id) ON DELETE SET DEFAULT;
+
+
+-- Entidad: Defuncion
 CREATE TABLE defuncion (
 	id BIGSERIAL PRIMARY KEY,
+	persona_id BIGINT NOT NULL CONSTRAINT fk_persona REFERENCES persona(id) ON DELETE CASCADE,
 	fecha_defuncion DATE NOT NULL,
 	hora_defuncion TIME,
 	lugar_defuncion VARCHAR(500) NOT NULL,
 	causa_defuncion VARCHAR(500) NOT NULL,
-	alcaldia_defuncion_id BIGINT NOT NULL CONSTRAINT fk_municipio REFERENCES municipio(id) ON DELETE SET DEFAULT 1,
+	alcaldia_defuncion_id VARCHAR (500), --valor provisional en lo que transferimos los datos
+	atencion_medica BOOLEAN,
 	necropsia BOOLEAN
 );
+
+INSERT INTO defuncion (persona_id,fecha_defuncion, hora_defuncion, lugar_defuncion, causa_defuncion, alcaldia_defuncion_id, atencion_medica, necropsia)
+SELECT id, fecha_defuncion, hora_defuncion, lugar_defuncion, causa_defuncion, alcaldia, atencion_medica, necropsia
+FROM staging;
+
+UPDATE defuncion
+SET alcaldia_defuncion_id = (
+	SELECT id 
+	FROM entidad_municipio
+	WHERE (entidad_municipio.entidad,entidad_municipio.municipio)=('CIUDAD DE MEXICO', alcaldia_defuncion_id)
+);
+
+
+ALTER TABLE defuncion
+ALTER COLUMN alcaldia_defuncion_id TYPE BIGINT USING alcaldia_defuncion_id::bigint,
+ALTER COLUMN alcaldia_defuncion_id SET NOT NULL,
+ALTER COLUMN alcaldia_defuncion_id SET DEFAULT 1539, --> Tupla donde la entidad y el municipio no estan especificados
+ADD CONSTRAINT fk_entidad_municipio
+FOREIGN KEY (alcaldia_defuncion_id) REFERENCES entidad_municipio(id) ON DELETE SET DEFAULT;
+
+-- Entidad Embarazo
 
 CREATE TABLE embarazo (
 	id BIGSERIAL PRIMARY KEY,
 	persona_id BIGINT NOT NULL CONSTRAINT fk_persona REFERENCES persona(id) ON DELETE CASCADE,
 	durante_embarazo VARCHAR(500) NOT NULL,
-	causado_embarazo BOOLEAN,
-	complicacion_embarazo BOOLEAN
+	causado_embarazo VARCHAR(200) NOT NULL,
+	complicacion_embarazo VARCHAR(200) NOT NULL
 );
+
+INSERT INTO embarazo (persona_id,durante_embarazo, causado_embarazo, complicacion_embarazo)
+SELECT id, durante_embarazo, causado_embarazo, complicacion_embarazo
+FROM staging
+WHERE durante_embarazo NOT ILIKE '%NO APLICA%'
+	AND durante_embarazo NOT ILIKE '%NO ESPECIFICADO%'
+	AND NOT (
+    complicacion_embarazo ILIKE '%NO APLICA%'
+    AND causado_embarazo ILIKE '%NO APLICA%'
+  );
+
+DROP TABLE staging;
 ```
 ### ERD
-
 El ERD con todas las entidades después de la normalización, es el siguiente:
 
 ![ERD de Hockey](https://github.com/user-attachments/assets/7891d217-0efe-4d46-9f3e-0c3083e361b6)
