@@ -2,6 +2,18 @@
 /*          CARGA INICIAL         */
 /* ****************************** */
 
+--- PASOS EN CONSOLA ---
+
+	CREATE DATABASE proyecto;
+
+	\c proyecto;
+
+	SET CLIENT_ENCODING TO 'UTF8';
+
+--- Carga de base de datos en Table Plus ---
+
+--Primero conectar a la base de proyecto
+
 CREATE TABLE staging(
 		id BIGSERIAL PRIMARY KEY,
 		-- Este atributo nos servira para pasar los datos posteriormente
@@ -36,9 +48,8 @@ CREATE TABLE staging(
 	);
 
 /*
---- PASOS EN CONSOLA ---
 
-	SET CLIENT_ENCODING TO 'UTF8';
+--- PASOS EN CONSOLA ---
 	
-	\copy staging(sexo, fecha_nacimiento, nacionalidad, lengua_indigena, estado_civil, entidad_residencia, municipio_residencia, escolaridad, ocupacion, afiliacion_medica, fecha_defuncion1, hora_defuncion, lugar_defuncion, entidad_defuncion, alcaldia, atencion_medica, necropsia, causa_defuncion, durante_embarazo, causado_embarazo, complicacion_embarazo, muerte_accidental_violenta, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, fecha_defuncion, edad) FROM 'path_to_downloaded_csv' WITH (FORMAT CSV, HEADER true, DELIMITER ',', NULL 'NA');
+	\copy staging(sexo, fecha_nacimiento, nacionalidad, lengua_indigena, estado_civil, entidad_residencia, municipio_residencia, escolaridad, ocupacion, afiliacion_medica, fecha_defuncion1, hora_defuncion, lugar_defuncion, entidad_defuncion, alcaldia, atencion_medica, necropsia, causa_defuncion, durante_embarazo, causado_embarazo, complicacion_embarazo, muerte_accidental_violenta, tipo_evento, en_trabajo, sitio_lesion, municipio_ocurrencia, fecha_defuncion, edad) FROM 'ubicación del archivo.csv' WITH (FORMAT CSV, HEADER true, DELIMITER ',', NULL 'NA');
 */
