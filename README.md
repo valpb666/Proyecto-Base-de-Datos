@@ -592,7 +592,7 @@ Se obutiveron varias inconsistencias, las siguientes:
 |IZTACALCO	|2|
 |LA LOMA	|2|
 |LA NOPALERA	|2|
-|LA PAZ	2|
+|LA PAZ	|2|
 |METEPEC|	3|
 |NINGUNO|	8|
 |OJO DE AGUA|	2|
