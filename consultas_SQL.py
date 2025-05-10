@@ -8,10 +8,10 @@
 Pregunta: ¿Existe una relación entre escolaridad y causa de defunción por sexo? 
 */
 
-SELECT sexo_edad_causa.sexo, causa_defuncion, persona.escolaridad, COUNT(*) as total
-FROM sexo_edad_causa
-JOIN persona ON sexo_edad_causa.id_persona=persona.id
-GROUP BY sexo_edad_causa.sexo, persona.escolaridad, causa_defuncion
+SELECT sexo, defuncion.causa_defuncion, escolaridad, COUNT(*) as total
+FROM persona
+JOIN defuncion ON defuncion.persona_id=persona.id
+GROUP BY sexo, escolaridad, causa_defuncion
 HAVING COUNT(*) > 1000
 ORDER BY total DESC;
 
