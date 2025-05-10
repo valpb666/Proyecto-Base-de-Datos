@@ -2472,76 +2472,43 @@ Pregunta: ¿Existe una relación entre escolaridad y causa de defunción por sex
 
 Ejecutamos:
 ```sql
-SELECT sexo_edad_causa.sexo, causa_defuncion, persona.escolaridad, COUNT(*) as total
-FROM sexo_edad_causa
-JOIN persona ON sexo_edad_causa.id_persona=persona.id
-GROUP BY sexo_edad_causa.sexo, persona.escolaridad, causa_defuncion
+SELECT sexo, defuncion.causa_defuncion, escolaridad, COUNT(*) as total
+FROM persona
+JOIN defuncion ON defuncion.persona_id=persona.id
+GROUP BY sexo, escolaridad, causa_defuncion
 HAVING COUNT(*) > 1000
 ORDER BY total DESC;
 ```
 📌 **Resultados:**  
 
-| Sexo  | Causa Defunción           | Escolaridad                              | Total |
-|-------|------------------------------|------------------------------------------|--------|
-| hombre | COVID-19                    | PRIMARIA COMPLETA                        | 10938  |
-| hombre | COVID-19                    | SECUNDARIA COMPLETA                      | 10382  |
-| mujer  | COVID-19                    | PRIMARIA COMPLETA                        | 7852   |
-| hombre | COVID-19                    | LICENCIATURA O PROFESIONAL COMPLETO     | 7554   |
-| hombre | COVID-19                    | BACHILLERATO O PREPARATORIA COMPLETA    | 7520   |
-| hombre | DIABETES                    | PRIMARIA COMPLETA                        | 5444   |
-| mujer  | DIABETES                    | PRIMARIA COMPLETA                        | 5250   |
-| hombre | INFARTO                     | PRIMARIA COMPLETA                        | 4890   |
-| mujer  | INFARTO                     | PRIMARIA COMPLETA                        | 4720   |
-| hombre | COVID-19                    | PRIMARIA INCOMPLETA                      | 4640   |
-| mujer  | COVID-19                    | SECUNDARIA COMPLETA                      | 4388   |
-| mujer  | COVID-19                    | PRIMARIA INCOMPLETA                      | 3602   |
-| mujer  | COVID-19                    | BACHILLERATO O PREPARATORIA COMPLETA    | 3494   |
-| hombre | DIABETES                    | SECUNDARIA COMPLETA                      | 3430   |
-| mujer  | DIABETES                    | PRIMARIA INCOMPLETA                      | 3014   |
-| hombre | ENFERMEDAD PULMONAR         | PRIMARIA COMPLETA                        | 2858   |
-| mujer  | INFARTO                     | PRIMARIA INCOMPLETA                      | 2844   |
-| mujer  | CANCER                      | PRIMARIA COMPLETA                        | 2816   |
-| mujer  | ENFERMEDAD PULMONAR         | PRIMARIA COMPLETA                        | 2578   |
-| hombre | INFARTO                     | PRIMARIA INCOMPLETA                      | 2568   |
-| hombre | INFARTO                     | SECUNDARIA COMPLETA                      | 2542   |
-| hombre | DIABETES                    | PRIMARIA INCOMPLETA                      | 2312   |
-| hombre | COVID-19                    | BACHILLERATO O PREPARATORIA INCOMPLETA  | 2244   |
-| hombre | INFARTO                     | LICENCIATURA O PROFESIONAL COMPLETO     | 2192   |
-| mujer  | INFARTO                     | NINGUNA                                  | 2120   |
-| mujer  | COVID-19                    | LICENCIATURA O PROFESIONAL COMPLETO     | 2116   |
-| hombre | CANCER                      | PRIMARIA COMPLETA                        | 2072   |
-| mujer  | DIABETES                    | SECUNDARIA COMPLETA                      | 2068   |
-| hombre | ENFERMEDAD PULMONAR         | SECUNDARIA COMPLETA                      | 2066   |
-| mujer  | CANCER                      | SECUNDARIA COMPLETA                      | 2012   |
-| mujer  | CANCER                      | BACHILLERATO O PREPARATORIA COMPLETA    | 2010   |
-| hombre | CANCER                      | LICENCIATURA O PROFESIONAL COMPLETO     | 2008   |
-| hombre | DIABETES                    | LICENCIATURA O PROFESIONAL COMPLETO     | 1984   |
-| mujer  | DIABETES                    | NINGUNA                                  | 1952   |
-| hombre | DIABETES                    | BACHILLERATO O PREPARATORIA COMPLETA    | 1922   |
-| mujer  | COVID-19                    | NINGUNA                                  | 1898   |
-| mujer  | CANCER                      | LICENCIATURA O PROFESIONAL COMPLETO     | 1854   |
-| hombre | INFARTO                     | BACHILLERATO O PREPARATORIA COMPLETA    | 1800   |
-| hombre | ENFERMEDAD PULMONAR         | LICENCIATURA O PROFESIONAL COMPLETO     | 1652   |
-| hombre | COVID-19                    | LICENCIATURA O PROFESIONAL INCOMPLETO   | 1634   |
-| hombre | CANCER                      | SECUNDARIA COMPLETA                      | 1628   |
-| hombre | COVID-19                    | SECUNDARIA INCOMPLETA                    | 1622   |
-| mujer  | INFARTO                     | SECUNDARIA COMPLETA                      | 1542   |
-| hombre | CANCER                      | BACHILLERATO O PREPARATORIA COMPLETA    | 1478   |
-| mujer  | INFARTO                     | BACHILLERATO O PREPARATORIA COMPLETA    | 1476   |
-| mujer  | ENFERMEDAD CARDIACA         | PRIMARIA COMPLETA                        | 1386   |
-| mujer  | ENFERMEDAD PULMONAR         | PRIMARIA INCOMPLETA                      | 1370   |
-| hombre | ENFERMEDAD PULMONAR         | BACHILLERATO O PREPARATORIA COMPLETA    | 1366   |
-| hombre | ENFERMEDAD PULMONAR         | PRIMARIA INCOMPLETA                      | 1366   |
-| hombre | COVID-19                    | NINGUNA                                  | 1326   |
-| hombre | COVID-19                    | NULL                                     | 1314   |
-| mujer  | DIABETES                    | BACHILLERATO O PREPARATORIA COMPLETA    | 1294   |
-| mujer  | CANCER                      | PRIMARIA INCOMPLETA                      | 1286   |
-| mujer  | ENFERMEDAD PULMONAR         | SECUNDARIA COMPLETA                      | 1208   |
-| hombre | INFARTO                     | NINGUNA                                  | 1096   |
-| hombre | CANCER                      | PRIMARIA INCOMPLETA                      | 1078   |
-| mujer  | ENFERMEDAD PULMONAR         | BACHILLERATO O PREPARATORIA COMPLETA    | 1064   |
-| mujer  | INFARTO                     | LICENCIATURA O PROFESIONAL COMPLETO     | 1044   |
-| hombre | ENFERMEDAD CARDIACA         | PRIMARIA COMPLETA                        | 1008   |
+| Sexo  | Causa      | Escolaridad                                  | Total |
+|-------|------------|----------------------------------------------|--------|
+| hombre | COVID-19  | PRIMARIA COMPLETA                            | 5459   |
+| hombre | COVID-19  | SECUNDARIA COMPLETA                          | 5173   |
+| mujer  | COVID-19  | PRIMARIA COMPLETA                            | 3918   |
+| hombre | COVID-19  | LICENCIATURA O PROFESIONAL COMPLETO          | 3756   |
+| hombre | COVID-19  | BACHILLERATO O PREPARATORIA COMPLETA         | 3746   |
+| hombre | DIABETES  | PRIMARIA COMPLETA                            | 2715   |
+| mujer  | DIABETES  | PRIMARIA COMPLETA                            | 2619   |
+| hombre | INFARTO   | PRIMARIA COMPLETA                            | 2419   |
+| mujer  | INFARTO   | PRIMARIA COMPLETA                            | 2347   |
+| hombre | COVID-19  | PRIMARIA INCOMPLETA                          | 2308   |
+| mujer  | COVID-19  | SECUNDARIA COMPLETA                          | 2188   |
+| mujer  | COVID-19  | PRIMARIA INCOMPLETA                          | 1796   |
+| mujer  | COVID-19  | BACHILLERATO O PREPARATORIA COMPLETA         | 1740   |
+| hombre | DIABETES  | SECUNDARIA COMPLETA                          | 1710   |
+| mujer  | DIABETES  | PRIMARIA INCOMPLETA                          | 1503   |
+| mujer  | INFARTO   | PRIMARIA INCOMPLETA                          | 1417   |
+| mujer  | CANCER    | PRIMARIA COMPLETA                            | 1405   |
+| hombre | INFARTO   | PRIMARIA INCOMPLETA                          | 1277   |
+| hombre | INFARTO   | SECUNDARIA COMPLETA                          | 1250   |
+| hombre | DIABETES  | PRIMARIA INCOMPLETA                          | 1149   |
+| hombre | COVID-19  | BACHILLERATO O PREPARATORIA INCOMPLETA       | 1119   |
+| hombre | INFARTO   | LICENCIATURA O PROFESIONAL COMPLETO          | 1068   |
+| mujer  | COVID-19  | LICENCIATURA O PROFESIONAL COMPLETO          | 1054   |
+| mujer  | INFARTO   | NINGUNA                                      | 1053   |
+| hombre | CANCER    | PRIMARIA COMPLETA                            | 1032   |
+| mujer  | DIABETES  | SECUNDARIA COMPLETA                          | 1031   |
 
 ### 2. **Análisis de enfermedades por alcaldías**
 
