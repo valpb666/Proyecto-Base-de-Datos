@@ -1350,7 +1350,7 @@ WHERE municipio_residencia ILIKE 'XICO' AND entidad_residencia NOT LIKE 'VERACRU
 
 --Zacualpan
 SELECT entidad_residencia, municipio_residencia
-FROM staging_backup
+FROM staging
 WHERE municipio_residencia ILIKE 'ZACUALPAN' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 UPDATE staging
