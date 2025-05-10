@@ -2844,7 +2844,7 @@ ORDER BY mismo_lugar.residencia_id;
 | COLA DE PATO                     | 14                          | 18                              |
 | SAN MIGUEL AJUSCO                | 1                           | 5                               |
 
-### 7. **Análisis entre ncaimientos y muertes en la misma residencia**
+### 7. **Análisis entre nacimientos y muertes en la misma residencia**
 
 Pregunta: ¿Cuántas muertes hubo en total en cada municipio?
 
