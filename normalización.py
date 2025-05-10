@@ -9,9 +9,18 @@ CREATE TABLE entidad_municipio (
 	CONSTRAINT pares_unicos UNIQUE(entidad,municipio)
 );
 
+INSERT INTO entidad_municipio(id,municipio,entidad) VALUES
+(0, 'NO ESPECIFICADO', 'NO ESPECIFICADO');
+
 INSERT INTO entidad_municipio(municipio, entidad)
 SELECT DISTINCT municipio_residencia, entidad_residencia
-FROM staging;
+FROM staging
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM entidad_municipio 
+    WHERE municipio = municipio_residencia
+      AND entidad = entidad_residencia
+);
 
 INSERT INTO entidad_municipio(municipio,entidad)
 SELECT DISTINCT alcaldia, 'CIUDAD DE MEXICO'
@@ -62,7 +71,7 @@ ALTER TABLE persona DROP COLUMN entidad_residencia;
 ALTER TABLE persona DROP COLUMN municipio_residencia;
 
 ALTER TABLE persona
-ALTER COLUMN residencia_id SET DEFAULT 1539;--> Tupla donde la entidad y el municipio no estan especificados
+ALTER COLUMN residencia_id SET DEFAULT 0;--> Tupla donde la entidad y el municipio no estan especificados
 
 ALTER TABLE persona
 ADD CONSTRAINT fk_entidad_municipio
@@ -96,7 +105,7 @@ SET alcaldia_defuncion_id = (
 ALTER TABLE defuncion
 ALTER COLUMN alcaldia_defuncion_id TYPE BIGINT USING alcaldia_defuncion_id::bigint,
 ALTER COLUMN alcaldia_defuncion_id SET NOT NULL,
-ALTER COLUMN alcaldia_defuncion_id SET DEFAULT 1539, --> Tupla donde la entidad y el municipio no estan especificados
+ALTER COLUMN alcaldia_defuncion_id SET DEFAULT 0, --> Tupla donde la entidad y el municipio no estan especificados
 ADD CONSTRAINT fk_entidad_municipio
 FOREIGN KEY (alcaldia_defuncion_id) REFERENCES entidad_municipio(id) ON DELETE SET DEFAULT;
 
