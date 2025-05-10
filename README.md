@@ -2332,13 +2332,12 @@ Estas tablas fueron diseñadas teniendo en cuenta la **naturaleza de los datos**
 ### • Creación de tablas en SQL
 
 ```sql
-
 -- Entidad: entidad_municipio
-
+DROP TABLE persona;
 CREATE TABLE entidad_municipio (
 	id BIGSERIAL PRIMARY KEY,
-	entidad VARCHAR(200) NOT NULL,
-	municipio VARCHAR(100) NOT NULL,
+	entidad VARCHAR(200),
+	municipio VARCHAR(100),
 	
 	CONSTRAINT pares_unicos UNIQUE(entidad,municipio)
 );
@@ -2360,17 +2359,17 @@ WHERE NOT EXISTS (
 -- Entidad: Persona
 CREATE TABLE persona (
 	id BIGSERIAL PRIMARY KEY,
-	sexo VARCHAR(20) NOT NULL,
+	sexo VARCHAR(20),
 	fecha_nacimiento DATE,
 	lengua_indigena BOOLEAN,
-	estado_civil VARCHAR(50) NOT NULL,
+	estado_civil VARCHAR(50),
 	entidad_residencia VARCHAR(100),
 	municipio_residencia VARCHAR(100),
 	--Estos atributos residencia son temporales en lo que se ingresan los nuevos ids
 	residencia_id BIGINT,
-	escolaridad VARCHAR(200) NOT NULL,
-	ocupacion VARCHAR(200) NOT NULL,
-	afiliacion_medica VARCHAR(200) NOT NULL
+	escolaridad VARCHAR(200),
+	ocupacion VARCHAR(200),
+	afiliacion_medica VARCHAR(200)
 );
 
 INSERT INTO persona (id,sexo, fecha_nacimiento, lengua_indigena, estado_civil, entidad_residencia, municipio_residencia, escolaridad, ocupacion, afiliacion_medica)
@@ -2381,20 +2380,26 @@ SELECT setval('public.persona_id_seq', (SELECT MAX(id) FROM persona));
 
 UPDATE persona
 SET residencia_id = (
-	SELECT id 
-	FROM entidad_municipio
-	WHERE (entidad_municipio.entidad,entidad_municipio.municipio)=(entidad_residencia, municipio_residencia)
+    SELECT em.id
+    FROM entidad_municipio em
+    JOIN staging s ON s.entidad_residencia = em.entidad
+    AND s.municipio_residencia = em.municipio
+    WHERE s.id = persona.id
 );
+
+SELECT residencia_id
+FROM persona
+WHERE residencia_id IS NULL;
 
 ALTER TABLE persona DROP COLUMN entidad_residencia;
 ALTER TABLE persona DROP COLUMN municipio_residencia;
 
 ALTER TABLE persona
-ALTER COLUMN residencia_id SET NOT NULL,
-ALTER COLUMN residencia_id SET DEFAULT 1539, --> Tupla donde la entidad y el municipio no estan especificados
+ALTER COLUMN residencia_id SET DEFAULT 1539;--> Tupla donde la entidad y el municipio no estan especificados
+
+ALTER TABLE persona
 ADD CONSTRAINT fk_entidad_municipio
 FOREIGN KEY (residencia_id) REFERENCES entidad_municipio(id) ON DELETE SET DEFAULT;
-
 
 -- Entidad: Defuncion
 CREATE TABLE defuncion (
@@ -2402,8 +2407,8 @@ CREATE TABLE defuncion (
 	persona_id BIGINT UNIQUE NOT NULL CONSTRAINT fk_persona REFERENCES persona(id) ON DELETE CASCADE,
 	fecha_defuncion DATE NOT NULL,
 	hora_defuncion TIME,
-	lugar_defuncion VARCHAR(500) NOT NULL,
-	causa_defuncion VARCHAR(500) NOT NULL,
+	lugar_defuncion VARCHAR(500),
+	causa_defuncion VARCHAR(500),
 	alcaldia_defuncion_id VARCHAR (500), --valor provisional en lo que transferimos los datos
 	atencion_medica BOOLEAN,
 	necropsia BOOLEAN
@@ -2433,9 +2438,9 @@ FOREIGN KEY (alcaldia_defuncion_id) REFERENCES entidad_municipio(id) ON DELETE S
 CREATE TABLE embarazo (
 	id BIGSERIAL PRIMARY KEY,
 	persona_id BIGINT NOT NULL CONSTRAINT fk_persona REFERENCES persona(id) ON DELETE CASCADE,
-	durante_embarazo VARCHAR(500) NOT NULL,
-	causado_embarazo VARCHAR(200) NOT NULL,
-	complicacion_embarazo VARCHAR(200) NOT NULL
+	durante_embarazo VARCHAR(500),
+	causado_embarazo VARCHAR(200),
+	complicacion_embarazo VARCHAR(200)
 );
 
 INSERT INTO embarazo (persona_id,durante_embarazo, causado_embarazo, complicacion_embarazo)
@@ -2843,65 +2848,3 @@ ORDER BY mismo_lugar.residencia_id;
 | TLALPAN                          | 3326                        | 1950                            |
 | COLA DE PATO                     | 14                          | 18                              |
 | SAN MIGUEL AJUSCO                | 1                           | 5                               |
-
-### 7. **Análisis entre nacimientos y muertes en la misma residencia**
-
-Pregunta: ¿Cuántas muertes hubo en total en cada municipio?
-
-Ejecutamos:
-```sql
-SELECT p.ocupacion, COUNT(*) AS total_defunciones
-FROM Persona p
-JOIN Defuncion d ON p.defuncion_id = d.id
-GROUP BY p.ocupacion
-ORDER BY total_defunciones DESC;
-```
-📌 **Resultados:**  
-
-2. En promedio, cuántas muertes hay por día en cada municipio?
-3. ¿De qué municipio vienen las personas que mayor atención medica recibieron?
-4. Por municipio, cual es la escolaridad más común ? Esta relacionado con las muertes por municipio?
-5. ¿Hay relacion entre la ocupación y la cantidad de muertes?
-
-6. ¿Cual es el total de defunciones sin asistencia medica por municipio?
-```sql
-SELECT m.nombre AS municipio, COUNT(*) AS defunciones_sin_atencion
-FROM Defuncion d
-JOIN Municipio m ON d.alcaldia_defuncion_id = m.id
-WHERE d.atencion_medica = FALSE
-GROUP BY m.nombre
-ORDER BY defunciones_sin_atencion DESC;
-```
-7. ¿Cual es el porcentaje de defunciones sin atención médica por entidad ?
-```sql
-SELECT e.nombre AS entidad,
-       ROUND(100.0 * SUM(CASE WHEN d.atencion_medica = FALSE THEN 1 ELSE 0 END) / COUNT(*), 2) AS porcentaje_sin_atencion
-FROM Defuncion d
-JOIN Municipio m ON d.alcaldia_defuncion_id = m.id
-JOIN Entidad e ON m.entidad_id = e.id
-GROUP BY e.nombre
-ORDER BY porcentaje_sin_atencion DESC;
-```
-8. ¿Cual es el municipio con mayor cantidad de muertes en domicilio?
-```sql
-SELECT m.nombre AS municipio, COUNT(*) AS defunciones_en_domicilio
-FROM Defuncion d
-JOIN Municipio m ON d.alcaldia_defuncion_id = m.id
-WHERE LOWER(d.lugar_defuncion) LIKE '%domicilio%'
-GROUP BY m.nombre
-ORDER BY defunciones_en_domicilio DESC;
-```
-9. ¿Que entidades son las que realizan la menor cantidad de necropsias ?
-```sql
-SELECT e.nombre AS entidad, COUNT(*) AS defunciones_sin_necropsia
-FROM Defuncion d
-JOIN Municipio m ON d.alcaldia_defuncion_id = m.id
-JOIN Entidad e ON m.entidad_id = e.id
-WHERE d.necropsia = FALSE
-GROUP BY e.nombre
-ORDER BY defunciones_sin_necropsia DESC;
-```
-
-
-Algunas de las consultas que hicimos son las siguientes:
-
