@@ -1626,7 +1626,7 @@ No hay dependencias multivaluadas porque:
 | **¿Está en 1FN?** (¿La tabla tiene solo valores atómicos?) | Sí, todos los atributos de la tabla `persona` son atómicos (no hay listas o conjuntos de valores). |
 | **¿Está en 2FN?** (¿Está en 1FN y no hay dependencias parciales?) | Sí, todos los atributos dependen completamente de la clave primaria `id`. No hay dependencias parciales. |
 | **¿Está en 3FN?** (¿Está en 2FN y no hay dependencias transitivas?) | Sí, todos los atributos dependen directamente de `id`, sin depender de otros atributos. |
-| **¿Está en FNBC?** (¿Cada dependencia funcional tiene como determinante una superclave?) | Sí, todos los atributos dependen exclusivamente de la clave primaria id, que es una superclave. No hay dependencias funcionales donde el determinante no sea una superclave. |
+| **¿Está en FNBC?** (¿Cada dependencia funcional tiene como determinante una superclave?) | Sí, todos los atributos dependen exclusivamente de la clave primaria `id`, que es una superclave. No hay dependencias funcionales donde el determinante no sea una superclave. |
 | **¿Está en 4FN?** (¿Está en 3FN y no hay dependencias multivaluadas?) | Sí, no hay dependencias multivaluadas. Cada atributo depende exclusivamente de `id`. |
 
 ---
@@ -1638,7 +1638,7 @@ No hay dependencias multivaluadas porque:
 | **¿Está en 1FN?** (¿La tabla tiene solo valores atómicos?) | Sí, todos los atributos en la tabla `municipio` son atómicos. |
 | **¿Está en 2FN?** (¿Está en 1FN y no hay dependencias parciales?) | Sí, todos los atributos dependen completamente de la clave primaria `id` de municipio. No hay dependencias parciales. |
 | **¿Está en 3FN?** (¿Está en 2FN y no hay dependencias transitivas?) | Sí, todos los atributos dependen directamente de `id`, sin depender de otros atributos. |
-| **¿Está en FNBC?** (¿Cada dependencia funcional tiene como determinante una superclave?) | Sí, en la tabla municipio todos los atributos dependen únicamente de id, que es una superclave. No existen dependencias funcionales que violen esta condición. |
+| **¿Está en FNBC?** (¿Cada dependencia funcional tiene como determinante una superclave?) | Sí, en la tabla `municipio` todos los atributos dependen únicamente de `id`, que es una superclave. No existen dependencias funcionales que violen esta condición. |
 | **¿Está en 4FN?** (¿Está en 3FN y no hay dependencias multivaluadas?) | Sí, no hay dependencias multivaluadas. Cada atributo depende exclusivamente de `id`. |
 
 ---
@@ -1650,7 +1650,7 @@ No hay dependencias multivaluadas porque:
 | **¿Está en 1FN?** (¿La tabla tiene solo valores atómicos?) | Sí, los atributos `id` y `nombre` son atómicos. |
 | **¿Está en 2FN?** (¿Está en 1FN y no hay dependencias parciales?) | Sí, todos los atributos dependen completamente de la clave primaria `id`. No hay dependencias parciales. |
 | **¿Está en 3FN?** (¿Está en 2FN y no hay dependencias transitivas?) | Sí, no hay dependencias transitivas, ya que `nombre` depende exclusivamente de `id`. |
-| **¿Está en FNBC?** (¿Cada dependencia funcional tiene como determinante una superclave?) | Sí, la única dependencia funcional es id → nombre, donde id es clave primaria. Esto cumple con la definición de la FNBC. |
+| **¿Está en FNBC?** (¿Cada dependencia funcional tiene como determinante una superclave?) | Sí, la única dependencia funcional es `id` → `nombre`, donde `id` es clave primaria. Esto cumple con la definición de la FNBC. |
 | **¿Está en 4FN?** (¿Está en 3FN y no hay dependencias multivaluadas?) | Sí, no hay dependencias multivaluadas, ya que no hay atributos que dependan de otros atributos en forma multivaluada. |
 
 ---
@@ -1661,7 +1661,7 @@ No hay dependencias multivaluadas porque:
 | **¿Está en 1FN?** (¿La tabla tiene solo valores atómicos?) | Sí, todos los atributos de la tabla `defuncion` son atómicos. |
 | **¿Está en 2FN?** (¿Está en 1FN y no hay dependencias parciales?) | Sí, todos los atributos dependen completamente de la clave primaria `id` de `defuncion`. No hay dependencias parciales. |
 | **¿Está en 3FN?** (¿Está en 2FN y no hay dependencias transitivas?) | Sí, no hay dependencias transitivas en la tabla `defuncion`. |
-| **¿Está en FNBC?** (¿Cada dependencia funcional tiene como determinante una superclave?) | Sí, todas las dependencias funcionales tienen como determinante la clave primaria id. No hay violaciones a FNBC. |
+| **¿Está en FNBC?** (¿Cada dependencia funcional tiene como determinante una superclave?) | Sí, todas las dependencias funcionales tienen como determinante la clave primaria `id`. No hay violaciones a FNBC. |
 | **¿Está en 4FN?** (¿Está en 3FN y no hay dependencias multivaluadas?) | Sí, no hay dependencias multivaluadas en la tabla `defuncion`. |
 
 ---
@@ -1673,7 +1673,7 @@ No hay dependencias multivaluadas porque:
 | **¿Está en 1FN?** (¿La tabla tiene solo valores atómicos?) | Sí, todos los atributos de la tabla `embarazo` son atómicos. |
 | **¿Está en 2FN?** (¿Está en 1FN y no hay dependencias parciales?) | Sí, todos los atributos dependen completamente de la clave primaria `id` de `embarazo`. No hay dependencias parciales. |
 | **¿Está en 3FN?** (¿Está en 2FN y no hay dependencias transitivas?) | Sí, todos los atributos dependen directamente de `id`, sin depender de otros atributos. |
-| **¿Está en FNBC?** (¿Cada dependencia funcional tiene como determinante una superclave?) | Sí, la clave primaria id determina todos los atributos y no hay otras dependencias funcionales. La tabla cumple con la FNBC. |
+| **¿Está en FNBC?** (¿Cada dependencia funcional tiene como determinante una superclave?) | Sí, la clave primaria `id` determina todos los atributos y no hay otras dependencias funcionales. La tabla cumple con la FNBC. |
 | **¿Está en 4FN?** (¿Está en 3FN y no hay dependencias multivaluadas?) | Sí, no hay dependencias multivaluadas en la tabla `embarazo`. |
 
 No modificamos nada de las tablas que propusimos originalmente, pues ya estaban en Cuarta Forma Normal desde el principio. Las tablas no presentaban dependencias multivaluadas no triviales, lo cual es el criterio principal para cumplir con 4FN. Cada atributo de las tablas depende exclusivamente de la clave primaria, y no existían atributos que dependieran de otros de manera multivaluada, lo que podría generar redundancias o problemas de integridad de datos. Además, no había necesidad de dividir las tablas ni eliminar dependencias, ya que todas las dependencias funcionales eran triviales y las relaciones entre los datos estaban bien definidas sin violar las reglas de normalización. Por lo tanto, las tablas ya cumplían con las condiciones necesarias para estar en 4FN.
