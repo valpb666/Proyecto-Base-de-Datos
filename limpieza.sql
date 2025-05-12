@@ -55,7 +55,6 @@ SET alcaldia = 'NO ESPECIFICADO' WHERE alcaldia ILIKE 'SE IGNORA';
 UPDATE staging
 SET atencion_medica = NULL WHERE atencion_medica IS NULL OR atencion_medica ILIKE 'SE IGNORA' OR atencion_medica ILIKE 'NO ESPECIFICADO';
 
-
 UPDATE staging
 SET necropsia = NULL WHERE necropsia IS NULL OR necropsia ILIKE 'SE IGNORA' OR necropsia ILIKE 'NO ESPECIFICADO';
 
@@ -105,7 +104,6 @@ SET causa_defuncion=unaccent(causa_defuncion);
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD PULMONAR' 
 WHERE causa_defuncion ILIKE '%NEUMONIA%' OR causa_defuncion ILIKE '%PULMONAR%' OR causa_defuncion ILIKE '%BRONQUITIS%' ; 
-
 
 UPDATE staging
 SET causa_defuncion='COVID-19' 
@@ -435,49 +433,25 @@ UPDATE staging
 SET causa_defuncion='ENFERMEDAD PSIQUIATRICA' 
 WHERE causa_defuncion ILIKE '%BIPOLAR%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%CARDIO%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD DE LA SANGRE' 
 WHERE causa_defuncion ILIKE '%CARDIO%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%CIRROSIS%';
 
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD DIGESTIVA' 
 WHERE causa_defuncion ILIKE '%CIRROSIS%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%CONVULSIONES%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD NEUROLOGICA' 
 WHERE causa_defuncion ILIKE '%CONVULSIONES%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%DEPRESI%';
 
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD PSIQUIATRICA' 
 WHERE causa_defuncion ILIKE '%DEPRESI%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%CAIDA%';
-
 UPDATE staging
 SET causa_defuncion='CAIDA' 
 WHERE causa_defuncion ILIKE '%CAIDA%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%COMA %';
 
 UPDATE staging
 SET causa_defuncion='COMA' 
@@ -487,10 +461,6 @@ UPDATE staging
 SET causa_defuncion='CELULITIS' 
 WHERE causa_defuncion ILIKE '%CELULITIS%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%RESPI%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD RESPIRATORIA' 
 WHERE causa_defuncion ILIKE '%RESPI%';
@@ -498,176 +468,97 @@ WHERE causa_defuncion ILIKE '%RESPI%';
 
 --Checar que cada municipio residencia sea igual en entidad residencia
 --10 de ABRIL:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE '10 DE ABRIL' AND entidad_residencia NOT LIKE 'QUERETARO%';
 
 UPDATE staging
 SET entidad_residencia='QUERETARO'
 WHERE municipio_residencia ILIKE '10 DE ABRIL' AND entidad_residencia NOT LIKE 'QUERETARO';
 
 --Acajete:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ACAJETE' AND entidad_residencia NOT LIKE 'VERACRUZ%';
-
 UPDATE staging
 SET entidad_residencia='VERACRUZ'
 WHERE municipio_residencia ILIKE 'ACAJETE' AND entidad_residencia NOT LIKE 'VERACRUZ';
 
 --Acayucan:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ACAYUCAN' AND entidad_residencia NOT LIKE 'VERACRUZ%';
-
 UPDATE staging
 SET entidad_residencia='VERACRUZ'
 WHERE municipio_residencia ILIKE 'ACAYUCAN' AND entidad_residencia NOT LIKE 'VERACRUZ';
 
 --Acolman...:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ACOLMAN DE NEZA%' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'ACOLMAN DE NEZA%' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 --ACOSTA MAZA:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ACOSTA MAZA' AND entidad_residencia NOT LIKE 'VERACRUZ%';
-
 UPDATE staging
 SET municipio_residencia='TIERRA BLANCA'
 WHERE municipio_residencia ILIKE 'ACOSTA MAZA';
 
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'TIERRA BLANCA' AND entidad_residencia NOT LIKE 'VERACRUZ%';
-
 --Actopan V:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ACTOPAN' AND entidad_residencia ILIKE 'VERACRUZ%';
-
 UPDATE staging
 SET municipio_residencia='ACTOPAN V'
 WHERE municipio_residencia ILIKE 'ACTOPAN' AND entidad_residencia LIKE 'VERACRUZ%';
 
 --Actopan H:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ACTOPAN' AND entidad_residencia ILIKE 'HIDALGO';
-
 UPDATE staging
 SET municipio_residencia='ACTOPAN H'
 WHERE municipio_residencia ILIKE 'ACTOPAN' AND entidad_residencia LIKE 'HIDALGO';
 
 --Agua bendita:
-SELECT municipio_residencia, entidad_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'AGUA BENDITA';
-
 UPDATE staging
 SET municipio_residencia=NULL
 WHERE municipio_residencia ILIKE 'AGUA BENDITA';
 
 --Agua dulce:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'AGUA DULCE' AND entidad_residencia NOT LIKE 'VERACRUZ%';
-
 UPDATE staging
 SET entidad_residencia='VERACRUZ'
 WHERE municipio_residencia ILIKE 'AGUA DULCE' AND entidad_residencia NOT LIKE 'VERACRUZ%';
 
 --CAMBIAR TODOS LOS VERACRUZ IGUALES
-SELECT entidad_residencia
-FROM staging
-WHERE entidad_residencia ILIKE 'VERACRUZ%';
-
 UPDATE staging
 SET entidad_residencia='VERACRUZ'
 WHERE entidad_residencia ILIKE 'VERACRUZ%';
 
 --Agua zarca:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'AGUA ZARCA' AND entidad_residencia NOT LIKE 'QUERETARO';
-
 UPDATE staging
 SET entidad_residencia='QUERETARO'
 WHERE municipio_residencia ILIKE 'AGUA ZARCA' AND entidad_residencia NOT LIKE 'QUERETARO';
 
 --Alvaro Obregon:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ALVARO OBREGON' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='CIUDAD DE MEXICO'
 WHERE municipio_residencia ILIKE 'ALVARO OBREGON' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 --Amatepec:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'AMATEPEC' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'AMATEPEC' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 --Azcapotzalco:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'AZCAPOTZALCO' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='CIUDAD DE MEXICO'
 WHERE municipio_residencia ILIKE 'AZCAPOTZALCO' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 --Barrio de Guadalupe:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'BARRIO DE GUADALUPE'  AND entidad_residencia NOT LIKE 'NUEVO LEON';
-
 UPDATE staging
 SET entidad_residencia='NUEVO LEON'
 WHERE municipio_residencia ILIKE 'BARRIO DE GUADALUPE' AND entidad_residencia NOT LIKE 'NUEVO LEON';
   
 --Benito Juarez:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'BENITO JUAREZ'  AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='CIUDAD DE MEXICO'
 WHERE municipio_residencia ILIKE 'BENITO JUAREZ' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 --Buenavista:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'BUENAVISTA' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'BUENAVISTA' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 --Coyoacan:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'COYOACAN' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='CIUDAD DE MEXICO'
 WHERE municipio_residencia ILIKE 'COYOACAN' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 --Cruz Blanca:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'CRUZ BLANCA';
-
 UPDATE staging
 SET municipio_residencia='Zacualpan'
 WHERE municipio_residencia ILIKE 'CRUZ BLANCA';
@@ -677,377 +568,209 @@ SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'ZACUALPAN' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 --Cuauhtemoc CDMX:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'CUAUHTEMOC' AND (entidad_residencia LIKE 'CIUDAD DE MEXICO' OR entidad_residencia LIKE 'MEXICO');
-
 UPDATE staging
 SET municipio_residencia='CUAUHTEMOC CDMX'
 WHERE municipio_residencia ILIKE 'CUAUHTEMOC' AND (entidad_residencia LIKE 'CIUDAD DE MEXICO' OR entidad_residencia LIKE 'MEXICO');
-
-SELECT municipio_residencia, entidad_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'CUAUHTEMOC CDMX' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 UPDATE staging
 SET entidad_residencia='CIUDAD DE MEXICO'
 WHERE municipio_residencia ILIKE 'CUAUHTEMOC CDMX' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 --Cuauhtemoc:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'CUAUHTEMOC' AND entidad_residencia NOT LIKE 'CHIHUAHUA';
-
 UPDATE staging
 SET entidad_residencia='CHIHUAHUA'
 WHERE municipio_residencia ILIKE 'CUAUHTEMOC' AND entidad_residencia NOT LIKE 'CHIHUAHUA';
 
 --Cuautepec:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'CUAUTEPEC' AND entidad_residencia NOT LIKE 'HIDALGO';
-
 UPDATE staging
 SET entidad_residencia='HIDALGO'
 WHERE municipio_residencia ILIKE 'CUAUTEPEC' AND entidad_residencia NOT LIKE 'HIDALGO';
 
 --Dos rios:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'DOS RIOS' AND entidad_residencia NOT LIKE 'VERACRUZ';
-
 UPDATE staging
 SET entidad_residencia='VERACRUZ'
 WHERE municipio_residencia ILIKE 'DOS RIOS' AND entidad_residencia NOT LIKE 'VERACRUZ';
 
 --El arenal:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'EL ARENAL' AND entidad_residencia NOT LIKE 'HIDALGO';
-
 UPDATE staging
 SET entidad_residencia='HIDALGO'
 WHERE municipio_residencia ILIKE 'EL ARENAL' AND entidad_residencia NOT LIKE 'HIDALGO';
 
 --El carmen:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'EL CARMEN' AND entidad_residencia NOT LIKE 'CAMPECHE';
-
 UPDATE staging
 SET entidad_residencia='CAMPECHE'
 WHERE municipio_residencia ILIKE 'EL CARMEN' AND entidad_residencia NOT LIKE 'CAMPECHE';
 
 --Emiliano zapata:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'EMILIANO ZAPATA' AND entidad_residencia NOT LIKE 'HIDALGO';
-
 UPDATE staging
 SET entidad_residencia='HIDALGO'
 WHERE municipio_residencia ILIKE 'EMILIANO ZAPATA' AND entidad_residencia NOT LIKE 'HIDALGO';
 
 --Guadalupe Victoria:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'GUADALUPE VICTORIA';
-
 UPDATE staging
 SET municipio_residencia='GUADALUPE VICTORIA PUEBLA'
 WHERE municipio_residencia ILIKE 'GUADALUPE VICTORIA' AND entidad_residencia LIKE 'PUEBLA';
 
 --Gustavo A. Madero:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'GUSTAVO A. MADERO' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='CIUDAD DE MEXICO'
 WHERE municipio_residencia ILIKE 'GUSTAVO A. MADERO' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 --Iztacalco:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'IZTACALCO' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='CIUDAD DE MEXICO'
 WHERE municipio_residencia ILIKE 'IZTACALCO' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 --La loma:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'LA LOMA' AND entidad_residencia NOT LIKE 'PUEBLA';
-
 UPDATE staging
 SET entidad_residencia='PUEBLA'
 WHERE municipio_residencia ILIKE 'LA LOMA' AND entidad_residencia NOT LIKE 'PUEBLA';
 
 --La nopalera:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'LA NOPALERA' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='CIUDAD DE MEXICO'
 WHERE municipio_residencia ILIKE 'LA NOPALERA' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 --La paz:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'LA PAZ' AND entidad_residencia NOT LIKE 'BAJA CALIFORNIA SUR';
-
 UPDATE staging
 SET entidad_residencia='BAJA CALIFORNIA SUR'
 WHERE municipio_residencia ILIKE 'LA PAZ' AND entidad_residencia NOT LIKE 'BAJA CALIFORNIA SUR';
 
 --Metepec:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'METEPEC' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'METEPEC' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 --Ojo de Agua:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'OJO DE AGUA' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'OJO DE AGUA' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 --Papalotla:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'PAPALOTLA' AND entidad_residencia NOT LIKE 'TLAXCALA';
-
 UPDATE staging
 SET entidad_residencia='TLAXCALA'
 WHERE municipio_residencia ILIKE 'PAPALOTLA' AND entidad_residencia NOT LIKE 'TLAXCALA';
 
 --Paracuaro:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'PARACUARO' AND entidad_residencia NOT LIKE 'GUANAJUATO';
-
 UPDATE staging
 SET entidad_residencia='GUANAJUATO'
 WHERE municipio_residencia ILIKE 'PARACUARO' AND entidad_residencia NOT LIKE 'GUANAJUATO';
 
 --Piedras negras:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'PIEDRAS NEGRAS' AND entidad_residencia NOT LIKE 'COAHUILA';
-
 UPDATE staging
 SET entidad_residencia='COAHUILA'
 WHERE municipio_residencia ILIKE 'PIEDRAS NEGRAS' AND entidad_residencia NOT LIKE 'COAHUILA';
 
 --San Agustin:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'SAN AGUSTIN' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='CIUDAD DE MEXICO'
 WHERE municipio_residencia ILIKE 'SAN AGUSTIN' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 --San Felipe:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'SAN FELIPE' AND entidad_residencia NOT LIKE 'GUANAJUATO';
-
 UPDATE staging
 SET entidad_residencia='GUANAJUATO'
 WHERE municipio_residencia ILIKE 'SAN FELIPE' AND entidad_residencia NOT LIKE 'GUANAJUATO';
 
 --San Fernando:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'SAN FERNANDO' AND entidad_residencia NOT LIKE 'CHIAPAS';
-
 UPDATE staging
 SET entidad_residencia='CHIAPAS'
 WHERE municipio_residencia ILIKE 'SAN FERNANDO' AND entidad_residencia NOT LIKE 'CHIAPAS';
 
 --San Isidro:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'SAN ISIDRO' AND entidad_residencia NOT LIKE 'PUEBLA';
-
 UPDATE staging
 SET entidad_residencia='PUEBLA'
 WHERE municipio_residencia ILIKE 'SAN ISIDRO' AND entidad_residencia NOT LIKE 'PUEBLA';
 
 --San Marcos:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'SAN MARCOS' AND entidad_residencia NOT LIKE 'GUERRERO';
-
 UPDATE staging
 SET entidad_residencia='GUERRERO'
 WHERE municipio_residencia ILIKE 'SAN MARCOS' AND entidad_residencia NOT LIKE 'GUERRERO';
 
 --San Miguel:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'SAN MIGUEL' AND entidad_residencia NOT LIKE 'GUANAJUATO';
-
 UPDATE staging
 SET entidad_residencia='GUANAJUATO'
 WHERE municipio_residencia ILIKE 'SAN MIGUEL' AND entidad_residencia NOT LIKE 'GUANAJUATO';
 
 --Santa clara:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'SANTA CLARA' AND entidad_residencia NOT LIKE 'DURANGO';
-
 UPDATE staging
 SET entidad_residencia='DURANGO'
 WHERE municipio_residencia ILIKE 'SANTA CLARA' AND entidad_residencia NOT LIKE 'DURANGO';
 
 --Tecamachalco:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'TECAMACHALCO' AND entidad_residencia NOT LIKE 'PUEBLA';
-
 UPDATE staging
 SET entidad_residencia='PUEBLA'
 WHERE municipio_residencia ILIKE 'TECAMACHALCO' AND entidad_residencia NOT LIKE 'PUEBLA';
 
 --Tenango:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'TENANGO' AND entidad_residencia NOT LIKE 'HIDALGO';
-
 UPDATE staging
 SET entidad_residencia='HIDALGO'
 WHERE municipio_residencia ILIKE 'TENANGO' AND entidad_residencia NOT LIKE 'HIDALGO';
 
 --Tepetitlan:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'TEPETITLAN' AND entidad_residencia NOT LIKE 'HIDALGO';
-
 UPDATE staging
 SET entidad_residencia='HIDALGO'
 WHERE municipio_residencia ILIKE 'TEPETITLAN' AND entidad_residencia NOT LIKE 'HIDALGO';
 
 --Tepetzintla:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'TEPETZINTLA' AND entidad_residencia NOT LIKE 'VERACRUZ';
-
 UPDATE staging
 SET entidad_residencia='VERACRUZ'
 WHERE municipio_residencia ILIKE 'TEPETZINTLA' AND entidad_residencia NOT LIKE 'VERACRUZ';
 
 --Tlalnepantla:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'TLALNEPANTLA' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'TLALNEPANTLA' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 --Tlaxco:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'TLAXCO' AND entidad_residencia NOT LIKE 'TLAXCALA';
-
 UPDATE staging
 SET entidad_residencia='TLAXCALA'
 WHERE municipio_residencia ILIKE 'TLAXCO' AND entidad_residencia NOT LIKE 'TLAXCALA';
 
 --Tonala:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'TONALA' AND entidad_residencia LIKE 'CHIAPAS';
-
 UPDATE staging
 SET municipio_residencia='TONALA CHIAPAS'
 WHERE municipio_residencia ILIKE 'TONALA' AND entidad_residencia LIKE 'CHIAPAS';
-
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'TONALA' AND entidad_residencia LIKE 'JALISCO';
 
 UPDATE staging
 SET municipio_residencia='TONALA JALISCO'
 WHERE municipio_residencia ILIKE 'TONALA' AND entidad_residencia LIKE 'JALISCO';
 
 --Tuxpan:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'TUXPAN' AND entidad_residencia NOT LIKE 'MICHOACAN%';
-
 UPDATE staging
 SET entidad_residencia='MICHOACAN DE OCAMPO'
 WHERE municipio_residencia ILIKE 'TUXPAN' AND entidad_residencia NOT LIKE 'MICHOACAN%';
 
 --Venustiano Carranza:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'VENUSTIANO CARRANZA' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='CIUDAD DE MEXICO'
 WHERE municipio_residencia ILIKE 'VENUSTIANO CARRANZA' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 --Villa Cuauhtemoc:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'VILLA CUAUHTEMOC' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'VILLA CUAUHTEMOC' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 --Xico:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'XICO' AND entidad_residencia NOT LIKE 'VERACRUZ';
-
 UPDATE staging
 SET entidad_residencia='VERACRUZ'
 WHERE municipio_residencia ILIKE 'XICO' AND entidad_residencia NOT LIKE 'VERACRUZ';
 
 --Zacualpan
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ZACUALPAN' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'ZACUALPAN' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 --Zaragoza:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ZARAGOZA' AND entidad_residencia NOT LIKE 'PUEBLA';
-
 UPDATE staging
 SET entidad_residencia='PUEBLA'
 WHERE municipio_residencia ILIKE 'ZARAGOZA' AND entidad_residencia NOT LIKE 'PUEBLA';
 
 --Ecatepec de Morelos:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ECATEPEC DE MORELOS' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'ECATEPEC DE MORELOS' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 --Ecatzingo de hidalgo:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ECATZINGO DE HIDALGO' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'ECATZINGO DE HIDALGO' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
