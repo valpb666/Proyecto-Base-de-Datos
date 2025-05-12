@@ -2519,6 +2519,8 @@ ORDER BY total DESC;
 | hombre | CANCER    | PRIMARIA COMPLETA                            | 1032   |
 | mujer  | DIABETES  | SECUNDARIA COMPLETA                          | 1031   |
 
+Existe una correlación clara entre baja escolaridad y mayor mortalidad, especialmente en causas prevenibles o tratables como diabetes e infarto. Aunque en el caso de COVID-19 se registran defunciones en todos los niveles educativos, se mantiene la tendencia: a menor escolaridad, mayor mortalidad. Esto refuerza la idea de que la educación es un determinante social clave de la salud, y su ausencia agrava la vulnerabilidad ante enfermedades.
+
 ### 2. **Análisis de enfermedades por alcaldías**
 
 Pregunta: ¿Qué alcaldías concentran más muertes por enfermedades respiratorias)?
@@ -2588,6 +2590,7 @@ ORDER BY total DESC;
 | SAN NICOLAS TETELCO             | COVID-19                    | 1     |
 | TEMAXCATITLA (KILOMETRO 32.2)   | COVID-19                    | 1     |
 
+Las defunciones por enfermedades respiratorias, particularmente por COVID-19, se concentraron principalmente en alcaldías densamente pobladas como Iztapalapa, Gustavo A. Madero, Benito Juárez y Azcapotzalco, lo cual refleja una relación entre la alta densidad demográfica, condiciones socioeconómicas desfavorables y mayor vulnerabilidad sanitaria. Aunque el COVID-19 tuvo un impacto transversal en toda la ciudad, las muertes por otras enfermedades respiratorias fueron considerablemente menores, lo que sugiere un posible subregistro o que muchas de ellas fueron clasificadas como COVID-19 durante la emergencia sanitaria. En contraste, las alcaldías con menor número de muertes, como Milpa Alta, Magdalena Contreras y Cuajimalpa, son zonas con menor densidad poblacional, lo que podría haber reducido la propagación del virus, aunque también podría reflejar limitaciones en el registro de datos. Además, se observan registros dispersos en localidades rurales o no especificadas, lo que indica desigualdad en el acceso a servicios de salud y en la calidad de los sistemas de información. En conjunto, los datos revelan que el impacto de las enfermedades respiratorias estuvo profundamente influenciado por factores territoriales y sociales.
 
 ### 3. **Análisis de muertes por fechas**
 
@@ -2616,6 +2619,8 @@ ORDER BY cantidad_de_muertes DESC;
 |1	|7496|
 |2	|5995|
 |3	|5977|
+
+El análisis de muertes por mes muestra una clara concentración en ciertos periodos del año, lo que sugiere la existencia de patrones estacionales de mortalidad. Diciembre destaca como el mes con más defunciones registradas, seguido de mayo y junio, lo cual podría estar relacionado tanto con picos epidémicos —como los ocurridos durante la pandemia de COVID-19— como con condiciones climáticas extremas que afectan a personas con enfermedades crónicas. También se observa un aumento sostenido de muertes en los meses de otoño e invierno (noviembre y diciembre), lo cual es común en enfermedades respiratorias y cardiovasculares. Por el contrario, los meses con menor número de muertes son febrero y marzo, lo que puede asociarse con climas más templados y menor circulación de virus respiratorios. En conjunto, estos datos apuntan a la necesidad de reforzar la atención médica y las campañas preventivas en los meses con mayor mortalidad registrada, especialmente en diciembre y mayo.
 
 ### 4. **Análisis mortalidad materna**
 
@@ -2661,6 +2666,8 @@ ORDER BY edad DESC;
 | 23 years 11 mons 9 days    | BACHILLERATO O PREPARATORIA INCOMPLETA       | EL PUERPERIO                                       |
 | 22 years 9 mons 5 days     | BACHILLERATO O PREPARATORIA COMPLETA         | EL PUERPERIO                                       |
 | 20 years 9 mons 10 days    | LICENCIATURA O PROFESIONAL INCOMPLETO        | EL PUERPERIO                                       |
+
+El análisis de los casos de mortalidad materna revela que la mayoría de las muertes ocurrieron durante el puerperio, es decir, después del parto, lo que indica una etapa crítica en la atención médica de las mujeres. De las 26 muertes registradas, al menos 19 ocurrieron en el puerperio, mientras que solo 6 sucedieron durante el embarazo y 1 entre los 43 días y 11 meses posteriores al parto o aborto. Las edades de las mujeres oscilaban entre los 20 y los 45 años, siendo más frecuente en mujeres de entre 25 y 40 años. En cuanto a escolaridad, predominan los niveles de secundaria y bachillerato, aunque también hay casos con licenciatura e incluso posgrado, lo que sugiere que la mortalidad materna no está limitada únicamente a bajos niveles educativos. Estos datos subrayan la necesidad de mejorar el seguimiento médico durante el posparto, una etapa frecuentemente desatendida pero de alto riesgo para la salud materna.
 
 ### 5. **Análisis entre atención médica y muerte**
 
@@ -2745,6 +2752,7 @@ ORDER BY a.causa_defuncion, porcentaje DESC;
 | NEUMONÍA, NO ESPECIFICADA   | No se sabe      | 62               | 1.03%          |
 | NEUMONÍA, NO ESPECIFICADA   | No              | 29               | 0.48%          |
 
+El análisis de la atención médica en los casos de las diez enfermedades con mayor mortalidad revela que la gran mayoría de las personas que fallecieron sí recibieron atención médica previa. En todos los casos, el porcentaje de atención médica recibida supera el 97%, destacando enfermedades como la enfermedad cardíaca (98.73%), enfermedad renal (98.70%), infecciones (98.62%) y cáncer (98.46%). Las proporciones de muertes sin atención médica o con datos desconocidos son mínimas, rondando entre el 0.5% y 1.7% en la mayoría de los padecimientos. Este patrón sugiere que, aunque los pacientes acceden al sistema de salud, la gravedad de estas enfermedades o la posible tardanza en su atención podrían limitar la efectividad de los tratamientos médicos, abriendo la discusión sobre la calidad, oportunidad y continuidad del cuidado médico recibido.
 
 ### 6. **Análisis entre ncaimientos y muertes en la misma residencia**
 
@@ -2824,3 +2832,5 @@ ORDER BY mismo_lugar.residencia_id;
 | TLALPAN                          | 3326                        | 1950                            |
 | COLA DE PATO                     | 14                          | 18                              |
 | SAN MIGUEL AJUSCO                | 1                           | 5                               |
+
+El análisis muestra que en la Ciudad de México, una gran mayoría de las personas fallecieron en el mismo municipio en el que residían. Delegaciones como Iztapalapa (11,251 muertes en su lugar de residencia), Gustavo A. Madero (10,529), y Tlalpan (3,326) lideran en esta tendencia, reflejando probablemente su alta densidad poblacional y una mayor disponibilidad de servicios de salud locales o el hecho de que muchas personas envejecen y fallecen en sus domicilios. En contraste, algunas localidades como Acopiaxco y San Miguel Topilejo presentan más muertes fuera que dentro de su área de residencia, lo que podría indicar traslados a hospitales en otros municipios. El dato "No especificado" también tiene un peso importante, con 2,825 muertes en el lugar de residencia y 2,275 en otro, lo que sugiere un margen de incertidumbre en la geolocalización del evento. En conjunto, estos datos reflejan una fuerte correspondencia entre lugar de residencia y defunción, útil para planear políticas de salud pública localizadas.
