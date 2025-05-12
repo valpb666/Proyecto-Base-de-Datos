@@ -851,25 +851,13 @@ UPDATE staging
 SET causa_defuncion='COVID-19' 
 WHERE causa_defuncion ILIKE '%COVID-19%'; 
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%LEUCEMIA%';
-
 UPDATE staging
 SET causa_defuncion='CANCER' 
 WHERE causa_defuncion ILIKE '%LEUCEMIA%'; 
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%TUMOR%';
-
 UPDATE staging
 SET causa_defuncion='CANCER' 
 WHERE causa_defuncion ILIKE '%TUMOR%'; 
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%CARCINOMA%';
 
 UPDATE staging
 SET causa_defuncion='CANCER' 
@@ -883,689 +871,341 @@ UPDATE staging
 SET causa_defuncion='CANCER' 
 WHERE causa_defuncion ILIKE '%MELANOMA%'; 
  
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%INFARTO%';
-
 UPDATE staging
 SET causa_defuncion='INFARTO' 
 WHERE causa_defuncion ILIKE '%INFARTO%'; 
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%DIABETES%';
 
 UPDATE staging
 SET causa_defuncion='DIABETES' 
 WHERE causa_defuncion ILIKE '%DIABETES%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%SINDROME%';
-
 UPDATE staging
 SET causa_defuncion='SINDROME' 
 WHERE causa_defuncion ILIKE '%SINDROME%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%CEREBR%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD CEREBRAL' 
 WHERE causa_defuncion ILIKE '%CEREBR%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ALZHEIMER%';
 
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD CEREBRAL' 
 WHERE causa_defuncion ILIKE '%ALZHEIMER%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%DEMENCIA%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD CEREBRAL' 
 WHERE causa_defuncion ILIKE '%DEMENCIA%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ANEURI%';
 
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD CEREBRAL' 
 WHERE causa_defuncion ILIKE '%ANEUR%';
 
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%PARKINSON%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD CEREBRAL' 
 WHERE causa_defuncion ILIKE '%PARKINSON%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%CARDIACA%';
 
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD CARDIACA' 
 WHERE causa_defuncion ILIKE '%CARDIACA%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%FIBRILACIION Y ALETEO VENTRICULAR%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD CARDIACA' 
 WHERE causa_defuncion ILIKE '%FIBRILACIION Y ALETEO VENTRICULAR%';
 
-
-SELECT LEVENSHTEIN('INFECCIION', 'INFECCION');
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%INFEC%';
-
 UPDATE staging
 SET causa_defuncion='INFECCION' 
 WHERE causa_defuncion ILIKE '%INFEC%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%HEPATITIS%';
 
 UPDATE staging
 SET causa_defuncion='INFECCION' 
 WHERE causa_defuncion ILIKE '%HEPATITIS%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%DESNUTRI%';
-
 UPDATE staging
 SET causa_defuncion='MALA ALIMENTACIÓN' 
 WHERE causa_defuncion ILIKE '%DESNUTRI%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%OBESIDAD%';
-
 UPDATE staging
 SET causa_defuncion='MALA ALIMENTACIÓN' 
 WHERE causa_defuncion ILIKE '%OBESIDAD%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%SEPSIS%';
 
 UPDATE staging
 SET causa_defuncion='SEPSIS' 
 WHERE causa_defuncion ILIKE '%SEPSIS%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%HIDROPESIA%';
-
 UPDATE staging
 SET causa_defuncion='HIDROPESIA' 
 WHERE causa_defuncion ILIKE '%HIDROPESIA%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%HEMORRAGIA%';
-
 UPDATE staging
 SET causa_defuncion='HEMORRAGIA' 
 WHERE causa_defuncion ILIKE '%HEMORRAGIA%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%HEMATEMESIS%';
-
 UPDATE staging
 SET causa_defuncion='HEMORRAGIA' 
 WHERE causa_defuncion ILIKE '%HEMATEMESIS%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%PANCRE%';
 
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD EN EL PANCREAS' 
 WHERE causa_defuncion ILIKE '%PANCRE%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%APENDIC%';
-
 UPDATE staging
 SET causa_defuncion='APENDICITIS' 
 WHERE causa_defuncion ILIKE '%APENDIC%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%GENERALE%';
 
 UPDATE staging
 SET causa_defuncion='SIGNOS GENERALES' 
 WHERE causa_defuncion ILIKE '%GENERALE%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%COLECISTITIS%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD EN LA VESICULA BILIAR' 
 WHERE causa_defuncion ILIKE '%COLECISTITIS%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%COLANGITIS%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD EN LA VESICULA BILIAR' 
 WHERE causa_defuncion ILIKE '%COLANGITIS%';
-
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%HERNIA%';
 
 UPDATE staging
 SET causa_defuncion='HERNIA' 
 WHERE causa_defuncion ILIKE '%HERNIA%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ALCOH%';
-
 UPDATE staging
 SET causa_defuncion='ALCOHOLISMO' 
 WHERE causa_defuncion ILIKE '%ALCOH%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%HEP%';
 
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD HEPATICA'  
 WHERE causa_defuncion ILIKE '%HEP%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ACCIDENTE%';
-
 UPDATE staging
 SET causa_defuncion='ACCIDENTE' 
 WHERE causa_defuncion ILIKE '%ACCIDENTE%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%RENAL%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD RENAL' 
 WHERE causa_defuncion ILIKE '%RENAL%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%INTESTINO%';
 
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD EN EL INTESTINO' 
 WHERE causa_defuncion ILIKE '%INTESTINO%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%MUCORMIC%';
-
 UPDATE staging
 SET causa_defuncion='INFECCION' 
 WHERE causa_defuncion ILIKE '%MUCORMIC%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%TROMBOCITOPENIA%';
-
 UPDATE staging
 SET causa_defuncion='HEMORRAGIA' 
 WHERE causa_defuncion ILIKE '%TROMBOCITOPENIA%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%HIGADO%';
-
 
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD EN EL HIGADO' 
 WHERE causa_defuncion ILIKE '%HIGADO%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%MENINGITIS%';
-
 UPDATE staging
 SET causa_defuncion='INFECCION' 
 WHERE causa_defuncion ILIKE '%MENINGITIS%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%EPILEPSIA%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD CEREBRAL' 
 WHERE causa_defuncion ILIKE '%EPILEPSIA%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%AGRE%';
 
 UPDATE staging
 SET causa_defuncion='AGRESION' 
 WHERE causa_defuncion ILIKE '%AGRE%';
 
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%HIPERPOTASEMIA%';
-
 UPDATE staging
 SET causa_defuncion='SIGNOS GENERALES' 
 WHERE causa_defuncion ILIKE '%HIPERPOTASEMIA%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%PERITONITIS';
 
 UPDATE staging
 SET causa_defuncion='INFECCION' 
 WHERE causa_defuncion ILIKE '%PERITONITIS%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%HIPERTENSI%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD CARDIACA' 
 WHERE causa_defuncion ILIKE '%HIPERTENSI%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ABDOMEN AGUDO%';
 
 UPDATE staging
 SET causa_defuncion='SIGNOS GENERALES' 
 WHERE causa_defuncion ILIKE '%ABDOMEN AGUDO%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ABORTO%';
-
 UPDATE staging
 SET causa_defuncion='COMPLICACIONES EN EL EMBARAZO' 
 WHERE causa_defuncion ILIKE '%ABORTO%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%EMBARAZO%';
-
 UPDATE staging
 SET causa_defuncion='COMPLICACIONES EN EL EMBARAZO' 
 WHERE causa_defuncion ILIKE '%EMBARAZO%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ABSCESO%';
 
 UPDATE staging
 SET causa_defuncion='ABSCESO' 
 WHERE causa_defuncion ILIKE '%ABSCESO%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ACONDROPLASIA%';
-
 UPDATE staging
 SET causa_defuncion='SINDROME' 
 WHERE causa_defuncion ILIKE '%ACONDROPLASIA%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ADHERENCIAS%';
 
 UPDATE staging
 SET causa_defuncion='ADHERENCIAS' 
 WHERE causa_defuncion ILIKE '%ADHERENCIAS%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%HEMORR%';
-
 UPDATE staging
 SET causa_defuncion='HEMORRAGIA' 
 WHERE causa_defuncion ILIKE '%HEMORR%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%AGRANULOCITOSIS%';
-
 UPDATE staging
 SET causa_defuncion='INFECCION' 
 WHERE causa_defuncion ILIKE '%AGRANULOCITOSIS%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%SUSTANCIAS%';
 
 UPDATE staging
 SET causa_defuncion='SUSTANCIAS' 
 WHERE causa_defuncion ILIKE '%SUSTANCIAS%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%PERINATAL%';
-
 UPDATE staging
 SET causa_defuncion='COMPLICACIONES EN EL EMBARAZO' 
 WHERE causa_defuncion ILIKE '%PERINATAL%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ERITEMATOSA%';
 
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD DERMATOLÓGICA' 
 WHERE causa_defuncion ILIKE '%ERITEMATOSA%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%AHOGAMIENTO%';
-
 UPDATE staging
 SET causa_defuncion='AHOGAMIENTO' 
 WHERE causa_defuncion ILIKE '%AHOGAMIENTO%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%AUTOINFLIGIDA%';
 
 UPDATE staging
 SET causa_defuncion='SUICIDIO' 
 WHERE causa_defuncion ILIKE '%AUTOINFLIGIDA%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%AHORCAMIENTO%';
-
 UPDATE staging
 SET causa_defuncion='AHORCAMIENTO' 
 WHERE causa_defuncion ILIKE '%AHORCAMIENTO%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ALETEO AURICULAR%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD CARDIACA' 
 WHERE causa_defuncion ILIKE '%ALETEO AURICULAR%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%CARDIA%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD CARDIACA' 
 WHERE causa_defuncion ILIKE '%CARDIA%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%AMEBIASIS%';
 
 UPDATE staging
 SET causa_defuncion='INFECCION' 
 WHERE causa_defuncion ILIKE '%AMEBIASIS%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%AMILOIDOSIS%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD DEGENERATIVA' 
 WHERE causa_defuncion ILIKE '%AMILOIDOSIS%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ANEMIA%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD DE LA SANGRE' 
 WHERE causa_defuncion ILIKE '%ANEMIA%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ANENCEFALIA%';
 
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD CEREBRAL' 
 WHERE causa_defuncion ILIKE '%ANENCEFALIA%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ALCALOSIS%';
-
 UPDATE staging
 SET causa_defuncion='TRASTORNOS DEL EQUILIBRIO ÁCIDO-BASE' 
 WHERE causa_defuncion ILIKE '%ALCALOSIS%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ANGII%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD DE LA SANGRE' 
 WHERE causa_defuncion ILIKE '%ANGII%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ANGINA%';
 
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD CARDIACA' 
 WHERE causa_defuncion ILIKE '%ANGINA%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%HEMANGIOMA%';
-
 UPDATE staging
 SET causa_defuncion='CANCER' 
 WHERE causa_defuncion ILIKE '%HEMANGIOMA%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%MICROANGIOPATIA%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD DE LA SANGRE' 
 WHERE causa_defuncion ILIKE '%MICROANGIOPATIA%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%NEFROPA%';
 
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD RENAL' 
 WHERE causa_defuncion ILIKE '%NEFROPA%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%LINFANGIOMA%';
-
 UPDATE staging
 SET causa_defuncion='CANCER' 
 WHERE causa_defuncion ILIKE '%LINFANGIOMA%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%COLON%';
 
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD EN EL COLON' 
 WHERE causa_defuncion ILIKE '%COLON%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ANOMALI%';
-
 UPDATE staging
 SET causa_defuncion='ANOMALIA' 
 WHERE causa_defuncion ILIKE '%ANOMALI%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ANQUILOSIS%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD AUDITIVA' 
 WHERE causa_defuncion ILIKE '%ANQUILOSIS%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%APLASIA%';
 
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD HEMATOLOGICA' 
 WHERE causa_defuncion ILIKE '%APLASIA%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ARTR%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD AUDITIVA' 
 WHERE causa_defuncion ILIKE '%ARTR%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ARTERITI%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD DE LA SANGRE' 
 WHERE causa_defuncion ILIKE '%ARTERITI%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ASFIXIA%';
 
 UPDATE staging
 SET causa_defuncion='ASFIXIA' 
 WHERE causa_defuncion ILIKE '%ASFIXIA%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ASMA%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD RESPIRATORIA' 
 WHERE causa_defuncion ILIKE '%ASMA%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%APNEA DEL SUEIOO%';
 
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD RESPIRATORIA' 
 WHERE causa_defuncion ILIKE '%APNEA DEL SUEIOO%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%APNEA PRIMARIA DEL SUEIOO DEL RECIIaN NACIDO%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD RESPIRATORIA' 
 WHERE causa_defuncion ILIKE '%APNEA PRIMARIA DEL SUEIOO DEL RECIIaN NACIDO%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%ATROFIA%';
 
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD NEUROLOGICA' 
 WHERE causa_defuncion ILIKE '%ATROFIA%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%BIPOLAR%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD PSIQUIATRICA' 
 WHERE causa_defuncion ILIKE '%BIPOLAR%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%CARDIO%';
 
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD DE LA SANGRE' 
 WHERE causa_defuncion ILIKE '%CARDIO%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%CIRROSIS%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD DIGESTIVA' 
 WHERE causa_defuncion ILIKE '%CIRROSIS%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%CONVULSIONES%';
 
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD NEUROLOGICA' 
 WHERE causa_defuncion ILIKE '%CONVULSIONES%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%DEPRESI%';
-
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD PSIQUIATRICA' 
 WHERE causa_defuncion ILIKE '%DEPRESI%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%CAIDA%';
 
 UPDATE staging
 SET causa_defuncion='CAIDA' 
 WHERE causa_defuncion ILIKE '%CAIDA%';
 
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%COMA %';
-
 UPDATE staging
 SET causa_defuncion='COMA' 
 WHERE causa_defuncion ILIKE '%COMA %';
 
-SELECT causa_defuncion
-FROM stagin
-WHERE causa_defuncion ILIKE '%CELULITIS%';
-
 UPDATE staging
 SET causa_defuncion='CELULITIS' 
 WHERE causa_defuncion ILIKE '%CELULITIS%';
-
-SELECT causa_defuncion
-FROM staging
-WHERE causa_defuncion ILIKE '%RESPI%';
 
 UPDATE staging
 SET causa_defuncion='ENFERMEDAD RESPIRATORIA' 
@@ -1579,176 +1219,96 @@ Para verificar si había inconsistencias, se decidió comprobar si cada municipi
 ```sql
 --Código para detectar las inconsistencias
 --10 de ABRIL:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE '10 DE ABRIL' AND entidad_residencia NOT LIKE 'QUERETARO%';
-
 UPDATE staging
 SET entidad_residencia='QUERETARO'
 WHERE municipio_residencia ILIKE '10 DE ABRIL' AND entidad_residencia NOT LIKE 'QUERETARO';
 
 --Acajete:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ACAJETE' AND entidad_residencia NOT LIKE 'VERACRUZ%';
-
 UPDATE staging
 SET entidad_residencia='VERACRUZ'
 WHERE municipio_residencia ILIKE 'ACAJETE' AND entidad_residencia NOT LIKE 'VERACRUZ';
 
 --Acayucan:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ACAYUCAN' AND entidad_residencia NOT LIKE 'VERACRUZ%';
-
 UPDATE staging
 SET entidad_residencia='VERACRUZ'
 WHERE municipio_residencia ILIKE 'ACAYUCAN' AND entidad_residencia NOT LIKE 'VERACRUZ';
 
 --Acolman...:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ACOLMAN DE NEZA%' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'ACOLMAN DE NEZA%' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 --ACOSTA MAZA:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ACOSTA MAZA' AND entidad_residencia NOT LIKE 'VERACRUZ%';
-
 UPDATE staging
 SET municipio_residencia='TIERRA BLANCA'
 WHERE municipio_residencia ILIKE 'ACOSTA MAZA';
 
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'TIERRA BLANCA' AND entidad_residencia NOT LIKE 'VERACRUZ%';
-
 --Actopan V:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ACTOPAN' AND entidad_residencia ILIKE 'VERACRUZ%';
-
 UPDATE staging
 SET municipio_residencia='ACTOPAN V'
 WHERE municipio_residencia ILIKE 'ACTOPAN' AND entidad_residencia LIKE 'VERACRUZ%';
 
 --Actopan H:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ACTOPAN' AND entidad_residencia ILIKE 'HIDALGO';
-
 UPDATE staging
 SET municipio_residencia='ACTOPAN H'
 WHERE municipio_residencia ILIKE 'ACTOPAN' AND entidad_residencia LIKE 'HIDALGO';
 
 --Agua bendita:
-SELECT municipio_residencia, entidad_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'AGUA BENDITA';
-
 UPDATE staging
 SET municipio_residencia=NULL
 WHERE municipio_residencia ILIKE 'AGUA BENDITA';
 
 --Agua dulce:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'AGUA DULCE' AND entidad_residencia NOT LIKE 'VERACRUZ%';
-
 UPDATE staging
 SET entidad_residencia='VERACRUZ'
 WHERE municipio_residencia ILIKE 'AGUA DULCE' AND entidad_residencia NOT LIKE 'VERACRUZ%';
 
 --CAMBIAR TODOS LOS VERACRUZ IGUALES
-SELECT entidad_residencia
-FROM staging
-WHERE entidad_residencia ILIKE 'VERACRUZ%';
-
 UPDATE staging
 SET entidad_residencia='VERACRUZ'
 WHERE entidad_residencia ILIKE 'VERACRUZ%';
 
 --Agua zarca:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'AGUA ZARCA' AND entidad_residencia NOT LIKE 'QUERETARO';
-
 UPDATE staging
 SET entidad_residencia='QUERETARO'
 WHERE municipio_residencia ILIKE 'AGUA ZARCA' AND entidad_residencia NOT LIKE 'QUERETARO';
 
 --Alvaro Obregon:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ALVARO OBREGON' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='CIUDAD DE MEXICO'
 WHERE municipio_residencia ILIKE 'ALVARO OBREGON' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 --Amatepec:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'AMATEPEC' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'AMATEPEC' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 --Azcapotzalco:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'AZCAPOTZALCO' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='CIUDAD DE MEXICO'
 WHERE municipio_residencia ILIKE 'AZCAPOTZALCO' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 --Barrio de Guadalupe:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'BARRIO DE GUADALUPE'  AND entidad_residencia NOT LIKE 'NUEVO LEON';
-
 UPDATE staging
 SET entidad_residencia='NUEVO LEON'
 WHERE municipio_residencia ILIKE 'BARRIO DE GUADALUPE' AND entidad_residencia NOT LIKE 'NUEVO LEON';
   
 --Benito Juarez:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'BENITO JUAREZ'  AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='CIUDAD DE MEXICO'
 WHERE municipio_residencia ILIKE 'BENITO JUAREZ' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 --Buenavista:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'BUENAVISTA' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'BUENAVISTA' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 --Coyoacan:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'COYOACAN' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='CIUDAD DE MEXICO'
 WHERE municipio_residencia ILIKE 'COYOACAN' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 --Cruz Blanca:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'CRUZ BLANCA';
-
 UPDATE staging
 SET municipio_residencia='Zacualpan'
 WHERE municipio_residencia ILIKE 'CRUZ BLANCA';
@@ -1758,377 +1318,209 @@ SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'ZACUALPAN' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 --Cuauhtemoc CDMX:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'CUAUHTEMOC' AND (entidad_residencia LIKE 'CIUDAD DE MEXICO' OR entidad_residencia LIKE 'MEXICO');
-
 UPDATE staging
 SET municipio_residencia='CUAUHTEMOC CDMX'
 WHERE municipio_residencia ILIKE 'CUAUHTEMOC' AND (entidad_residencia LIKE 'CIUDAD DE MEXICO' OR entidad_residencia LIKE 'MEXICO');
-
-SELECT municipio_residencia, entidad_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'CUAUHTEMOC CDMX' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 UPDATE staging
 SET entidad_residencia='CIUDAD DE MEXICO'
 WHERE municipio_residencia ILIKE 'CUAUHTEMOC CDMX' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 --Cuauhtemoc:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'CUAUHTEMOC' AND entidad_residencia NOT LIKE 'CHIHUAHUA';
-
 UPDATE staging
 SET entidad_residencia='CHIHUAHUA'
 WHERE municipio_residencia ILIKE 'CUAUHTEMOC' AND entidad_residencia NOT LIKE 'CHIHUAHUA';
 
 --Cuautepec:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'CUAUTEPEC' AND entidad_residencia NOT LIKE 'HIDALGO';
-
 UPDATE staging
 SET entidad_residencia='HIDALGO'
 WHERE municipio_residencia ILIKE 'CUAUTEPEC' AND entidad_residencia NOT LIKE 'HIDALGO';
 
 --Dos rios:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'DOS RIOS' AND entidad_residencia NOT LIKE 'VERACRUZ';
-
 UPDATE staging
 SET entidad_residencia='VERACRUZ'
 WHERE municipio_residencia ILIKE 'DOS RIOS' AND entidad_residencia NOT LIKE 'VERACRUZ';
 
 --El arenal:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'EL ARENAL' AND entidad_residencia NOT LIKE 'HIDALGO';
-
 UPDATE staging
 SET entidad_residencia='HIDALGO'
 WHERE municipio_residencia ILIKE 'EL ARENAL' AND entidad_residencia NOT LIKE 'HIDALGO';
 
 --El carmen:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'EL CARMEN' AND entidad_residencia NOT LIKE 'CAMPECHE';
-
 UPDATE staging
 SET entidad_residencia='CAMPECHE'
 WHERE municipio_residencia ILIKE 'EL CARMEN' AND entidad_residencia NOT LIKE 'CAMPECHE';
 
 --Emiliano zapata:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'EMILIANO ZAPATA' AND entidad_residencia NOT LIKE 'HIDALGO';
-
 UPDATE staging
 SET entidad_residencia='HIDALGO'
 WHERE municipio_residencia ILIKE 'EMILIANO ZAPATA' AND entidad_residencia NOT LIKE 'HIDALGO';
 
 --Guadalupe Victoria:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'GUADALUPE VICTORIA';
-
 UPDATE staging
 SET municipio_residencia='GUADALUPE VICTORIA PUEBLA'
 WHERE municipio_residencia ILIKE 'GUADALUPE VICTORIA' AND entidad_residencia LIKE 'PUEBLA';
 
 --Gustavo A. Madero:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'GUSTAVO A. MADERO' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='CIUDAD DE MEXICO'
 WHERE municipio_residencia ILIKE 'GUSTAVO A. MADERO' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 --Iztacalco:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'IZTACALCO' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='CIUDAD DE MEXICO'
 WHERE municipio_residencia ILIKE 'IZTACALCO' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 --La loma:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'LA LOMA' AND entidad_residencia NOT LIKE 'PUEBLA';
-
 UPDATE staging
 SET entidad_residencia='PUEBLA'
 WHERE municipio_residencia ILIKE 'LA LOMA' AND entidad_residencia NOT LIKE 'PUEBLA';
 
 --La nopalera:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'LA NOPALERA' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='CIUDAD DE MEXICO'
 WHERE municipio_residencia ILIKE 'LA NOPALERA' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 --La paz:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'LA PAZ' AND entidad_residencia NOT LIKE 'BAJA CALIFORNIA SUR';
-
 UPDATE staging
 SET entidad_residencia='BAJA CALIFORNIA SUR'
 WHERE municipio_residencia ILIKE 'LA PAZ' AND entidad_residencia NOT LIKE 'BAJA CALIFORNIA SUR';
 
 --Metepec:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'METEPEC' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'METEPEC' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 --Ojo de Agua:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'OJO DE AGUA' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'OJO DE AGUA' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 --Papalotla:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'PAPALOTLA' AND entidad_residencia NOT LIKE 'TLAXCALA';
-
 UPDATE staging
 SET entidad_residencia='TLAXCALA'
 WHERE municipio_residencia ILIKE 'PAPALOTLA' AND entidad_residencia NOT LIKE 'TLAXCALA';
 
 --Paracuaro:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'PARACUARO' AND entidad_residencia NOT LIKE 'GUANAJUATO';
-
 UPDATE staging
 SET entidad_residencia='GUANAJUATO'
 WHERE municipio_residencia ILIKE 'PARACUARO' AND entidad_residencia NOT LIKE 'GUANAJUATO';
 
 --Piedras negras:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'PIEDRAS NEGRAS' AND entidad_residencia NOT LIKE 'COAHUILA';
-
 UPDATE staging
 SET entidad_residencia='COAHUILA'
 WHERE municipio_residencia ILIKE 'PIEDRAS NEGRAS' AND entidad_residencia NOT LIKE 'COAHUILA';
 
 --San Agustin:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'SAN AGUSTIN' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='CIUDAD DE MEXICO'
 WHERE municipio_residencia ILIKE 'SAN AGUSTIN' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 --San Felipe:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'SAN FELIPE' AND entidad_residencia NOT LIKE 'GUANAJUATO';
-
 UPDATE staging
 SET entidad_residencia='GUANAJUATO'
 WHERE municipio_residencia ILIKE 'SAN FELIPE' AND entidad_residencia NOT LIKE 'GUANAJUATO';
 
 --San Fernando:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'SAN FERNANDO' AND entidad_residencia NOT LIKE 'CHIAPAS';
-
 UPDATE staging
 SET entidad_residencia='CHIAPAS'
 WHERE municipio_residencia ILIKE 'SAN FERNANDO' AND entidad_residencia NOT LIKE 'CHIAPAS';
 
 --San Isidro:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'SAN ISIDRO' AND entidad_residencia NOT LIKE 'PUEBLA';
-
 UPDATE staging
 SET entidad_residencia='PUEBLA'
 WHERE municipio_residencia ILIKE 'SAN ISIDRO' AND entidad_residencia NOT LIKE 'PUEBLA';
 
 --San Marcos:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'SAN MARCOS' AND entidad_residencia NOT LIKE 'GUERRERO';
-
 UPDATE staging
 SET entidad_residencia='GUERRERO'
 WHERE municipio_residencia ILIKE 'SAN MARCOS' AND entidad_residencia NOT LIKE 'GUERRERO';
 
 --San Miguel:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'SAN MIGUEL' AND entidad_residencia NOT LIKE 'GUANAJUATO';
-
 UPDATE staging
 SET entidad_residencia='GUANAJUATO'
 WHERE municipio_residencia ILIKE 'SAN MIGUEL' AND entidad_residencia NOT LIKE 'GUANAJUATO';
 
 --Santa clara:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'SANTA CLARA' AND entidad_residencia NOT LIKE 'DURANGO';
-
 UPDATE staging
 SET entidad_residencia='DURANGO'
 WHERE municipio_residencia ILIKE 'SANTA CLARA' AND entidad_residencia NOT LIKE 'DURANGO';
 
 --Tecamachalco:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'TECAMACHALCO' AND entidad_residencia NOT LIKE 'PUEBLA';
-
 UPDATE staging
 SET entidad_residencia='PUEBLA'
 WHERE municipio_residencia ILIKE 'TECAMACHALCO' AND entidad_residencia NOT LIKE 'PUEBLA';
 
 --Tenango:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'TENANGO' AND entidad_residencia NOT LIKE 'HIDALGO';
-
 UPDATE staging
 SET entidad_residencia='HIDALGO'
 WHERE municipio_residencia ILIKE 'TENANGO' AND entidad_residencia NOT LIKE 'HIDALGO';
 
 --Tepetitlan:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'TEPETITLAN' AND entidad_residencia NOT LIKE 'HIDALGO';
-
 UPDATE staging
 SET entidad_residencia='HIDALGO'
 WHERE municipio_residencia ILIKE 'TEPETITLAN' AND entidad_residencia NOT LIKE 'HIDALGO';
 
 --Tepetzintla:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'TEPETZINTLA' AND entidad_residencia NOT LIKE 'VERACRUZ';
-
 UPDATE staging
 SET entidad_residencia='VERACRUZ'
 WHERE municipio_residencia ILIKE 'TEPETZINTLA' AND entidad_residencia NOT LIKE 'VERACRUZ';
 
 --Tlalnepantla:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'TLALNEPANTLA' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'TLALNEPANTLA' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 --Tlaxco:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'TLAXCO' AND entidad_residencia NOT LIKE 'TLAXCALA';
-
 UPDATE staging
 SET entidad_residencia='TLAXCALA'
 WHERE municipio_residencia ILIKE 'TLAXCO' AND entidad_residencia NOT LIKE 'TLAXCALA';
 
 --Tonala:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'TONALA' AND entidad_residencia LIKE 'CHIAPAS';
-
 UPDATE staging
 SET municipio_residencia='TONALA CHIAPAS'
 WHERE municipio_residencia ILIKE 'TONALA' AND entidad_residencia LIKE 'CHIAPAS';
-
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'TONALA' AND entidad_residencia LIKE 'JALISCO';
 
 UPDATE staging
 SET municipio_residencia='TONALA JALISCO'
 WHERE municipio_residencia ILIKE 'TONALA' AND entidad_residencia LIKE 'JALISCO';
 
 --Tuxpan:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'TUXPAN' AND entidad_residencia NOT LIKE 'MICHOACAN%';
-
 UPDATE staging
 SET entidad_residencia='MICHOACAN DE OCAMPO'
 WHERE municipio_residencia ILIKE 'TUXPAN' AND entidad_residencia NOT LIKE 'MICHOACAN%';
 
 --Venustiano Carranza:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'VENUSTIANO CARRANZA' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='CIUDAD DE MEXICO'
 WHERE municipio_residencia ILIKE 'VENUSTIANO CARRANZA' AND entidad_residencia NOT LIKE 'CIUDAD DE MEXICO';
 
 --Villa Cuauhtemoc:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'VILLA CUAUHTEMOC' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'VILLA CUAUHTEMOC' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 --Xico:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'XICO' AND entidad_residencia NOT LIKE 'VERACRUZ';
-
 UPDATE staging
 SET entidad_residencia='VERACRUZ'
 WHERE municipio_residencia ILIKE 'XICO' AND entidad_residencia NOT LIKE 'VERACRUZ';
 
 --Zacualpan
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ZACUALPAN' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'ZACUALPAN' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 --Zaragoza:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ZARAGOZA' AND entidad_residencia NOT LIKE 'PUEBLA';
-
 UPDATE staging
 SET entidad_residencia='PUEBLA'
 WHERE municipio_residencia ILIKE 'ZARAGOZA' AND entidad_residencia NOT LIKE 'PUEBLA';
 
 --Ecatepec de Morelos:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ECATEPEC DE MORELOS' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'ECATEPEC DE MORELOS' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
 
 --Ecatzingo de hidalgo:
-SELECT entidad_residencia, municipio_residencia
-FROM staging
-WHERE municipio_residencia ILIKE 'ECATZINGO DE HIDALGO' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
-
 UPDATE staging
 SET entidad_residencia='ESTADO DE MEXICO'
 WHERE municipio_residencia ILIKE 'ECATZINGO DE HIDALGO' AND entidad_residencia NOT LIKE 'ESTADO DE MEXICO';
@@ -2333,7 +1725,6 @@ Estas tablas fueron diseñadas teniendo en cuenta la **naturaleza de los datos**
 
 ```sql
 -- Entidad: entidad_municipio
-DROP TABLE persona;
 CREATE TABLE entidad_municipio (
 	id BIGSERIAL PRIMARY KEY,
 	entidad VARCHAR(200),
@@ -2395,10 +1786,6 @@ SET residencia_id = (
     AND s.municipio_residencia = em.municipio
     WHERE s.id = persona.id
 );
-
-SELECT residencia_id
-FROM persona
-WHERE residencia_id IS NULL;
 
 ALTER TABLE persona DROP COLUMN entidad_residencia;
 ALTER TABLE persona DROP COLUMN municipio_residencia;
