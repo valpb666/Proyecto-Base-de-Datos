@@ -124,3 +124,5 @@ WHERE durante_embarazo NOT ILIKE '%NO APLICA%'
     complicacion_embarazo ILIKE '%NO APLICA%'
     AND causado_embarazo ILIKE '%NO APLICA%'
   );
+
+DROP TABLE IF EXISTS staging;
