@@ -1594,7 +1594,7 @@ A partir de los datos contenidos en la base de datos, se decidió dividirlos en 
 Después de analizar los datos se encontraron las siguientes dependencias:
 #### Dependencias Funcionales no triviales:
 
-Como nuestras tablas estan normalizadas correctamente y en FNBC, no hay dependencias multivariadas, y las unicas dependencias funcionales nacen de la superclave de cada tabla; el ID.
+Como nuestras tablas estan normalizadas correctamente y en FNBC, no hay dependencias multivaluadas, y las unicas dependencias funcionales nacen de la superclave de cada tabla; el ID.
 
 **-DF1: {persona.id} → {sexo, fecha_nacimiento, lengua_indigena, estado_civil, residencia_id, escolaridad, ocupacion, afiliacion_medica, defuncion_id}**  
 Esta dependencia funcional se justifica en el hecho de que cada atributo presente en la tabla persona está relacionado únicamente con el identificador (id) de la misma. Por lo tanto, al conocer el valor del identificador, es posible determinar de manera unívoca todos los demás atributos de la tabla.
