@@ -1,5 +1,5 @@
-
 -- Entidad: entidad_municipio
+
 CREATE TABLE entidad_municipio (
 	id BIGSERIAL PRIMARY KEY,
 	entidad VARCHAR(200),
@@ -32,6 +32,7 @@ WHERE NOT EXISTS (
 );
 
 -- Entidad: Persona
+
 CREATE TABLE persona (
 	id BIGSERIAL PRIMARY KEY,
 	sexo VARCHAR(20),
@@ -73,6 +74,7 @@ ADD CONSTRAINT fk_entidad_municipio
 FOREIGN KEY (residencia_id) REFERENCES entidad_municipio(id) ON DELETE SET DEFAULT;
 
 -- Entidad: Defuncion
+
 CREATE TABLE defuncion (
 	id BIGSERIAL PRIMARY KEY,
 	persona_id BIGINT UNIQUE NOT NULL CONSTRAINT fk_persona REFERENCES persona(id) ON DELETE CASCADE,
@@ -95,7 +97,6 @@ SET alcaldia_defuncion_id = (
 	FROM entidad_municipio
 	WHERE (entidad_municipio.entidad,entidad_municipio.municipio)=('CIUDAD DE MEXICO', alcaldia_defuncion_id)
 );
-
 
 ALTER TABLE defuncion
 ALTER COLUMN alcaldia_defuncion_id TYPE BIGINT USING alcaldia_defuncion_id::bigint,
@@ -123,4 +124,3 @@ WHERE durante_embarazo NOT ILIKE '%NO APLICA%'
     complicacion_embarazo ILIKE '%NO APLICA%'
     AND causado_embarazo ILIKE '%NO APLICA%'
   );
-```
