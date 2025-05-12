@@ -1,6 +1,5 @@
 
 -- Entidad: entidad_municipio
-DROP TABLE persona;
 CREATE TABLE entidad_municipio (
 	id BIGSERIAL PRIMARY KEY,
 	entidad VARCHAR(200),
@@ -62,10 +61,6 @@ SET residencia_id = (
     AND s.municipio_residencia = em.municipio
     WHERE s.id = persona.id
 );
-
-SELECT residencia_id
-FROM persona
-WHERE residencia_id IS NULL;
 
 ALTER TABLE persona DROP COLUMN entidad_residencia;
 ALTER TABLE persona DROP COLUMN municipio_residencia;
