@@ -297,9 +297,9 @@ ORDER BY COUNT(*) DESC;
 |---------------------|----------------|
 |NO APLICA	|114389|
 |NO ESPECIFICADO|	64291|
-|NO ESTUVO EMBARAZADA EN LOS Ì_LTIMOS 11 MESES PREVIOS A LA MUERTE|	6381|
+|NO ESTUVO EMBARAZADA EN LOS ÚLTIMOS 11 MESES PREVIOS A LA MUERTE|	6381|
 |EL PUERPERIO|	44|
-|43 DÌAS A 11 MESES DESPUÌäS DEL PARTO O ABORTO	|24|
+|43 DÍAS A 11 MESES DESPUÉS DEL PARTO O ABORTO	|24|
 |EL EMBARAZO|	17|
 |EL PARTO|	2|
 
@@ -344,16 +344,16 @@ ORDER BY COUNT(*) DESC;
 | lugar_lesion                | numero_tuplas  |
 |---------------------|----------------|
 |NO APLICA	|123884|
-|CALLE O CARRETERA (VÌA PÌ_BLICA)	|1393|
+|CALLE O CARRETERA (VÍA PÚBLICA)	|1393|
 |SE IGNORA	|739|
 |VIVIENDA PARTICULAR	|725|
 |OTRO	|157|
-|ÌREA COMERCIAL O DE SERVICIOS	|156|
+|ÁREA COMERCIAL O DE SERVICIOS	|156|
 |NO ESPECIFICADO	|81|
 |VIVIENDA COLECTIVA (ASILO, ORFANATO, ETC)	|78|
-|ÌREA INDUSTRIAL (TALLER, FABRICA U OBRA)	|38|
+|ÁREA INDUSTRIAL (TALLER, FABRICA U OBRA)	|38|
 |ESCUELA U OFICINA PUBLICA	|14|
-|ÌREA DEPORTIVA	|12|
+|ÁREA DEPORTIVA	|12|
 |GRANJA (RANCHO O PARCELA)	|9|
 
 ### 6. **Conteo de valores nulos**
@@ -2607,9 +2607,9 @@ ORDER BY cantidad_de_muertes DESC;
 
 | Mes de defuncion | Cantidad de muertes |
 |-----|----------------------|
-|12	|17424|
-|5	|16596|
-|6	|12990|
+|12	|17,424|
+|5	|16,596|
+|6	|12,990|
 |11	|9869|
 |7	|9795|
 |8	|9787|
@@ -2791,7 +2791,7 @@ ORDER BY mismo_lugar.residencia_id;
 | XOCHIMILCO                       | 2199                        | 1818                            |
 | SANTA CATARINA YECAHUITZOTL      | 11                          | 11                              |
 | MIGUEL HIDALGO                   | 2312                        | 1406                            |
-| GUSTAVO A. MADERO                | 10529                       | 3009                            |
+| GUSTAVO A. MADERO                | 10,529                       | 3009                            |
 | MANANTIALES DE MONTE ALEGRE     | 1                           | 3                               |
 | SAN LORENZO TLACOYUCAN           | 6                           | 8                               |
 | SAN FRANCISCO TECOXPA            | 3                           | 5                               |
@@ -2809,7 +2809,7 @@ ORDER BY mismo_lugar.residencia_id;
 | SAN ANDRES MIXQUIC               | 26                          | 11                              |
 | TLAHUAC                          | 1654                        | 1145                            |
 | SAN SALVADOR CUAUHTENCO          | 13                          | 18                              |
-| IZTAPALAPA                       | 11251                       | 5669                            |
+| IZTAPALAPA                       | 11,251                       | 5669                            |
 | AMPLIACION SAN MIGUEL            | 7                           | 8                               |
 | BENITO JUAREZ                    | 2617                        | 987                             |
 | VILLA MILPA ALTA                 | 272                         | 191                             |
