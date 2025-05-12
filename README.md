@@ -1849,7 +1849,7 @@ WHERE durante_embarazo NOT ILIKE '%NO APLICA%'
     AND causado_embarazo ILIKE '%NO APLICA%'
   );
 
-DROP TABLE staging;
+DROP TABLE IF EXISTS staging;
 ```
 ### ERD
 El ERD con todas las entidades después de la normalización, es el siguiente:
