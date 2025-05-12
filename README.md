@@ -1986,7 +1986,7 @@ Las defunciones por enfermedades respiratorias, particularmente por COVID-19, se
 
 ### 3. **Análisis de muertes por fechas**
 
-Pregunta: ¿Se repiten ciertos patrones de mortalidad en los mismos meses a lo largo de los años?
+Pregunta: ¿Qué patrones mensuales de mortalidad se observan en 2020 y cómo se relacionan con el contexto de la pandemia de COVID-19 y otras causas estacionales de muerte?
 
 Ejecutamos:
 ```sql
@@ -2012,7 +2012,7 @@ ORDER BY cantidad_de_muertes DESC;
 |2	|5995|
 |3	|5977|
 
-El análisis de muertes por mes muestra una clara concentración en ciertos periodos del año, lo que sugiere la existencia de patrones estacionales de mortalidad. Diciembre destaca como el mes con más defunciones registradas, seguido de mayo y junio, lo cual podría estar relacionado tanto con picos epidémicos —como los ocurridos durante la pandemia de COVID-19— como con condiciones climáticas extremas que afectan a personas con enfermedades crónicas. También se observa un aumento sostenido de muertes en los meses de otoño e invierno (noviembre y diciembre), lo cual es común en enfermedades respiratorias y cardiovasculares. Por el contrario, los meses con menor número de muertes son febrero y marzo, lo que puede asociarse con climas más templados y menor circulación de virus respiratorios. En conjunto, estos datos apuntan a la necesidad de reforzar la atención médica y las campañas preventivas en los meses con mayor mortalidad registrada, especialmente en diciembre y mayo.
+Durante 2020 se observa un claro efecto de la pandemia de COVID-19 sobre la mortalidad mensual. Los primeros tres meses del año (enero–marzo) muestran cifras relativamente bajas (entre 5 977 y 7 496 defunciones), antes de que el virus cobrara fuerza en México. A partir de abril (8 389 muertes) y sobre todo en mayo (16 596), coincide con la primera gran ola de contagios y la saturación hospitalaria; el alza abrupta en mayo–junio (12 990) refleja tanto muertes directamente por COVID-19 como otras asociadas a la falta de acceso oportuno a servicios médicos. Durante los meses de verano y principios de otoño (julio–octubre), las cifras se estabilizan alrededor de 9 200–9 800 muertes, probablemente por una combinación de disminución parcial de la transmisión, medidas de confinamiento y también el impacto de otras causas (accidentes de tránsito, violencia, enfermedades crónicas desatendidas). Finalmente, en noviembre (9 869) y especialmente en diciembre (17 424), se aprecia un segundo pico de mortalidad que coincide con la segunda ola de COVID-19 y, por otro lado, con factores estacionales como la circulación de influenza, el clima frío y el incremento de accidentes o violencias típicas de las festividades. En conjunto, estos patrones mensuales reflejan cómo las olas pandémicas y las variaciones estacionales de otras causas confluyeron para moldear la curva de mortalidad en 2020.
 
 ### 4. **Análisis mortalidad materna**
 
