@@ -1879,45 +1879,50 @@ Algunas de las consultas que hicimos son las siguientes:
 
 Pregunta: ¿Existe una relación entre escolaridad y causa de defunción por sexo? 
 
+
 Ejecutamos:
 ```sql
-SELECT sexo, defuncion.causa_defuncion, escolaridad, COUNT(*) as total
+SELECT defuncion.causa_defuncion, escolaridad, COUNT(*) as total
 FROM persona
 JOIN defuncion ON defuncion.persona_id=persona.id
-GROUP BY sexo, escolaridad, causa_defuncion
+GROUP BY escolaridad, causa_defuncion
 HAVING COUNT(*) > 1000
 ORDER BY total DESC;
 ```
 📌 **Resultados:**  
 
-| Sexo  | Causa      | Escolaridad                                  | Total |
-|-------|------------|----------------------------------------------|--------|
-| hombre | COVID-19  | PRIMARIA COMPLETA                            | 5459   |
-| hombre | COVID-19  | SECUNDARIA COMPLETA                          | 5173   |
-| mujer  | COVID-19  | PRIMARIA COMPLETA                            | 3918   |
-| hombre | COVID-19  | LICENCIATURA O PROFESIONAL COMPLETO          | 3756   |
-| hombre | COVID-19  | BACHILLERATO O PREPARATORIA COMPLETA         | 3746   |
-| hombre | DIABETES  | PRIMARIA COMPLETA                            | 2715   |
-| mujer  | DIABETES  | PRIMARIA COMPLETA                            | 2619   |
-| hombre | INFARTO   | PRIMARIA COMPLETA                            | 2419   |
-| mujer  | INFARTO   | PRIMARIA COMPLETA                            | 2347   |
-| hombre | COVID-19  | PRIMARIA INCOMPLETA                          | 2308   |
-| mujer  | COVID-19  | SECUNDARIA COMPLETA                          | 2188   |
-| mujer  | COVID-19  | PRIMARIA INCOMPLETA                          | 1796   |
-| mujer  | COVID-19  | BACHILLERATO O PREPARATORIA COMPLETA         | 1740   |
-| hombre | DIABETES  | SECUNDARIA COMPLETA                          | 1710   |
-| mujer  | DIABETES  | PRIMARIA INCOMPLETA                          | 1503   |
-| mujer  | INFARTO   | PRIMARIA INCOMPLETA                          | 1417   |
-| mujer  | CANCER    | PRIMARIA COMPLETA                            | 1405   |
-| hombre | INFARTO   | PRIMARIA INCOMPLETA                          | 1277   |
-| hombre | INFARTO   | SECUNDARIA COMPLETA                          | 1250   |
-| hombre | DIABETES  | PRIMARIA INCOMPLETA                          | 1149   |
-| hombre | COVID-19  | BACHILLERATO O PREPARATORIA INCOMPLETA       | 1119   |
-| hombre | INFARTO   | LICENCIATURA O PROFESIONAL COMPLETO          | 1068   |
-| mujer  | COVID-19  | LICENCIATURA O PROFESIONAL COMPLETO          | 1054   |
-| mujer  | INFARTO   | NINGUNA                                      | 1053   |
-| hombre | CANCER    | PRIMARIA COMPLETA                            | 1032   |
-| mujer  | DIABETES  | SECUNDARIA COMPLETA                          | 1031   |
+# Análisis de Causa de Defunción por Nivel de Escolaridad
+
+| **Causa de Defunción**            | **Escolaridad**                                | **Total de Muertes** |
+|----------------------------------|------------------------------------------------|-----------------------|
+| COVID-19                         | PRIMARIA COMPLETA                              | 9379                  |
+| COVID-19                         | SECUNDARIA COMPLETA                            | 7362                  |
+| COVID-19                         | BACHILLERATO O PREPARATORIA COMPLETA           | 5486                  |
+| DIABETES                         | PRIMARIA COMPLETA                              | 5334                  |
+| COVID-19                         | LICENCIATURA O PROFESIONAL COMPLETO            | 4810                  |
+| INFARTO                          | PRIMARIA COMPLETA                              | 4768                  |
+| COVID-19                         | PRIMARIA INCOMPLETA                            | 4105                  |
+| DIABETES                         | SECUNDARIA COMPLETA                            | 2741                  |
+| INFARTO                          | PRIMARIA INCOMPLETA                            | 2695                  |
+| DIABETES                         | PRIMARIA INCOMPLETA                            | 2652                  |
+| CÁNCER                           | PRIMARIA COMPLETA                              | 2438                  |
+| INFARTO                          | SECUNDARIA COMPLETA                            | 2008                  |
+| CÁNCER                           | LICENCIATURA O PROFESIONAL COMPLETO            | 1907                  |
+| CÁNCER                           | SECUNDARIA COMPLETA                            | 1811                  |
+| CÁNCER                           | BACHILLERATO O PREPARATORIA COMPLETA           | 1724                  |
+| NEUMONÍA, NO ESPECIFICADA        | PRIMARIA COMPLETA                              | 1613                  |
+| COVID-19                         | NINGUNA                                        | 1610                  |
+| DIABETES                         | BACHILLERATO O PREPARATORIA COMPLETA           | 1600                  |
+| INFARTO                          | BACHILLERATO O PREPARATORIA COMPLETA           | 1599                  |
+| INFARTO                          | NINGUNA                                        | 1593                  |
+| INFARTO                          | LICENCIATURA O PROFESIONAL COMPLETO            | 1577                  |
+| DIABETES                         | NINGUNA                                        | 1436                  |
+| COVID-19                         | BACHILLERATO O PREPARATORIA INCOMPLETA         | 1412                  |
+| DIABETES                         | LICENCIATURA O PROFESIONAL COMPLETO            | 1398                  |
+| ENFERMEDAD CARDIACA              | PRIMARIA COMPLETA                              | 1265                  |
+| CÁNCER                           | PRIMARIA INCOMPLETA                            | 1178                  |
+| NEUMONÍA, NO ESPECIFICADA        | SECUNDARIA COMPLETA                            | 1104                  |
+| COVID-19                         | SECUNDARIA INCOMPLETA                          | 1084                  |
 
 Existe una correlación clara entre baja escolaridad y mayor mortalidad, especialmente en causas prevenibles o tratables como diabetes e infarto. Aunque en el caso de COVID-19 se registran defunciones en todos los niveles educativos, se mantiene la tendencia: a menor escolaridad, mayor mortalidad. Esto refuerza la idea de que la educación es un determinante social clave de la salud, y su ausencia agrava la vulnerabilidad ante enfermedades.
 
