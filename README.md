@@ -1596,19 +1596,27 @@ Después de analizar los datos se encontraron las siguientes dependencias:
 
 Como nuestras tablas estan normalizadas correctamente y en FNBC, no hay dependencias multivaluadas, y las unicas dependencias funcionales nacen de la superclave de cada tabla; el ID.
 
-**-DF1: {persona.id} → {sexo, fecha_nacimiento, lengua_indigena, estado_civil, residencia_id, escolaridad, ocupacion, afiliacion_medica, defuncion_id}**  
-Esta dependencia funcional se justifica en el hecho de que cada atributo presente en la tabla persona está relacionado únicamente con el identificador (id) de la misma. Por lo tanto, al conocer el valor del identificador, es posible determinar de manera unívoca todos los demás atributos de la tabla.
+**-DF1: {persona.id} → {sexo, fecha_nacimiento, lengua_indigena, estado_civil, residencia_id, escolaridad, ocupacion, afiliacion_medica, defuncion_id}**
+**-DF2: {defuncion.id} → {fecha_defuncion, hora_defuncion, lugar_defuncion, causa_defuncion, alcaldia_defuncion_id, atencion_medica, necropsia}**
 
-**-DF2: {municipio.id} → {entidad_id, nombre}**  
-Esta dependencia funcional se justifica en el hecho de que cada atributo presente en la tabla municipio está relacionado únicamente con el identificador (id) de la misma. Por lo tanto, al conocer el valor del identificador, es posible determinar de manera unívoca todos los demás atributos de la tabla.
+Inicialmente se consideró que defuncion_id formaba parte de la dependencia funcional de la tabla persona, bajo la idea de que cada persona tiene asociada una defunción. Sin embargo, esto es incorrecto desde el punto de vista de la normalización, ya que una persona no determina su defunción. En realidad, es la defunción la que hace referencia a una persona mediante el atributo persona_id.
 
-**-DF3: {entidad.id} → {nombre}**  
-Esta dependencia funcional se justifica en el hecho de que cada atributo presente en la tabla entidad está relacionado únicamente con el identificador (id) de la misma. Por lo tanto, al conocer el valor del identificador, es posible determinar de manera unívoca todos los demás atributos de la tabla. No se considera la dependencia funcional nombre → id, ya que ello implicaría un error en el proceso de normalización. Asumir que el nombre es único y puede actuar como clave primaria no es correcto, pues no se garantiza su unicidad. En consecuencia, la única dependencia funcional válida en esta tabla es id → nombre.
+Esto implica que la relación es:
+defuncion.persona_id → defuncion.id,
+y no al revés. Por tanto, incluir defuncion_id como dependiente de persona.id viola la Tercera Forma Normal (3FN), ya que introduce una dependencia transitiva: persona.id → defuncion_id → otros atributos, lo cual no es aceptable.
 
-**-DF4: {defuncion.id} → {fecha_defuncion, hora_defuncion, lugar_defuncion, causa_defuncion, alcaldia_defuncion_id, atencion_medica, necropsia}**  
-Esta dependencia funcional se justifica en el hecho de que cada atributo presente en la tabla defuncion está relacionado únicamente con el identificador (id) de la misma. Por lo tanto, al conocer el valor del identificador, es posible determinar de manera unívoca todos los demás atributos de la tabla. Por otro lado, lugar_defuncion -> alcaldia_defuncion no es una dependencial funcional, valida porque no es valido asumir que el lugar de defunción es una palabra descriptiva del entorno del acontecimiento, y no una dirección única.
+Como resultado, se elimina defuncion_id de la dependencia funcional de la tabla persona, y se incorpora el atributo persona_id directamente en la tabla defuncion:
+**-DF1 (nueva): {persona.id} → {sexo, fecha_nacimiento, lengua_indigena, estado_civil, residencia_id, escolaridad, ocupacion, afiliacion_medica}**
+**-DF2 (nueva): {defuncion.id} → {fecha_defuncion, hora_defuncion, lugar_defuncion, causa_defuncion, alcaldia_defuncion_id, atencion_medica, necropsia, persona_id}**
 
-**-DF5: {embarazo.id} → {persona_id, durante_embarazo, causa_embarazo, complicacion_embarazo}**  
+**-DF3: {municipio.id} → {entidad_id, nombre}**  
+**-DF4: {entidad.id} → {nombre}**  
+
+Aunque las dependencias funcionales originales ({municipio.id} → {entidad_id, nombre} y {entidad.id} → {nombre}) cumplen con la Tercera Forma Normal, es válido fusionar ambas tablas en una sola llamada entidad_municipio, con la dependencia {entidad_municipio.id} → {entidad, municipio}, siempre que la combinación de entidad y municipio sea única. Esta fusión simplifica el modelo y reduce la necesidad de realizar joins, lo cual es útil si no se requiere trabajar con entidades o municipios de forma independiente. La denormalización es aceptable mientras no se introduzcan redundancias ni se violen las dependencias funcionales directas.
+
+**-DF3 (nueva): {entidad_municipio.id} → {entidad, municipio}**
+
+**-DF4: {embarazo.id} → {persona_id, durante_embarazo, causa_embarazo, complicacion_embarazo}**  
 Esta dependencia funcional se justifica en el hecho de que cada atributo presente en la tabla embarazo está relacionado únicamente con el identificador (id) de la misma. Por lo tanto, al conocer el valor del identificador, es posible determinar de manera unívoca todos los demás atributos de la tabla.
 
 #### Dependencias Multivaluadas no triviales:
