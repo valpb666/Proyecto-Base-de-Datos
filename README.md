@@ -1993,8 +1993,9 @@ Ejecutamos:
 SELECT EXTRACT (MONTH FROM fecha_defuncion) as mes_de_defuncion, COUNT(*) cantidad_de_muertes
 FROM defuncion
 GROUP BY EXTRACT (MONTH FROM fecha_defuncion)
-ORDER BY cantidad_de_muertes DESC;
+ORDER BY (MONTH FROM fecha_defuncion);
 ```
+------ CAMBIAR
 📌 **Resultados:**  
 
 | Mes de defuncion | Cantidad de muertes |
