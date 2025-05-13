@@ -2146,7 +2146,7 @@ ORDER BY a.causa_defuncion, porcentaje DESC;
 
 El análisis de la atención médica en los casos de las diez enfermedades con mayor mortalidad revela que la gran mayoría de las personas que fallecieron sí recibieron atención médica previa. En todos los casos, el porcentaje de atención médica recibida supera el 97%, destacando enfermedades como la enfermedad cardíaca (98.73%), enfermedad renal (98.70%), infecciones (98.62%) y cáncer (98.46%). Las proporciones de muertes sin atención médica o con datos desconocidos son mínimas, rondando entre el 0.5% y 1.7% en la mayoría de los padecimientos. Este patrón sugiere que, aunque los pacientes acceden al sistema de salud, la gravedad de estas enfermedades o la posible tardanza en su atención podrían limitar la efectividad de los tratamientos médicos, abriendo la discusión sobre la calidad, oportunidad y continuidad del cuidado médico recibido.
 
-### 6. **Análisis entre ncaimientos y muertes en la misma residencia**
+### 6. **Análisis entre nacimientos y muertes en la misma residencia**
 
 Pregunta: ¿Cuántas personas fallecieron en el mismo municipio de la Ciudad de México en el que residían?
 
