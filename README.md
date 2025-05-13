@@ -2236,16 +2236,16 @@ ORDER BY mismo_lugar.residencia_id;
 
 El análisis muestra que en la Ciudad de México, una gran mayoría de las personas fallecieron en el mismo municipio en el que residían. Delegaciones como Iztapalapa (11,251 muertes en su lugar de residencia), Gustavo A. Madero (10,529), y Tlalpan (3,326) lideran en esta tendencia, reflejando probablemente su alta densidad poblacional y una mayor disponibilidad de servicios de salud locales o el hecho de que muchas personas envejecen y fallecen en sus domicilios. En contraste, algunas localidades como Acopiaxco y San Miguel Topilejo presentan más muertes fuera que dentro de su área de residencia, lo que podría indicar traslados a hospitales en otros municipios. El dato "No especificado" también tiene un peso importante, con 2,825 muertes en el lugar de residencia y 2,275 en otro, lo que sugiere un margen de incertidumbre en la geolocalización del evento. En conjunto, estos datos reflejan una fuerte correspondencia entre lugar de residencia y defunción, útil para planear políticas de salud pública localizadas.
 
-### 7. **Análisis entre muertes en distintas edades**
+### 7. **Análisis de la mortalidad en distintos grupos de edad**
 
 Pregunta: ¿Cuántas muertes hubo por cada rango de edad?
 
 Ejecutamos:
 ```sql
-SELECT AGE(defuncion.fecha_defuncion, persona.fecha_nacimiento) AS edad, COUNT(*) as edades
+SELECT (EXTRACT (YEAR FROM AGE(defuncion.fecha_defuncion, persona.fecha_nacimiento))/10) *10 AS rango_edad, COUNT(*) anum_muertes
 FROM persona
 JOIN defuncion ON persona.id=defuncion.persona_id
-GROUP BY edad
-ORDER BY edad;
+GROUP BY rango_edad
+ORDER BY rango_edad;
 ```
 📌 **Resultados:**  
