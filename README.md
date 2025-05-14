@@ -1924,7 +1924,12 @@ ORDER BY total DESC;
 | NEUMONÍA, NO ESPECIFICADA        | SECUNDARIA COMPLETA                            | 1104                  |
 | COVID-19                         | SECUNDARIA INCOMPLETA                          | 1084                  |
 
-Existe una correlación clara entre baja escolaridad y mayor mortalidad, especialmente en causas prevenibles o tratables como diabetes e infarto. Aunque en el caso de COVID-19 se registran defunciones en todos los niveles educativos, se mantiene la tendencia: a menor escolaridad, mayor mortalidad. Esto refuerza la idea de que la educación es un determinante social clave de la salud, y su ausencia agrava la vulnerabilidad ante enfermedades.
+El nivel de educación influye de manera importante en la salud de las personas. 
+Los datos muestran que quienes tienen menor escolaridad son los más afectados por enfermedades graves como COVID-19, diabetes e infartos. Esto puede explicarse porque las personas con menos estudios suelen tener más dificultades para acceder a servicios médicos de calidad, comprender información sobre prevención o mantener hábitos saludables. Además, muchas veces viven en contextos sociales y económicos más desfavorables, lo que también impacta negativamente en su bienestar.
+No solo se trata de mejorar el sistema de salud, sino también de reforzar la educación y generar conciencia desde etapas tempranas sobre la importancia del cuidado personal y la prevención. 
+Al mismo tiempo, es necesario diseñar políticas públicas que atiendan de manera prioritaria a las poblaciones más vulnerables.
+El hecho de que haya más muertes en el grupo con primaria completa que en el de primaria incompleta no significa necesariamente que tengan peor salud, sino que puede deberse a que hay muchas más personas que lograron terminar la primaria, especialmente entre las generaciones mayores, que son también las más vulnerables a enfermedades graves. 
+Además, en los registros oficiales, es común que se anote el último nivel de estudios completado, lo que agrupa a más personas bajo "primaria completa", aunque hayan tenido estudios posteriores incompletos.
 
 ### 2. **Análisis de enfermedades por alcaldías**
 
