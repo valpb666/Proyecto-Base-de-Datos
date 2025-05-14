@@ -2008,28 +2008,29 @@ Pregunta: ¿Qué patrones mensuales de mortalidad se observan en 2020 y cómo se
 
 Ejecutamos:
 ```sql
-SELECT EXTRACT (MONTH FROM fecha_defuncion) as mes_de_defuncion, COUNT(*) cantidad_de_muertes
-FROM defuncion
-GROUP BY EXTRACT (MONTH FROM fecha_defuncion)
-ORDER BY (MONTH FROM fecha_defuncion);
+SELECT 
+    EXTRACT(MONTH FROM fecha_defuncion) AS mes_de_defuncion, 
+    COUNT(*) AS cantidad_de_muertes 
+FROM defuncion 
+GROUP BY mes_de_defuncion 
+ORDER BY mes_de_defuncion;
 ```
------- CAMBIAR
 📌 **Resultados:**  
 
-| Mes de defuncion | Cantidad de muertes |
+| Mes | Cantidad de Muertes |
 |-----|----------------------|
-|12	|17,424|
-|5	|16,596|
-|6	|12,990|
-|11	|9869|
-|7	|9795|
-|8	|9787|
-|10	|9498|
-|9	|9203|
-|4	|8389|
-|1	|7496|
-|2	|5995|
-|3	|5977|
+| 1   | 7496                |
+| 2   | 5995                |
+| 3   | 5977                |
+| 4   | 8389                |
+| 5   | 16596               |
+| 6   | 12990               |
+| 7   | 9795                |
+| 8   | 9787                |
+| 9   | 9203                |
+| 10  | 9498                |
+| 11  | 9869                |
+| 12  | 17424               |
 
 Durante 2020 se observa un claro efecto de la pandemia de COVID-19 sobre la mortalidad mensual. Los primeros tres meses del año (enero–marzo) muestran cifras relativamente bajas (entre 5 977 y 7 496 defunciones), antes de que el virus cobrara fuerza en México. A partir de abril (8 389 muertes) y sobre todo en mayo (16 596), coincide con la primera gran ola de contagios y la saturación hospitalaria; el alza abrupta en mayo–junio (12 990) refleja tanto muertes directamente por COVID-19 como otras asociadas a la falta de acceso oportuno a servicios médicos. Durante los meses de verano y principios de otoño (julio–octubre), las cifras se estabilizan alrededor de 9 200–9 800 muertes, probablemente por una combinación de disminución parcial de la transmisión, medidas de confinamiento y también el impacto de otras causas (accidentes de tránsito, violencia, enfermedades crónicas desatendidas). Finalmente, en noviembre (9 869) y especialmente en diciembre (17 424), se aprecia un segundo pico de mortalidad que coincide con la segunda ola de COVID-19 y, por otro lado, con factores estacionales como la circulación de influenza, el clima frío y el incremento de accidentes o violencias típicas de las festividades. En conjunto, estos patrones mensuales reflejan cómo las olas pandémicas y las variaciones estacionales de otras causas confluyeron para moldear la curva de mortalidad en 2020.
 
@@ -2039,44 +2040,36 @@ Pregunta: ¿Cuántas muertes relacionadas con embarazo se reportan, y en qué et
 
 Ejecutamos:
 ```sql
-SELECT AGE(defuncion.fecha_defuncion,persona.fecha_nacimiento) as edad, persona.escolaridad, durante_embarazo
+SELECT 
+    durante_embarazo,
+    persona.escolaridad,
+    COUNT(*) AS cantidad_muertes
 FROM embarazo
-JOIN persona ON persona.id=embarazo.persona_id
-JOIN defuncion ON defuncion.persona_id=persona.id
-WHERE causado_embarazo ILIKE 'SI' AND durante_embarazo IS NOT NULL AND durante_embarazo NOT LIKE 'NO %'
-GROUP BY edad, persona.escolaridad, durante_embarazo
-ORDER BY edad DESC;
+JOIN persona ON persona.id = embarazo.persona_id
+JOIN defuncion ON defuncion.persona_id = persona.id
+WHERE causado_embarazo ILIKE 'SI' 
+  AND durante_embarazo IS NOT NULL 
+  AND durante_embarazo NOT LIKE 'NO %'
+GROUP BY durante_embarazo, persona.escolaridad
+ORDER BY cantidad_muertes DESC;
 ```
 📌 **Resultados:**  
 
-| Edad | Nivel Educativo                          | Etapa de embarazo                                   |
-|------|----------------------------------------|------------------------------------------|
-| 45   | SECUNDARIA COMPLETA                    | EL EMBARAZO                               |
-| 44   | SECUNDARIA COMPLETA                    | EL EMBARAZO                               |
-| 41   | BACHILLERATO O PREPARATORIA COMPLETA   | EL PUERPERIO                              |
-| 40   | LICENCIATURA O PROFESIONAL COMPLETO    | EL EMBARAZO                               |
-| 39   | BACHILLERATO O PREPARATORIA COMPLETA   | EL PUERPERIO                              |
-| 39   | SECUNDARIA COMPLETA                    | EL PUERPERIO                              |
-| 38   | BACHILLERATO O PREPARATORIA COMPLETA   | EL PUERPERIO                              |
-| 38   | LICENCIATURA O PROFESIONAL COMPLETO    | EL PUERPERIO                              |
-| 38   | POSGRADO COMPLETO                      | EL PUERPERIO                              |
-| 35   | LICENCIATURA O PROFESIONAL COMPLETO    | EL PUERPERIO                              |
-| 35   | SECUNDARIA COMPLETA                    | EL EMBARAZO                               |
-| 34   | LICENCIATURA O PROFESIONAL COMPLETO    | EL EMBARAZO                               |
-| 31   | NINGUNA                                | EL PUERPERIO                              |
-| 30   | BACHILLERATO O PREPARATORIA COMPLETA   | EL PUERPERIO                              |
-| 30   | PRIMARIA COMPLETA                      | EL PUERPERIO                              |
-| 29   | PRIMARIA COMPLETA                      | 43 DÍAS A 11 MESES DESPUÉS DEL PARTO O ABORTO |
-| 29   | PRIMARIA COMPLETA                      | EL EMBARAZO                               |
-| 27   | SECUNDARIA COMPLETA                    | EL PUERPERIO                              |
-| 27   | SECUNDARIA INCOMPLETA                  | EL PUERPERIO                              |
-| 26   | SECUNDARIA COMPLETA                    | EL PUERPERIO                              |
-| 25   | BACHILLERATO O PREPARATORIA INCOMPLETA | EL PUERPERIO                              |
-| 25   | SECUNDARIA COMPLETA                    | EL PUERPERIO                              |
-| 24   | BACHILLERATO O PREPARATORIA COMPLETA   | EL PUERPERIO                              |
-| 23   | BACHILLERATO O PREPARATORIA INCOMPLETA | EL PUERPERIO                              |
-| 22   | BACHILLERATO O PREPARATORIA COMPLETA   | EL PUERPERIO                              |
-| 20   | LICENCIATURA O PROFESIONAL INCOMPLETO  | EL PUERPERIO                              |
+| Etapa                                        | Nivel Educativo                                | Cantidad de  muertes |
+|----------------------------------------------|------------------------------------------------|----------|
+| EL PUERPERIO                                 | BACHILLERATO O PREPARATORIA COMPLETA           | 6        |
+| EL PUERPERIO                                 | SECUNDARIA COMPLETA                            | 4        |
+| EL EMBARAZO                                  | SECUNDARIA COMPLETA                            | 3        |
+| EL EMBARAZO                                  | LICENCIATURA O PROFESIONAL COMPLETO            | 2        |
+| EL PUERPERIO                                 | BACHILLERATO O PREPARATORIA INCOMPLETA         | 2        |
+| EL PUERPERIO                                 | LICENCIATURA O PROFESIONAL COMPLETO            | 2        |
+| 43 DÍAS A 11 MESES DESPUÉS DEL PARTO O ABORTO | PRIMARIA COMPLETA                              | 1        |
+| EL PUERPERIO                                 | SECUNDARIA INCOMPLETA                          | 1        |
+| EL EMBARAZO                                  | PRIMARIA COMPLETA                              | 1        |
+| EL PUERPERIO                                 | LICENCIATURA O PROFESIONAL INCOMPLETO          | 1        |
+| EL PUERPERIO                                 | NINGUNA                                        | 1        |
+| EL PUERPERIO                                 | POSGRADO COMPLETO                              | 1        |
+| EL PUERPERIO                                 | PRIMARIA COMPLETA                              | 1        |
 
 El análisis de los casos de mortalidad materna revela que la mayoría de las muertes ocurrieron durante el puerperio, es decir, después del parto, lo que indica una etapa crítica en la atención médica de las mujeres. De las 26 muertes registradas, al menos 19 ocurrieron en el puerperio, mientras que solo 6 sucedieron durante el embarazo y 1 entre los 43 días y 11 meses posteriores al parto o aborto. Las edades de las mujeres oscilaban entre los 20 y los 45 años, siendo más frecuente en mujeres de entre 25 y 40 años. En cuanto a escolaridad, predominan los niveles de secundaria y bachillerato, aunque también hay casos con licenciatura e incluso posgrado, lo que sugiere que la mortalidad materna no está limitada únicamente a bajos niveles educativos. Estos datos subrayan la necesidad de mejorar el seguimiento médico durante el posparto, una etapa frecuentemente desatendida pero de alto riesgo para la salud materna.
 
