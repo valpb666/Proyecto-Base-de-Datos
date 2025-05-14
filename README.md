@@ -2247,10 +2247,37 @@ Pregunta: ¿Cuántas muertes hubo por cada rango de edad?
 
 Ejecutamos:
 ```sql
-SELECT (EXTRACT (YEAR FROM AGE(defuncion.fecha_defuncion, persona.fecha_nacimiento))/10) *10 AS rango_edad, COUNT(*) anum_muertes
+SELECT 
+  CONCAT(
+    FLOOR(EXTRACT(YEAR FROM AGE(defuncion.fecha_defuncion, persona.fecha_nacimiento)) / 10) * 10,
+    ' - ',
+    FLOOR(EXTRACT(YEAR FROM AGE(defuncion.fecha_defuncion, persona.fecha_nacimiento)) / 10) * 10 + 9
+  ) AS rango_edad,
+  COUNT(*) AS num_muertes
 FROM persona
-JOIN defuncion ON persona.id=defuncion.persona_id
+JOIN defuncion ON persona.id = defuncion.persona_id
 GROUP BY rango_edad
-ORDER BY rango_edad;
+ORDER BY MIN(EXTRACT(YEAR FROM AGE(defuncion.fecha_defuncion, persona.fecha_nacimiento)));
 ```
-📌 **Resultados:**  
+📌 **Resultados:**
+| Rango de Edad | Número de Muertes |
+|---------------|-------------------|
+| 0 - 9         | 2152              |
+| 10 - 19       | 681               |
+| 20 - 29       | 1876              |
+| 30 - 39       | 4278              |
+| 40 - 49       | 10388             |
+| 50 - 59       | 19562             |
+| 60 - 69       | 27340             |
+| 70 - 79       | 26539             |
+| 80 - 89       | 21147             |
+| 90 - 99       | 8479              |
+| 100 - 109     | 500               |
+| 110 - 119     | 23                |
+| -             | 54                |
+
+El análisis por rangos de edad revela que en la Ciudad de México, la mayoría de las defunciones se concentran en personas mayores de 50 años. Los grupos de 60 a 69 años (27,340 muertes), 70 a 79 años (26,539) y 80 a 89 años (21,147) representan los picos más altos, lo que refleja el impacto del envejecimiento poblacional en la mortalidad general. El grupo de 50 a 59 años también registra un número considerable (19,562), lo cual podría vincularse a enfermedades crónicas que se manifiestan a partir de esa edad.
+
+En contraste, los rangos de edad más jóvenes, como 0 a 9 años (2,152 muertes) y 10 a 19 años (681), muestran una mortalidad significativamente menor, aunque no despreciable, lo que podría apuntar a factores como enfermedades congénitas.
+
+
