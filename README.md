@@ -2049,34 +2049,34 @@ ORDER BY edad DESC;
 ```
 📌 **Resultados:**  
 
-| Edad                        | Escolaridad                                  | Etapa del Embarazo                                 |
-|----------------------------|----------------------------------------------|----------------------------------------------------|
-| 45 years 3 mons            | SECUNDARIA COMPLETA                          | EL EMBARAZO                                        |
-| 44 years 5 days            | SECUNDARIA COMPLETA                          | EL EMBARAZO                                        |
-| 41 years 5 mons 19 days    | BACHILLERATO O PREPARATORIA COMPLETA         | EL PUERPERIO                                       |
-| 40 years 9 mons 22 days    | LICENCIATURA O PROFESIONAL COMPLETO          | EL EMBARAZO                                        |
-| 39 years 10 mons 23 days   | SECUNDARIA COMPLETA                          | EL PUERPERIO                                       |
-| 39 years 8 mons 25 days    | BACHILLERATO O PREPARATORIA COMPLETA         | EL PUERPERIO                                       |
-| 38 years 11 mons 28 days   | LICENCIATURA O PROFESIONAL COMPLETO          | EL PUERPERIO                                       |
-| 38 years 5 mons 15 days    | BACHILLERATO O PREPARATORIA COMPLETA         | EL PUERPERIO                                       |
-| 38 years 1 day             | POSGRADO COMPLETO                            | EL PUERPERIO                                       |
-| 35 years 7 mons            | SECUNDARIA COMPLETA                          | EL EMBARAZO                                        |
-| 35 years 1 mon 6 days      | LICENCIATURA O PROFESIONAL COMPLETO          | EL PUERPERIO                                       |
-| 34 years 6 mons 14 days    | LICENCIATURA O PROFESIONAL COMPLETO          | EL EMBARAZO                                        |
-| 31 years 5 mons 18 days    | NINGUNA                                      | EL PUERPERIO                                       |
-| 30 years 5 mons 12 days    | BACHILLERATO O PREPARATORIA COMPLETA         | EL PUERPERIO                                       |
-| 30 years 4 mons 1 day      | PRIMARIA COMPLETA                            | EL PUERPERIO                                       |
-| 29 years 11 mons 6 days    | PRIMARIA COMPLETA                            | EL EMBARAZO                                        |
-| 29 years 4 mons 17 days    | PRIMARIA COMPLETA                            | 43 DÍAS A 11 MESES DESPUÉS DEL PARTO O ABORTO     |
-| 27 years 4 mons 29 days    | SECUNDARIA INCOMPLETA                        | EL PUERPERIO                                       |
-| 27 years 12 days           | SECUNDARIA COMPLETA                          | EL PUERPERIO                                       |
-| 26 years 10 mons 1 day     | SECUNDARIA COMPLETA                          | EL PUERPERIO                                       |
-| 25 years 6 mons 2 days     | BACHILLERATO O PREPARATORIA INCOMPLETA       | EL PUERPERIO                                       |
-| 25 years 5 mons 17 days    | SECUNDARIA COMPLETA                          | EL PUERPERIO                                       |
-| 24 years 5 mons 15 days    | BACHILLERATO O PREPARATORIA COMPLETA         | EL PUERPERIO                                       |
-| 23 years 11 mons 9 days    | BACHILLERATO O PREPARATORIA INCOMPLETA       | EL PUERPERIO                                       |
-| 22 years 9 mons 5 days     | BACHILLERATO O PREPARATORIA COMPLETA         | EL PUERPERIO                                       |
-| 20 years 9 mons 10 days    | LICENCIATURA O PROFESIONAL INCOMPLETO        | EL PUERPERIO                                       |
+| Edad | Nivel Educativo                          | Etapa de embarazo                                   |
+|------|----------------------------------------|------------------------------------------|
+| 45   | SECUNDARIA COMPLETA                    | EL EMBARAZO                               |
+| 44   | SECUNDARIA COMPLETA                    | EL EMBARAZO                               |
+| 41   | BACHILLERATO O PREPARATORIA COMPLETA   | EL PUERPERIO                              |
+| 40   | LICENCIATURA O PROFESIONAL COMPLETO    | EL EMBARAZO                               |
+| 39   | BACHILLERATO O PREPARATORIA COMPLETA   | EL PUERPERIO                              |
+| 39   | SECUNDARIA COMPLETA                    | EL PUERPERIO                              |
+| 38   | BACHILLERATO O PREPARATORIA COMPLETA   | EL PUERPERIO                              |
+| 38   | LICENCIATURA O PROFESIONAL COMPLETO    | EL PUERPERIO                              |
+| 38   | POSGRADO COMPLETO                      | EL PUERPERIO                              |
+| 35   | LICENCIATURA O PROFESIONAL COMPLETO    | EL PUERPERIO                              |
+| 35   | SECUNDARIA COMPLETA                    | EL EMBARAZO                               |
+| 34   | LICENCIATURA O PROFESIONAL COMPLETO    | EL EMBARAZO                               |
+| 31   | NINGUNA                                | EL PUERPERIO                              |
+| 30   | BACHILLERATO O PREPARATORIA COMPLETA   | EL PUERPERIO                              |
+| 30   | PRIMARIA COMPLETA                      | EL PUERPERIO                              |
+| 29   | PRIMARIA COMPLETA                      | 43 DÍAS A 11 MESES DESPUÉS DEL PARTO O ABORTO |
+| 29   | PRIMARIA COMPLETA                      | EL EMBARAZO                               |
+| 27   | SECUNDARIA COMPLETA                    | EL PUERPERIO                              |
+| 27   | SECUNDARIA INCOMPLETA                  | EL PUERPERIO                              |
+| 26   | SECUNDARIA COMPLETA                    | EL PUERPERIO                              |
+| 25   | BACHILLERATO O PREPARATORIA INCOMPLETA | EL PUERPERIO                              |
+| 25   | SECUNDARIA COMPLETA                    | EL PUERPERIO                              |
+| 24   | BACHILLERATO O PREPARATORIA COMPLETA   | EL PUERPERIO                              |
+| 23   | BACHILLERATO O PREPARATORIA INCOMPLETA | EL PUERPERIO                              |
+| 22   | BACHILLERATO O PREPARATORIA COMPLETA   | EL PUERPERIO                              |
+| 20   | LICENCIATURA O PROFESIONAL INCOMPLETO  | EL PUERPERIO                              |
 
 El análisis de los casos de mortalidad materna revela que la mayoría de las muertes ocurrieron durante el puerperio, es decir, después del parto, lo que indica una etapa crítica en la atención médica de las mujeres. De las 26 muertes registradas, al menos 19 ocurrieron en el puerperio, mientras que solo 6 sucedieron durante el embarazo y 1 entre los 43 días y 11 meses posteriores al parto o aborto. Las edades de las mujeres oscilaban entre los 20 y los 45 años, siendo más frecuente en mujeres de entre 25 y 40 años. En cuanto a escolaridad, predominan los niveles de secundaria y bachillerato, aunque también hay casos con licenciatura e incluso posgrado, lo que sugiere que la mortalidad materna no está limitada únicamente a bajos niveles educativos. Estos datos subrayan la necesidad de mejorar el seguimiento médico durante el posparto, una etapa frecuentemente desatendida pero de alto riesgo para la salud materna.
 
